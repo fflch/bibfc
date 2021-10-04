@@ -23,8 +23,8 @@ class CreateEmprestimosTable extends Migration
             $table->unsignedBigInteger('instance_id');
             $table->foreign('instance_id')->references('id')->on('instances')->onDelete('cascade');
 
-            $table->unsignedBigInteger('fito_user_id');
-            $table->foreign('fito_user_id')->references('id')->on('fito_users')->onDelete('cascade');
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 
