@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Http\Requests\UsuarioRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
@@ -22,7 +24,16 @@ class UsuarioController extends Controller
     public function store(UsuarioRequest $request)
     {
         //$this->authorize('admin');
-        Usuario::create($request->validated());
+        $validated = $request->validated();
+
+        if($validated['foto'] != null) {
+            $image = str_replace('data:image/png;base64,', '', $validated['foto']);
+            $image = str_replace(' ', '+', $image);
+            $imageName = $validated['matricula']. '.png';
+            Storage::put($imageName, base64_decode($image));
+        }
+
+        Usuario::create($validated);
         return redirect('/usuarios');
     }
 
@@ -33,14 +44,30 @@ class UsuarioController extends Controller
 
     public function edit(Usuario $usuario)
     {
-        return view('usuarios.edit')->with('usuario',$usuario);
+        return view('usuarios.edit',[
+            'usuario' => $usuario,
+        ]);
     }
 
     public function update(UsuarioRequest $request, Usuario $usuario)
     {
         $validated = $request->validated();
+
+        if($validated['foto'] != null) {
+            $image = str_replace('data:image/png;base64,', '', $validated['foto']);
+            $image = str_replace(' ', '+', $image);
+            $imageName = $validated['matricula']. '.png';
+            Storage::put($imageName, base64_decode($image));
+        }
+
         $usuario->update($validated);
+
         return redirect("usuarios");
+    }
+
+    public function foto($matricula)
+    {
+        return Storage::download($matricula . '.png');   
     }
 
     public function destroy(Usuario $usuario)
@@ -49,4 +76,5 @@ class UsuarioController extends Controller
         $usuario->delete();
         return redirect('/usuarios');
     }
+
 }

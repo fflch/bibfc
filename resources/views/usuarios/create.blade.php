@@ -1,13 +1,12 @@
-@extends('laravel-usp-theme::master')
+@extends('main')
 
 @section('content')
-@include('flash')
     <div class="card">
-        <div class="card-header"><b>Nova Categoria</b></div>
+        <div class="card-header"><b></b></div>
         <div class="card-body">
-            <form action="/categorias" method="POST">
+            <form action="/usuarios" method="POST" enctype="multipart/form-data">
                 @csrf
-                @include('categorias.form')
+                @include('usuarios.form')
             </form>
         </div>
     </div>

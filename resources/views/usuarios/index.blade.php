@@ -3,16 +3,17 @@
 @section('content')
     <div class="row" style="margin-bottom:0.5em;">
         <div class="col-sm">
-            <a href="/usuarios/create" class="btn btn-success">Nova usuario</a>
+            <a href="/usuarios/create" class="btn btn-success">Novo usuário</a>
         </div>
     </div>
+
     <div class="card">
-        <div class="card-header"><b>usuarios dos itens de empréstimo</b></div>
+        <div class="card-header"><b></b></div>
         <div class="card-body">
             <form method="GET" action="/usuarios">
                 <div class="row form-group">
                     <div class="col-sm" id="busca">
-                        <input type="text" class="form-control" name="busca" value="{{ Request()->busca }}" placeholder="Digite o nome da usuario">
+                        <input type="text" class="form-control" name="busca" value="{{ Request()->busca }}" placeholder="Busca...">
                     </div>
                     <div class=" col-auto">
                         <button type="submit" class="btn btn-success">Buscar</button>
@@ -24,14 +25,32 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Foto</th>
+                <th>Código de Matrícula</th>
                 <th>Nome</th>
+                <th>Telefone</th>
+                <th>Turma/Setor</th>
+                <th>Situação</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
         @foreach($usuarios as $usuario)
             <tr>
+                <td>
+                    @if($usuario->tem_foto())
+                        <img src="/foto/{{ $usuario->matricula }}" width="150px">
+                    @else 
+                        <i class="fas fa-user-tie fa-5x"></i>
+                    @endif
+            
+                </td>
+                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->matricula }}</a></td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->nome }}</a></td>
+                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->telefone }}</a></td>
+                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->turma }}</a></td>
+                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->situacao }}</a></td>
+
                 <td>
                     <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning col-auto float-left"><i class="fas fa-pencil-alt"></i></a>
                     <form method="POST" style="width:42px;" class="float-left col-auto" action="/usuarios/{{ $usuario->id }}">

@@ -243,20 +243,26 @@ return [
         ],
         */
         [
-            'text'        => 'Acervo',
-            'url'         => 'acervo',
-            'icon'        => 'fas fa-fw fa-book-reader',
+            'text'        => 'Novo Empréstimo',
+            'url'         => 'emprestimos',
+            'icon'        => 'far fa-fw fa-file',
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Devolução',
+            'url'         => 'devolver',
+            'icon'        => 'fas fa-fw fa-swatchbook',
             'label_color' => 'success',
         ],
         [
             'text' => 'Usuários',
-            'url'  => 'users',
+            'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'        => 'Empréstimos',
-            'url'         => 'emprestimos',
-            'icon'        => 'far fa-fw fa-file',
+            'text'        => 'Material',
+            'url'         => 'acervo',
+            'icon'        => 'fas fa-fw fa-book-reader',
             'label_color' => 'success',
         ],
     ],
