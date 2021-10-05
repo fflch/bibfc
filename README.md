@@ -1,7 +1,7 @@
 
 
-$user = new App\Models\User();
-$user->password = Hash::make('admin');
-$user->email = 'admin@example.com';
-$user->name = 'admin';
-$user->save();
+    $user = new App\Models\User();
+    $user->password = Hash::make('admin');
+    $user->email = 'admin@example.com';
+    $user->name = 'admin';
+    $user->save();
