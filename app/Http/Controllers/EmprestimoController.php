@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Emprestimo;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmprestimoRequest;
-use App\Models\Instance;
+use App\Models\Livro;
 use App\Models\User;
 use App\Models\Record;
 use Carbon\Carbon;
@@ -19,7 +19,7 @@ class EmprestimoController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('admin');
+        #$this->authorize('admin');
         $emprestimos = Emprestimo::where('data_devolucao',null)->get();
         return view('emprestimos.index',[
             'emprestimos' => $emprestimos
@@ -32,11 +32,11 @@ class EmprestimoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Instance $instance)
+    public function create(Instance $livro)
     {
         $this->authorize('admin');
         return view('emprestimos.create')->with([
-            'instance' => $instance,
+            'livro' => $livro,
             'emprestimo' => New Emprestimo,
         ]);
     }
@@ -76,12 +76,12 @@ class EmprestimoController extends Controller
      * @param  \App\Emprestimo  $emprestimo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instance $instance, Emprestimo $emprestimo)
+    public function edit(Instance $livro, Emprestimo $emprestimo)
     {
         $this->authorize('admin');
         return view('emprestimos.edit')->with([
             'emprestimo' => $emprestimo,
-            'instance' => $instance,
+            'livro' => $livro,
         ]);
     }
 

@@ -20,11 +20,16 @@ class CreateEmprestimosTable extends Migration
             $table->date('data_emprestimo');
             $table->date('data_devolucao')->nullable();
 
-            $table->unsignedBigInteger('instance_id');
-            $table->foreign('instance_id')->references('id')->on('instances')->onDelete('cascade');
+            $table->unsignedBigInteger('livro_id');
+            $table->foreign('livro_id')->references('id')->on('livros')->onDelete('cascade');
 
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
+
+            # funcionário/a que está realizando o empréstimo
+            #$table->unsignedBigInteger('user_id');
+            #$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

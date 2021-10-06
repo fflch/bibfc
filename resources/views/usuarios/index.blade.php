@@ -12,8 +12,8 @@
         <div class="card-body">
             <form method="GET" action="/usuarios">
                 <div class="row form-group">
-                    <div class="col-sm" id="busca">
-                        <input type="text" class="form-control" name="busca" value="{{ Request()->busca }}" placeholder="Busca...">
+                    <div class="col-sm" id="search">
+                        <input type="text" class="form-control" name="search" value="{{ Request()->search }}" placeholder="Busca...">
                     </div>
                     <div class=" col-auto">
                         <button type="submit" class="btn btn-success">Buscar</button>

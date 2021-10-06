@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if(isset($request->search) & !empty($request->search)) {
+            $usuarios = Usuario::where('nome','LIKE',"%{$request->search}%")
+                    ->orWhere('matricula','LIKE',"%{$request->search}%")
+                    ->paginate(20);
+        } else {
+            $usuarios = Usuario::paginate(20);
+        }
+
         return view('usuarios.index',[
-            'usuarios' => Usuario::paginate(20)
+            'usuarios' => $usuarios
         ]);
     }
 

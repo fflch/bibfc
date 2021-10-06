@@ -244,13 +244,13 @@ return [
         */
         [
             'text'        => 'Novo Empréstimo',
-            'url'         => 'emprestimos',
+            'url'         => 'emprestimos/create',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
         [
             'text'        => 'Devolução',
-            'url'         => 'devolver',
+            'url'         => 'emprestimos',
             'icon'        => 'fas fa-fw fa-swatchbook',
             'label_color' => 'success',
         ],
@@ -260,8 +260,8 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'        => 'Material',
-            'url'         => 'acervo',
+            'text'        => 'Livros',
+            'url'         => 'livros',
             'icon'        => 'fas fa-fw fa-book-reader',
             'label_color' => 'success',
         ],
