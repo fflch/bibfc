@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EmprestimoRequest;
 use App\Models\Livro;
 use App\Models\User;
-use App\Models\Record;
+use App\Models\Usuario;
 use Carbon\Carbon;
 
 class EmprestimoController extends Controller
@@ -19,7 +19,7 @@ class EmprestimoController extends Controller
      */
     public function index(Request $request)
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         $emprestimos = Emprestimo::where('data_devolucao',null)->get();
         return view('emprestimos.index',[
             'emprestimos' => $emprestimos
@@ -32,12 +32,15 @@ class EmprestimoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Instance $livro)
+    public function create()
     {
         $this->authorize('admin');
+        $livros = Livro::all();
+        $usuarios = Usuario::all();
         return view('emprestimos.create')->with([
-            'livro' => $livro,
             'emprestimo' => New Emprestimo,
+            'livros'    => $livros,
+            'usuarios'  => $usuarios
         ]);
     }
 
@@ -51,12 +54,27 @@ class EmprestimoController extends Controller
     {
         $this->authorize('admin');
 
-        $validated = $request->validated();
-        $validated['data_emprestimo']= Carbon::now()->toDateString();
-        $validated['user_id']= auth()->user()->id;
+        $emprestimo = new Emprestimo;
+        $emprestimo->data_emprestimo = Carbon::now()->toDateString();
 
-        Emprestimo::create($validated);
+        $usuario = Usuario::where('matricula',$request->usuario)->first();
+        $emprestimo->usuario_id =  $usuario->id;
+        
+        $livro = Livro::where('tombo',trim($request->tombo))->first();
 
+        if(!$livro) {
+            $livro = Livro::where('titulo',trim($request->titulo))
+                ->where('autor',trim($request->autor))->first();
+            if(!$livro) $livro = new Livro();
+        }
+        $livro->titulo = $request->titulo;
+        $livro->autor = $request->autor;
+        $livro->tombo = $request->tombo;
+        $livro->save();
+        
+        $emprestimo->user_id = auth()->user()->id;
+        $emprestimo->livro_id = $livro->id;
+        $emprestimo->save();
         return redirect('/emprestimos');
     }
 
@@ -76,12 +94,11 @@ class EmprestimoController extends Controller
      * @param  \App\Emprestimo  $emprestimo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instance $livro, Emprestimo $emprestimo)
+    public function edit(Emprestimo $emprestimo)
     {
         $this->authorize('admin');
         return view('emprestimos.edit')->with([
-            'emprestimo' => $emprestimo,
-            'livro' => $livro,
+            'emprestimo' => $emprestimo
         ]);
     }
 

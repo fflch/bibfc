@@ -12,6 +12,7 @@ class LivroController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('admin');
         if(isset($request->search) & !empty($request->search)) {
             $livros = Livro::where('titulo','LIKE',"%{$request->search}%")
                     ->orWhere('autor','LIKE',"%{$request->search}%")
@@ -35,7 +36,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         return view('livros.create',[
             'livro' => new Livro
         ]);
@@ -49,9 +50,8 @@ class LivroController extends Controller
      */
     public function store(LivroRequest $request)
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         $validated = $request->validated();
-
         Livro::create($validated);
 
         return redirect("/livros");
@@ -65,7 +65,7 @@ class LivroController extends Controller
      */
     public function show(Livro $livro)
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         return view('livros.show')->with([
             'livro' => $livro,
         ]);
@@ -79,7 +79,7 @@ class LivroController extends Controller
      */
     public function edit(Livro $livro)
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         return view('livros.edit')->with([
             'livro' => $livro
         ]);
@@ -94,7 +94,7 @@ class LivroController extends Controller
      */
     public function update(LivroRequest $request, Livro $livro)
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         $validated = $request->validated();
         $livro->update($validated);
 
@@ -109,7 +109,7 @@ class LivroController extends Controller
      */
     public function destroy(Livro $livro)
     {
-        #$this->authorize('admin');
+        $this->authorize('admin');
         $livro->delete();
         return redirect('/livros');
     }

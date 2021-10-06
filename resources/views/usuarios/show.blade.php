@@ -5,7 +5,7 @@
     <div>
         <div class="row">
             <div class="col-sm">
-                <a href="/usuarios/create" class="btn btn-success">Nova Usuário</a><br><br>
+                <a href="/usuarios/create" class="btn btn-success">Novo Usuário</a><br><br>
             </div>
             <div class="col-auto float-right">
                 <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
@@ -20,7 +20,16 @@
         </div>
     </div>
     
-    <h2>{{ $usuario->nome }}</h2>
-    <div class="card card-header"><b>Materiais</b></div>
-    <a href="/usuarios" class="btn btn-primary">Voltar</a>
+    @if($usuario->tem_foto())
+        <img src="/foto/{{ $usuario->matricula }}" width="150px">
+    @else 
+        <i class="fas fa-user-tie fa-5x"></i>
+    @endif
+<ul>
+<li>Matrícula: {{ $usuario->matricula }}</li>
+<li>Nome: {{ $usuario->nome }}</li>
+<li>Telefone: {{ $usuario->telefone }}</li>
+<li>Turma: {{ $usuario->turma }}</li>
+<li>Situação: {{ $usuario->situacao }}</li>
+</ul>
 @endsection('content')

@@ -1,4 +1,4 @@
-
+Usuário para testes:
 
     $user = new App\Models\User();
     $user->password = Hash::make('admin');

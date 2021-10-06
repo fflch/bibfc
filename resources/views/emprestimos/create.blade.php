@@ -1,10 +1,7 @@
 
-@extends('laravel-usp-theme::master')
-
-@section('title') Sistema USP @endsection
+@extends('main')
 
 @section('content')
-@include('flash')
 
 <form method="POST" action="/emprestimos">
 @csrf

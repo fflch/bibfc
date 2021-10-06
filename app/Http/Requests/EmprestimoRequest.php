@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Emprestimo;
 use App\Models\Livro;
-use App\Rules\checkIfIsAvailable;
+use App\Models\Usuario;
 use Illuminate\Validation\Rule;
 
 class EmprestimoRequest extends FormRequest
@@ -28,11 +28,13 @@ class EmprestimoRequest extends FormRequest
     public function rules()
     {
         # Existe livro_id nas instâncias?
-        $livro = Instance::where('id',$this->livro_id)->pluck('id')->toArray();
+        $usuarios = Usuario::pluck('matricula')->toArray();
 
         return [
-            'livro_id'     => ['required','integer', new checkIfIsAvailable(), Rule::in($livro)],
-            'n_usp'           => 'required|integer|codpes', 
+            'usuario' => ['required','integer', Rule::in($usuarios)],
+            'titulo'  => 'required',
+            'autor'   => 'nullable', 
+            'tombo'   => 'nullable|integer', 
         ];
     }
 }

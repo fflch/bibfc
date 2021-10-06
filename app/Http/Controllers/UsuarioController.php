@@ -11,6 +11,7 @@ class UsuarioController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('admin');
         if(isset($request->search) & !empty($request->search)) {
             $usuarios = Usuario::where('nome','LIKE',"%{$request->search}%")
                     ->orWhere('matricula','LIKE',"%{$request->search}%")
@@ -26,12 +27,13 @@ class UsuarioController extends Controller
 
     public function create()
     {
+        $this->authorize('admin');
         return view('usuarios.create')->with('usuario',new Usuario);
     }
 
     public function store(UsuarioRequest $request)
     {
-        //$this->authorize('admin');
+        $this->authorize('admin');
         $validated = $request->validated();
 
         if($validated['foto'] != null) {
@@ -47,11 +49,13 @@ class UsuarioController extends Controller
 
     public function show(Usuario $usuario)
     {
+        $this->authorize('admin');
         return view('usuarios.show')->with('usuario',$usuario);
     }
 
     public function edit(Usuario $usuario)
     {
+        $this->authorize('admin');
         return view('usuarios.edit',[
             'usuario' => $usuario,
         ]);
@@ -59,6 +63,7 @@ class UsuarioController extends Controller
 
     public function update(UsuarioRequest $request, Usuario $usuario)
     {
+        $this->authorize('admin');
         $validated = $request->validated();
 
         if($validated['foto'] != null) {
@@ -75,12 +80,21 @@ class UsuarioController extends Controller
 
     public function foto($matricula)
     {
+        $this->authorize('admin');
         return Storage::download($matricula . '.png');   
+    }
+
+    public function temfoto($matricula)
+    {
+        $this->authorize('admin');
+        $usuario = Usuario::where('matricula',$matricula)->first();
+        if($usuario) return $usuario->tem_foto();
+        return false;
     }
 
     public function destroy(Usuario $usuario)
     {
-        //$this->authorize('admin');
+        $this->authorize('admin');
         $usuario->delete();
         return redirect('/usuarios');
     }

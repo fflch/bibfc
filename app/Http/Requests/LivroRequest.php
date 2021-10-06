@@ -26,7 +26,7 @@ class LivroRequest extends FormRequest
     {
         $rules = [
             'titulo'       => 'required',
-            'tombo_antigo' => 'nullable',
+            'tombo_antigo' => 'nullable|integer',
             'unidade' => 'nullable',
             'autor' => 'nullable',
             'editora' => 'nullable',
@@ -35,7 +35,7 @@ class LivroRequest extends FormRequest
             'edicao' => 'nullable',
             'volume' => 'nullable',
             'exemplar' => 'nullable|integer',
-            'tombo'       => ['nullable'],
+            'tombo'       => ['nullable','integer'],
             'localizacao' => ['nullable'],
         ];
         if ($this->method() == 'PATCH' || $this->method() == 'PUT'){
@@ -50,10 +50,4 @@ class LivroRequest extends FormRequest
         return $rules;
     }
 
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'tombo' => preg_replace('/[^0-9]/', '', $this->tombo),
-        ]);
-    }
 }
