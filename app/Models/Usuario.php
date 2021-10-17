@@ -14,5 +14,10 @@ class Usuario extends Model
     public function tem_foto(){
         return Storage::exists($this->matricula . '.png');
     }
+
+    public function emprestimos()
+    {
+        return $this->hasMany(Emprestimo::class);
+    }
     
 }

@@ -6,7 +6,7 @@
 <div class="card bg-light">
   <div class="card-header border-info bg-light">
     <div class="container">
-
+      <a class="btn btn-outline-success btn-md" href="/livros/{{$livro->id}}/edit" role="button">Editar</a> <br><br>
       <div class="row">
         <div class="col-md text-break"><h6 class="font-weight-bold">Título</h6>
           {{ $livro->titulo }}
@@ -65,9 +65,7 @@
 
 </br>
 
-
-<a class="btn btn-outline-success btn-md" href="/livros/{{$livro->id}}/edit" role="button">Editar</a>
-
+@include('livros.partials.emprestimos')
 
 @endsection('content')
 

@@ -28,7 +28,8 @@ class Emprestimo extends Model
     }
     
     public function getDataDevolucaoAttribute($value) {
-        return Carbon::parse($value)->format('d/m/Y');
+        if($value)
+            return Carbon::parse($value)->format('d/m/Y');
     }
 
     public function getPrazoAttribute() {
@@ -40,5 +41,15 @@ class Emprestimo extends Model
         if(Carbon::now()->gte(Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays(8)))
             return true;
         return false;
+    }
+
+    public function getDiasAttribute() {
+        $data_emprestimo = Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo);
+        if($this->data_devolucao == null || empty($this->data_devolucao) || !isset($this->data_devolucao)) {
+            return "Não devolvido";
+        }
+        $data_devolucao = Carbon::CreateFromFormat('d/m/Y',$this->data_devolucao);
+        
+        return $data_emprestimo->diffInDays($data_devolucao);
     }
 }

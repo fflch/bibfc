@@ -25,12 +25,13 @@
         <i class="fas fa-user-tie fa-5x"></i>
     @endif
 <ul>
-<li>Matrícula: {{ $usuario->matricula }}</li>
-<li>Nome: {{ $usuario->nome }}</li>
-<li>Telefone: {{ $usuario->telefone }}</li>
-<li>Turma: {{ $usuario->turma }}</li>
-<li>Setor: {{ $usuario->setor }}</li>
-
+    <li>Matrícula: {{ $usuario->matricula }}</li>
+    <li>Nome: {{ $usuario->nome }}</li>
+    <li>Telefone: {{ $usuario->telefone }}</li>
+    <li>Turma: {{ $usuario->turma }}</li>
+    <li>Setor: {{ $usuario->setor }}</li>
 </ul>
+
+@include('usuarios.partials.emprestimos')
 
 @endsection('content')
