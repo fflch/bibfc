@@ -31,10 +31,11 @@ class EmprestimoRequest extends FormRequest
         $usuarios = Usuario::pluck('matricula')->toArray();
 
         return [
-            'usuario' => ['required','integer', Rule::in($usuarios)],
-            'titulo'  => 'required',
-            'autor'   => 'nullable', 
-            'tombo'   => 'nullable|integer', 
+            'usuario'    => ['required','integer', Rule::in($usuarios)],
+            'titulo'     => 'required',
+            'autor'      => 'nullable', 
+            'tombo'      => 'required', 
+            'tombo_tipo' => 'required', 
         ];
     }
 }

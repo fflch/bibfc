@@ -29,8 +29,8 @@
                 <th>Código de Matrícula</th>
                 <th>Nome</th>
                 <th>Telefone</th>
-                <th>Turma/Setor</th>
-                <th>Situação</th>
+                <th>Turma</th>
+                <th>Setor</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -49,7 +49,7 @@
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->nome }}</a></td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->telefone }}</a></td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->turma }}</a></td>
-                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->situacao }}</a></td>
+                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->setor }}</a></td>
 
                 <td>
                     <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning col-auto float-left"><i class="fas fa-pencil-alt"></i></a>

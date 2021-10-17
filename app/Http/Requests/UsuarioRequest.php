@@ -22,7 +22,7 @@ class UsuarioRequest extends FormRequest
             'matricula' => ['required','integer'],
             'telefone'  => 'nullable',
             'turma'     => 'nullable',
-            'situacao'  => 'nullable',
+            'setor'     => 'nullable',
             'foto'      => 'nullable',
         ];
         if ($this->method() == 'PATCH' || $this->method() == 'PUT'){

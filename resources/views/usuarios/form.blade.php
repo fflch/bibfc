@@ -19,13 +19,13 @@
         </div>
 
         <div class="form-group">
-            <label for="turma"><b>Turma/Setor</b></label>
+            <label for="turma"><b>Turma</b></label>
             <input type="text" class="form-control" name="turma" placeholder="" value="{{ old('turma', $usuario->turma) }}">   
         </div>
 
         <div class="form-group">
-            <label for="situacao"><b>Situação</b></label>
-            <input type="text" class="form-control" name="situacao" placeholder="" value="{{ old('situacao', $usuario->situacao) }}">   
+            <label for="turma"><b>Setor</b></label>
+            <input type="text" class="form-control" name="setor" placeholder="" value="{{ old('setor', $usuario->setor) }}">   
         </div>
 
     </div>
@@ -40,12 +40,10 @@
                 <canvas id="canvas"></canvas>
                 <div class="output">
                     <img id="photo" alt="The screen capture will appear in this box."> 
-                </div>
-                @if($usuario->tem_foto())
-                <div class="output">
-                    <img  src="/foto/{{ $usuario->matricula }}"> 
-                </div>
-                @endif
+                    @if($usuario->tem_foto())
+                        <img id="foto_antiga" src="/foto/{{ $usuario->matricula }}"> 
+                    @endif
+                </div> 
             </div>
     </div>
 </div>

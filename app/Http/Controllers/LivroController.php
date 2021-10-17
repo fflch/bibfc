@@ -17,7 +17,6 @@ class LivroController extends Controller
             $livros = Livro::where('titulo','LIKE',"%{$request->search}%")
                     ->orWhere('autor','LIKE',"%{$request->search}%")
                     ->orWhere('tombo','LIKE',"%{$request->search}%")
-                    ->orWhere('tombo_antigo','LIKE',"%{$request->search}%")
                     ->orWhere('localizacao','LIKE',"%{$request->search}%")
                     ->paginate(20);
         } else {

@@ -30,6 +30,6 @@
 <li>Nome: {{ $usuario->nome }}</li>
 <li>Telefone: {{ $usuario->telefone }}</li>
 <li>Turma: {{ $usuario->turma }}</li>
-<li>Situação: {{ $usuario->situacao }}</li>
+<li>Setor: {{ $usuario->setor }}</li>
 </ul>
 @endsection('content')

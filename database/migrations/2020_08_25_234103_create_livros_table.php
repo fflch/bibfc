@@ -18,9 +18,8 @@ class CreateLivrosTable extends Migration
             $table->timestamps();
 
             $table->string('titulo');
-            $table->integer('tombo')->nullable();
-            $table->integer('tombo_antigo')->nullable();
-            $table->string('unidade')->nullable();
+            $table->integer('tombo');
+            $table->string('tombo_tipo');
             $table->string('autor')->nullable();
             $table->string('editora')->nullable();
             $table->string('local')->nullable();

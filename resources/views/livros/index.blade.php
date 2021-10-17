@@ -28,6 +28,7 @@
         <thead>
             <tr>
                 <th>Tombo</th>
+                <th>Tipo Tombo</th>
                 <th>Título</th>
                 <th>Autor</th>
                 <th>Localização</th>
@@ -38,6 +39,7 @@
         @foreach($livros as $livro)
             <tr>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->tombo }}</a></td>
+                <td>{{ $livro->tombo_tipo }}</td>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->titulo }}</a></td>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->autor }}</a></td>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->localizacao }}</a></td>

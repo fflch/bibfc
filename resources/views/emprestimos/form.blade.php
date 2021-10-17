@@ -32,10 +32,7 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md font-weight-bold">
-            <label for="tombo">Tombo</label>
-            <input type="text" class="form-control" name="tombo" id="tombo" value="{{ old('tombo') }}">
-        </div>
+        @include('livros.partials.tombo')
     </div>
 
     <div class="form-row">
@@ -51,7 +48,6 @@
         </div>
     </div>
 
-
 </div>
 
 <div class="col-sm form-group">
@@ -59,6 +55,11 @@
 </div>
 
 <script>
+
+@if (!$errors->any())
+    $('#tombo').val("");
+    $('#tombo_tipo').val("");
+@endif
 
 $('.select-usuarios').select2({
     width: '100%',
@@ -89,8 +90,10 @@ $('.select-livros').change(function(){
     function success(response) {
         
         $('#tombo').val(response.tombo);
+        $('#tombo_tipo').val(response.tombo_tipo);
         $('#titulo').val(response.titulo);
         $('#autor').val(response.autor);
+        
         // TODO: zera campo 
         // $("select[name='livro'] option:contains('default')").attr("selected", "selected");
     };

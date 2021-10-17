@@ -19,10 +19,9 @@ class CreateUsuariosTable extends Migration
 
             $table->string('nome');
             $table->integer('matricula');
-
             $table->string('telefone')->nullable();
             $table->string('turma')->nullable();
-            $table->string('situacao')->nullable();
+            $table->string('setor')->nullable();
         });
     }
 

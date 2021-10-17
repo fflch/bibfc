@@ -22,11 +22,7 @@
 
       <div class="row">
         <div class="col-md text-break"><h6 class="font-weight-bold">Tombo</h6>
-          {{ $livro->tombo }}
-        </div>
-
-        <div class="col-md  text-break"><h6 class="font-weight-bold">Tombo antigo</h6>
-          {{ $livro->tombo_antigo }}
+          {{ $livro->tombo }} - {{ $livro->tombo_tipo }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Localização</h6>

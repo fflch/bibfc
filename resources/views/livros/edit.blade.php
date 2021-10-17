@@ -1,7 +1,5 @@
 @extends('main')
 
-@section('title') Sistema USP @endsection
-
 @section('content')
 
 <form method="POST" action="/livros/{{$livro->id}}">

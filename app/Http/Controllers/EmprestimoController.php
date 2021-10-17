@@ -60,16 +60,25 @@ class EmprestimoController extends Controller
         $usuario = Usuario::where('matricula',$request->usuario)->first();
         $emprestimo->usuario_id =  $usuario->id;
         
-        $livro = Livro::where('tombo',trim($request->tombo))->first();
+        $livro = Livro::where('tombo',trim($request->tombo))
+                    ->where('tombo_tipo',trim($request->tombo_tipo))->first();
+        // verificar se o livro em questão já está emprestado
+        if($livro){
+            $emprestado = $livro->emprestimos->where('data_devolucao',NULL)->first();
+            if($emprestado){
+                $request->session()->flash('alert-danger',"Não foi possível realizar o empréstimo! <br>" .
+                "O Livro {$emprestado->livro->titulo} está emprestado para {$emprestado->usuario->nome}");
+                return redirect('/emprestimos/create');
+            }
+        }
 
         if(!$livro) {
-            $livro = Livro::where('titulo',trim($request->titulo))
-                ->where('autor',trim($request->autor))->first();
-            if(!$livro) $livro = new Livro();
+            $livro = new Livro();
         }
         $livro->titulo = $request->titulo;
         $livro->autor = $request->autor;
         $livro->tombo = $request->tombo;
+        $livro->tombo_tipo = $request->tombo_tipo;
         $livro->save();
         
         $emprestimo->user_id = auth()->user()->id;
