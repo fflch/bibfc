@@ -63,8 +63,9 @@ class EmprestimoController extends Controller
         $livro = Livro::where('tombo',trim($request->tombo))
                     ->where('tombo_tipo',trim($request->tombo_tipo))->first();
         // verificar se o livro em questão já está emprestado
+       
         if($livro){
-            $emprestado = $livro->emprestimos->where('data_devolucao',NULL)->first();
+            $emprestado = Emprestimo::where('livro_id',$livro->id)->first();             
             if($emprestado){
                 $request->session()->flash('alert-danger',"Não foi possível realizar o empréstimo! <br>" .
                 "O Livro {$emprestado->livro->titulo} está emprestado para {$emprestado->usuario->nome}");
