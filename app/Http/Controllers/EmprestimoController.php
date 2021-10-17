@@ -84,6 +84,8 @@ class EmprestimoController extends Controller
         $emprestimo->user_id = auth()->user()->id;
         $emprestimo->livro_id = $livro->id;
         $emprestimo->save();
+
+        $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
         return redirect('/emprestimos');
     }
 
@@ -123,6 +125,8 @@ class EmprestimoController extends Controller
         $this->authorize('admin');
         $emprestimo->data_devolucao = Carbon::now();
         $emprestimo->save();
+
+        $request->session()->flash('alert-info',"Livro devolvido" );
         return redirect('/emprestimos');
     }
 
@@ -137,5 +141,30 @@ class EmprestimoController extends Controller
         $this->authorize('admin');
         $emprestimo->delete();
         return redirect('/');
+    }
+
+    public function renovarForm(Emprestimo $emprestimo)
+    {
+        $this->authorize('admin');
+        return view('emprestimos.renovar')->with([
+            'emprestimo' => $emprestimo
+        ]);
+    }
+
+    public function renovar(Request $request, Emprestimo $emprestimo)
+    {
+        $this->authorize('admin');
+
+        $new = $emprestimo->replicate();
+        
+        $emprestimo->data_devolucao = Carbon::now();
+        $emprestimo->save();
+
+        $new->data_emprestimo = Carbon::now();
+        $new->save();
+        
+        $request->session()->flash('alert-info',"Prazo de devolução {$new->prazo}" );
+        return redirect('/emprestimos');
+
     }
 }

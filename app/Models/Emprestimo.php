@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Livro;
 use App\Models\Usuario;
+use Carbon\Carbon;
 
 class Emprestimo extends Model
 {
@@ -23,10 +24,21 @@ class Emprestimo extends Model
     }
 
     public function getDataEmprestimoAttribute($value) {
-        return implode('/',array_reverse(explode('-',$value)));
+        return Carbon::parse($value)->format('d/m/Y');
     }
     
     public function getDataDevolucaoAttribute($value) {
-        return implode('/',array_reverse(explode('-',$value)));
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getPrazoAttribute() {
+        if($this->data_emprestimo)
+            return Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays(7)->format('d/m/Y');
+    }
+
+    public function getAtrasadoAttribute() {
+        if(Carbon::now()->gte(Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays(8)))
+            return true;
+        return false;
     }
 }

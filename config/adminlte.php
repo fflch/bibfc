@@ -249,7 +249,7 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text'        => 'Devolução',
+            'text'        => 'Emprestados',
             'url'         => 'emprestimos',
             'icon'        => 'fas fa-fw fa-swatchbook',
             'label_color' => 'success',

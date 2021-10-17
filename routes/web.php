@@ -19,5 +19,7 @@ Route::get('/foto/{matricula}', [UsuarioController::class,'foto']);
 Route::get('/temfoto/{matricula}', [UsuarioController::class,'temfoto']);
 
 Route::resource('/emprestimos', EmprestimoController::class);
+Route::get('/renovar/{emprestimo}', [EmprestimoController::class,'renovarForm']);
+Route::post('/renovar/{emprestimo}', [EmprestimoController::class,'renovar']);
 
 Route::resource('/livros', LivroController::class);

@@ -31,5 +31,7 @@
 <li>Telefone: {{ $usuario->telefone }}</li>
 <li>Turma: {{ $usuario->turma }}</li>
 <li>Setor: {{ $usuario->setor }}</li>
+
 </ul>
+
 @endsection('content')
