@@ -39,7 +39,7 @@
             <tr>
                 <td>
                     @if($usuario->tem_foto())
-                        <img src="/foto/{{ $usuario->matricula }}" width="150px">
+                        <img src="/foto/{{ $usuario->matricula }}" width="120px">
                     @else 
                         <i class="fas fa-user-tie fa-5x"></i>
                     @endif

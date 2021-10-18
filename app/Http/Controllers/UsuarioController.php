@@ -39,7 +39,7 @@ class UsuarioController extends Controller
         if($validated['foto'] != null) {
             $image = str_replace('data:image/png;base64,', '', $validated['foto']);
             $image = str_replace(' ', '+', $image);
-            $imageName = $validated['matricula']. '.png';
+            $imageName = $validated['matricula']. '.jpg';
             Storage::put($imageName, base64_decode($image));
         }
 
@@ -69,7 +69,7 @@ class UsuarioController extends Controller
         if($validated['foto'] != null) {
             $image = str_replace('data:image/png;base64,', '', $validated['foto']);
             $image = str_replace(' ', '+', $image);
-            $imageName = $validated['matricula']. '.png';
+            $imageName = $validated['matricula']. '.jpg';
             Storage::put($imageName, base64_decode($image));
         }
 
@@ -81,7 +81,7 @@ class UsuarioController extends Controller
     public function foto($matricula)
     {
         $this->authorize('admin');
-        return Storage::download($matricula . '.png');   
+        return Storage::download($matricula . '.jpg');   
     }
 
     public function temfoto($matricula)

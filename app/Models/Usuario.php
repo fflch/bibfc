@@ -12,7 +12,7 @@ class Usuario extends Model
     protected $guarded = ['id'];
 
     public function tem_foto(){
-        return Storage::exists($this->matricula . '.png');
+        return Storage::exists($this->matricula . '.jpg');
     }
 
     public function emprestimos()
