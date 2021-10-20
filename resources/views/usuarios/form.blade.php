@@ -28,6 +28,11 @@
             <input type="text" class="form-control" name="setor" placeholder="" value="{{ old('setor', $usuario->setor) }}">   
         </div>
 
+        <div class="form-group">
+            <label for="obs">Observações</label>
+            <textarea class="form-control" name="obs" rows="3">{{ old('obs', $usuario->obs) }}</textarea>
+        </div>
+
     </div>
     <div class="col-sm">
         <input id="foto" type="hidden" name="foto">

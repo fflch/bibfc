@@ -22,6 +22,7 @@ class CreateUsuariosTable extends Migration
             $table->string('telefone')->nullable();
             $table->string('turma')->nullable();
             $table->string('setor')->nullable();
+            $table->text('obs')->nullable();
         });
     }
 

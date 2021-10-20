@@ -35,7 +35,8 @@ class EmprestimoRequest extends FormRequest
             'titulo'     => 'required',
             'autor'      => 'nullable', 
             'tombo'      => 'required', 
-            'tombo_tipo' => 'required', 
+            'tombo_tipo' => 'required',
+            'obs'        => 'nullable',
         ];
     }
 }

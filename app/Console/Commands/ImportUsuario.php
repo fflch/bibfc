@@ -14,7 +14,7 @@ class ImportUsuario extends Command
      *
      * @var string
      */
-    protected $signature = 'importusuario {path}';
+    protected $signature = 'importusuarios {path}';
 
     /**
      * The console command description.

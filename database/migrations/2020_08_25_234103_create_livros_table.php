@@ -28,7 +28,7 @@ class CreateLivrosTable extends Migration
             $table->integer('exemplar')->nullable();
             $table->string('volume')->nullable();
             $table->string('localizacao')->nullable();
-            
+            $table->text('obs')->nullable();
         });
     }
 

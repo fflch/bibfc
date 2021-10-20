@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group col-md">
-            <img width="250px" id="foto" />
+            <img width="200px" id="foto" />
         </div>
     </div>
 
@@ -46,6 +46,11 @@
             <label for="autor">Autor</label>
             <input type="text" class="form-control" name="autor"  id="autor" value="{{ old('autor') }}">
         </div>
+    </div>
+
+    <div class="form-group">
+        <label for="obs">Observações</label>
+        <textarea class="form-control" name="obs" rows="3">{{ old('obs') }}</textarea>
     </div>
 
 </div>

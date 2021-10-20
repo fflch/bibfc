@@ -24,6 +24,7 @@ class UsuarioRequest extends FormRequest
             'turma'     => 'nullable',
             'setor'     => 'nullable',
             'foto'      => 'nullable',
+            'obs'       => 'nullable',
         ];
         if ($this->method() == 'PATCH' || $this->method() == 'PUT'){
             array_push($rules['matricula'], 'unique:usuarios,matricula,' .$this->usuario->id);

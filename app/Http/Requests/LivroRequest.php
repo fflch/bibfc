@@ -36,6 +36,7 @@ class LivroRequest extends FormRequest
             'volume'      => 'nullable',
             'exemplar'    => 'nullable|integer',
             'localizacao' => ['nullable'],
+            'obs'         => 'nullable',
         ];
         if ($this->method() == 'PATCH' || $this->method() == 'PUT'){
             $rules['tombo'] = [

@@ -37,9 +37,6 @@
             <label for="edicao">Edição</label>
             <input type="text" class="form-control" name="edicao" value="{{ old('edicao', $livro->edicao) }}">
         </div>
-    </div>
-
-    <div class="form-row">
 
         <div class="form-group col-lg-1 font-weight-bold">
             <label for="exemplar">Exemplar</label>
@@ -56,6 +53,11 @@
             <input type="text" class="form-control" name="localizacao" value="{{ old('localizacao', $livro->localizacao) }}">
         </div>
 
+    </div>
+
+    <div class="form-group">
+        <label for="obs">Observações</label>
+        <textarea class="form-control" name="obs" rows="3">{{ old('obs', $livro->obs) }}</textarea>
     </div>
 
     <div class="row">
