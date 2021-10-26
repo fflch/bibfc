@@ -13,7 +13,13 @@
 
     @foreach($livro->emprestimos as $emprestimo)
     <tr>
-      <td> <img src="/foto/{{ $emprestimo->usuario->matricula }}" width="100px"> </td>
+      <td>
+        @if($emprestimo->usuario->tem_foto())
+          <img src="/foto/{{ $emprestimo->usuario->matricula }}" width="100px">
+        @else 
+          <i class="fas fa-user-tie fa-5x"></i>
+        @endif
+    </td>
       <td>{{ $emprestimo->usuario->matricula }}</td>
       <td><a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }}</a></td>
       <td>{{ $emprestimo->data_emprestimo }}</td>
