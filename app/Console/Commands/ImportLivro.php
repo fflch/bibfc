@@ -68,9 +68,11 @@ class ImportLivro extends Command
 
             $livro->localizacao = $row['localizacao'];
 
-            if(!empty($row['volume'])) $livro->localizacao .= ' v.' . $row['volume'];
             if(!empty($row['edicao']) && (int) $row['edicao'] != 1) $livro->localizacao .= ' ' . (int) $row['edicao'] . '.ed.';
+            if(!empty($row['volume'])) $livro->localizacao .= ' v.' . $row['volume'];
             if(!empty($row['exemplar']) && (int) $row['exemplar'] != 1) $livro->localizacao .= ' e.' . (int) $row['exemplar'];
+           
+            
             if(!empty($row['cor'])) $livro->localizacao .= ' ' . $row['cor'];
 
             $livro->save();       
