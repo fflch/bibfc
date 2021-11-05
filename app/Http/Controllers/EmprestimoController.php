@@ -84,6 +84,7 @@ class EmprestimoController extends Controller
         
         $emprestimo->user_id = auth()->user()->id;
         $emprestimo->livro_id = $livro->id;
+        $emprestimo->obs = $request->obs;
         $emprestimo->save();
 
         $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
