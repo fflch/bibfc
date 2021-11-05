@@ -25,6 +25,7 @@
           Autor: {{ $emprestimo->livro->autor }} <br>
           Localização: {{ $emprestimo->livro->localizacao }} <br>
           Emprestado para: {{ $emprestimo->usuario->matricula }}  - {{ $emprestimo->usuario->nome}}<br>
+          Observação: {{ $emprestimo->obs }} <br>
       </td>
       <td>
           @if($emprestimo->usuario->tem_foto())
