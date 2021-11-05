@@ -49,7 +49,7 @@
     </div>
 
     <div class="form-group">
-        <label for="obs">Observações</label>
+        <label for="obs">Observações sobre este empréstimo</label>
         <textarea class="form-control" name="obs" rows="3">{{ old('obs') }}</textarea>
     </div>
 
