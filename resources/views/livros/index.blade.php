@@ -32,6 +32,7 @@
                 <th>Título</th>
                 <th>Autor</th>
                 <th>Localização</th>
+                <th>Observação</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -40,8 +41,9 @@
             <tr>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->tombo }}</a></td>
                 <td>{{ $livro->tombo_tipo }}</td>
-                <td><a href="/livros/{{$livro->id}}">{{ $livro->titulo }}</a></td>
-                <td><a href="/livros/{{$livro->id}}">{{ $livro->autor }}</a></td>
+                <td>{{ $livro->titulo }}</td>
+                <td>{{ $livro->autor }}</td>
+                <td>{{ $livro->obs }}</td>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->localizacao }}</a></td>
 
                 <td>

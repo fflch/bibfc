@@ -4,11 +4,13 @@
     <div>
         <div class="row">
             <div class="col-sm">
-                <a href="/usuarios/create" class="btn btn-success">Novo Usuário</a><br><br>
+                <br>
             </div>
+
             <div class="col-auto float-right">
                 <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
             </div>
+
             <div class="col-auto pull-right">
                 <form method="POST" action="/usuarios/{{ $usuario->id }}">
                     @csrf 
@@ -30,8 +32,11 @@
     <li>Telefone: {{ $usuario->telefone }}</li>
     <li>Turma: {{ $usuario->turma }}</li>
     <li>Setor: {{ $usuario->setor }}</li>
+    <li>Observação: {{ $usuario->obs }}</li>
 </ul>
 
-@include('usuarios.partials.emprestimos')
+@include('usuarios.partials.emprestimos',[
+    'emprestimos' => $usuario->emprestimos
+]) 
 
 @endsection('content')

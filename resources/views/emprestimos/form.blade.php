@@ -31,10 +31,11 @@
 
     </div>
 
-    <div class="form-row">
-        @include('livros.partials.tombo')
-    </div>
-
+    @if(isset($livro))
+        <div class="form-row">
+            @include('livros.partials.tombo')
+        </div>
+    @endif 
     <div class="form-row">
 
         <div class="form-group col-md font-weight-bold">
@@ -48,15 +49,10 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="obs">Observações sobre este empréstimo</label>
-        <textarea class="form-control" name="obs" rows="3">{{ old('obs') }}</textarea>
-    </div>
-
 </div>
 
 <div class="col-sm form-group">
-    <button type="submit" class="btn btn-success">Confirmar Empréstimo</button>
+    <button type="submit" class="btn btn-success">Enviar</button>
 </div>
 
 <script>

@@ -54,12 +54,7 @@ class EmprestimoController extends Controller
     {
         $this->authorize('admin');
 
-        $emprestimo = new Emprestimo;
-        $emprestimo->data_emprestimo = Carbon::now()->toDateString();
-
-        $usuario = Usuario::where('matricula',$request->usuario)->first();
-        $emprestimo->usuario_id =  $usuario->id;
-        
+        # Registra o Livro em realtime
         $livro = Livro::where('tombo',trim($request->tombo))
                     ->where('tombo_tipo',trim($request->tombo_tipo))->first();
         // verificar se o livro em questão já está emprestado
@@ -81,14 +76,13 @@ class EmprestimoController extends Controller
         $livro->tombo = $request->tombo;
         $livro->tombo_tipo = $request->tombo_tipo;
         $livro->save();
-        
-        $emprestimo->user_id = auth()->user()->id;
-        $emprestimo->livro_id = $livro->id;
-        $emprestimo->obs = $request->obs;
-        $emprestimo->save();
 
-        $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
-        return redirect('/emprestimos');
+        $usuario = Usuario::where('matricula',$request->usuario)->first();
+        if($usuario){
+            return redirect("/confirm/{$usuario->id}/{$livro->id}");
+        } else {
+            $request->session()->flash('alert-danger',"usuário desconhecido" );
+        }
     }
 
     /**
@@ -126,6 +120,7 @@ class EmprestimoController extends Controller
     {
         $this->authorize('admin');
         $emprestimo->data_devolucao = Carbon::now();
+        $emprestimo->obs = $request->obs;
         $emprestimo->save();
 
         $request->session()->flash('alert-info',"Livro devolvido" );
@@ -156,17 +151,46 @@ class EmprestimoController extends Controller
     public function renovar(Request $request, Emprestimo $emprestimo)
     {
         $this->authorize('admin');
-
-        $new = $emprestimo->replicate();
-        
+       
+        # devolvemos primeiramente
         $emprestimo->data_devolucao = Carbon::now();
+        $emprestimo->obs = $request->obs;
         $emprestimo->save();
 
-        $new->data_emprestimo = Carbon::now();
-        $new->save();
-        
-        $request->session()->flash('alert-info',"Prazo de devolução {$new->prazo}" );
-        return redirect('/emprestimos');
+        $request->session()->flash('alert-danger',"Livro {$emprestimo->livro->nome} devolvido.
+            Confirme de deseja renová-lo" );
 
+        return redirect("/confirm/{$emprestimo->user_id}/{$emprestimo->livro_id}");
+    }
+
+    public function confirmForm(Usuario $usuario, Livro $livro)
+    {
+        $this->authorize('admin');
+
+        $emprestimos = Emprestimo::where('usuario_id',$usuario->id)->where('data_devolucao',null)->get();
+
+
+        return view('emprestimos.confirm')->with([
+            'usuario' => $usuario,
+            'livro'   => $livro,
+            'emprestimos' => $emprestimos
+        ]);
+    }
+
+    public function confirm(Request $request, Usuario $usuario, Livro $livro)
+    {
+        $this->authorize('admin');
+
+        $emprestimo = new Emprestimo;
+        $emprestimo->data_emprestimo = Carbon::now()->toDateString();
+        $emprestimo->usuario_id =  $usuario->id;
+        $emprestimo->user_id = auth()->user()->id;
+        $emprestimo->livro_id = $livro->id;
+        $emprestimo->obs = $request->obs;
+        $emprestimo->save();
+
+        $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
+
+        return redirect("/usuarios/{$emprestimo->user_id}/");
     }
 }

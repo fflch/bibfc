@@ -28,12 +28,6 @@
 
         </div>
 
-        <div class="form-group">
-            <label for="obs">Observações sobre esta renovação</label>
-            <textarea class="form-control" name="obs" rows="3">{{ old('obs', $emprestimo->obs) }}</textarea>
-        </div>
-
-
         <button class="btn btn-outline-success" type="submit">Confirmar Renovação</button>
     </div>
 </div>

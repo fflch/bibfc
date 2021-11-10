@@ -31,6 +31,7 @@
                 <th>Telefone</th>
                 <th>Turma</th>
                 <th>Setor</th>
+                <th>Observação</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -47,9 +48,10 @@
                 </td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->matricula }}</a></td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->nome }}</a></td>
-                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->telefone }}</a></td>
-                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->turma }}</a></td>
-                <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->setor }}</a></td>
+                <td>{{ $usuario->telefone }}</td>
+                <td>{{ $usuario->turma }}</td>
+                <td>{{ $usuario->setor }}</td>
+                <td>{{ $usuario->obs }}</td>
 
                 <td>
                     <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning col-auto float-left"><i class="fas fa-pencil-alt"></i></a>
