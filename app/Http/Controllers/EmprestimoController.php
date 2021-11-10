@@ -20,9 +20,9 @@ class EmprestimoController extends Controller
     public function index(Request $request)
     {
         $this->authorize('admin');
-        $emprestimos = Emprestimo::where('data_devolucao',null)->get();
         return view('emprestimos.index',[
-            'emprestimos' => $emprestimos
+            'emprestimos' => Emprestimo::whereNull('data_devolucao')->get(),
+            'emprestimos_finalizados' => Emprestimo::whereNotNull('data_devolucao')->count()
         ]);
 
     }

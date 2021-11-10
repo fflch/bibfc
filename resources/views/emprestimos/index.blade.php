@@ -2,12 +2,17 @@
 
 @section('content')
 
+Total de Empréstimos em <b>aberto:</b> {{ $emprestimos->count() }} <br>
+Total de Empréstimos <b>finalizados:</b> {{ $emprestimos_finalizados }} <br> <br>
+
 
 <div class="card bg-light">
   <div class="card-header border-info bg-light">
-    <h3>Livros Emprestados</h3> 
+    <h4>Livros Emprestados</h4> 
   </div>
 
+
+  
   <table class="table" id="emprestimos">
   <thead>
     <tr>
