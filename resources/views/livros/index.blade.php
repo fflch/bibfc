@@ -2,7 +2,7 @@
 
 @section('content')
 
-<b>Total</b> de livros: {{ $livros->count() }} <br>
+<b>Total</b> de livros:<br>
 
 <ul>
 @foreach($totais as $total) 
