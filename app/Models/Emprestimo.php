@@ -33,12 +33,16 @@ class Emprestimo extends Model
     }
 
     public function getPrazoAttribute() {
-        if($this->data_emprestimo)
-            return Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays(7)->format('d/m/Y');
+        if($this->data_emprestimo){
+            $prazo = $this->renew*7 + 7;
+            return Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays($prazo)->format('d/m/Y');
+        }
+            
     }
 
     public function getAtrasadoAttribute() {
-        if(Carbon::now()->gte(Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays(8)))
+        $prazo = $this->renew*7 + 7 + 1;
+        if(Carbon::now()->gte(Carbon::CreateFromFormat('d/m/Y',$this->data_emprestimo)->addDays($prazo)))
             return true;
         return false;
     }

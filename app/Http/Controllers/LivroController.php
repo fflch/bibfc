@@ -112,4 +112,10 @@ class LivroController extends Controller
         $livro->delete();
         return redirect('/livros');
     }
+
+    public function json_show(Livro $livro)
+    {
+        $this->authorize('admin');
+        return response()->json($livro);
+    }
 }

@@ -11,11 +11,24 @@
 
         <div class="form-row">
             <div class="col-sm">
-                <p class="font-weight-bold">Título: {{ $emprestimo->livro->titulo }}</p>
-                <p>Exemplar: {{ $emprestimo->livro->tombo }} ({{ $emprestimo->livro->tombo_tipo }})</p>
-                
-                </br>
                 <p>Usuário: {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome }}</p>
+                <p class="font-weight-bold">Título: {{ $emprestimo->livro->titulo }}</p>
+                <p> Renovação de: {{ $emprestimo->livro->tombo }} 
+                    ({{ $emprestimo->livro->tombo_tipo }}) - {{ $emprestimo->livro->titulo }}
+                </p>
+                
+                @if($emprestimos->isNotEmpty())
+                    <div style="color:red;">Livros já emprestados:</div>
+                    <ul style="color:red;">
+                        @foreach($emprestimos as $emprestimo)
+                        <li>{{ $emprestimo->livro->tombo }} 
+                            ({{ $emprestimo->livro->tombo_tipo }}):
+                            {{ $emprestimo->livro->titulo }}
+                        </li>
+                        @endforeach
+                    </ul>
+                @endif
+                
             </div>
 
             <div class="col-sm">
@@ -26,6 +39,11 @@
                 @endif
             </div>
 
+        </div>
+
+        <div class="form-group">
+            <label for="obs">Observações sobra esta renovação</label>
+            <textarea class="form-control" name="obs" rows="3">{{ old('obs', $emprestimo->obs) }}</textarea>
         </div>
 
         <button class="btn btn-outline-success" type="submit">Confirmar Renovação</button>

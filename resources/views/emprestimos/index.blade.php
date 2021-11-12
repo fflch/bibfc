@@ -27,9 +27,10 @@ Total de Empréstimos <b>finalizados:</b> {{ $emprestimos_finalizados }} <br> <b
       <td>
           Título do Livro: <a href="/livros/{{ $emprestimo->livro->id }}">{{ $emprestimo->livro->titulo }} </a> <br>
           Tombo: {{ $emprestimo->livro->tombo }} ({{ $emprestimo->livro->tombo_tipo }}) <br>
+          Renovações: {{ $emprestimo->renew }} <br>
           Autor: {{ $emprestimo->livro->autor }} <br>
           Localização: {{ $emprestimo->livro->localizacao }} <br>
-          Emprestado para: {{ $emprestimo->usuario->matricula }}  - {{ $emprestimo->usuario->nome}}<br>
+          Emprestado para: {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome}}<br>
           Observação: {{ $emprestimo->obs }} <br>
       </td>
       <td>

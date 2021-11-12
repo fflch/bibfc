@@ -23,9 +23,12 @@ Route::resource('/emprestimos', EmprestimoController::class);
 Route::get('/renovar/{emprestimo}', [EmprestimoController::class,'renovarForm']);
 Route::post('/renovar/{emprestimo}', [EmprestimoController::class,'renovar']);
 
-Route::get('/confirm/{usuario}/{livro}', [EmprestimoController::class,'confirmForm']);
-Route::post('/confirm/{usuario}/{livro}', [EmprestimoController::class,'confirm']);
-
 Route::resource('/livros', LivroController::class);
 
 Route::get('/etiquetas', [EtiquetaController::class, 'etiquetas']);
+
+Route::get('/json_show/{livro}', [LivroController::class, 'json_show']);
+
+Route::get('/json_emprestimos_ativos/{matricula}', [EmprestimoController::class, 'json_emprestimos_ativos']);
+
+
