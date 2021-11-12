@@ -41,7 +41,8 @@ Total de Empréstimos <b>finalizados:</b> {{ $emprestimos_finalizados }} <br> <b
           @endif
           <br>
           Data do Empréstimo: {{ $emprestimo->data_emprestimo }} <br>
-          Prazo para devolução: {{ $emprestimo->prazo }} 
+          Prazo para devolução: {{ $emprestimo->prazo }} <br>
+          Usuário: <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} </a><br>
           @if($emprestimo->atrasado) <span style="color:red;"> (Atrasado)</span> @endif
       </td>
       <td>
