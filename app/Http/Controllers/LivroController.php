@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LivroRequest;
 use App\Models\Record;
 use App\Models\Emprestimo;
+use Illuminate\Support\Facades\DB;
 
 class LivroController extends Controller
 {
@@ -23,8 +24,14 @@ class LivroController extends Controller
             $livros = Livro::paginate(20);
         }
 
+        $totais = DB::table('livros')
+                ->select(DB::raw('count(*) as num'),'tombo_tipo')
+                ->groupBy('tombo_tipo')
+                ->get();
+
         return view('livros.index',[
-            'livros' => $livros
+            'livros' => $livros,
+            'totais' => $totais
         ]);
     }
 

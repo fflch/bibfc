@@ -2,6 +2,13 @@
 
 @section('content')
 
+<b>Total</b> de livros: {{ $livros->count() }} <br>
+
+<ul>
+@foreach($totais as $total) 
+    <li><b>{{ $total->tombo_tipo }}:</b> {{ $total->num }} </li>
+@endforeach
+</ul>
 
     <div class="row" style="margin-bottom:0.5em;">
         <div class="col-sm">

@@ -152,7 +152,10 @@ class EmprestimoController extends Controller
     public function renovarForm(Emprestimo $emprestimo)
     {
         $this->authorize('admin');
-        $emprestimos = Emprestimo::where('usuario_id',$emprestimo->usuario_id)->where('data_devolucao',null)->get();
+        $emprestimos = Emprestimo::where('usuario_id',$emprestimo->usuario_id)
+                                 ->where('data_devolucao',null)
+                                 ->where('livro_id',"!=",$emprestimo->livro_id)
+                                 ->get();
 
         return view('emprestimos.renovar')->with([
             'emprestimo' => $emprestimo,
@@ -176,7 +179,9 @@ class EmprestimoController extends Controller
     public function json_emprestimos_ativos($matricula) {
         $usuario = Usuario::where('matricula',$matricula)->first();
         $this->authorize('admin');
-        $emprestimos = Emprestimo::where('usuario_id',$usuario->id)->where('data_devolucao',null)->get();
+        $emprestimos = Emprestimo::where('usuario_id',$usuario->id)
+                                  ->where('data_devolucao',null)
+                                  ->get();
 
         $emprestimos_json = [];
         foreach($emprestimos as $emprestimo){
