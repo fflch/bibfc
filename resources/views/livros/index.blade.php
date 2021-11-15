@@ -40,6 +40,7 @@
                 <th>Autor</th>
                 <th>Localização</th>
                 <th>Observação</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -50,9 +51,15 @@
                 <td>{{ $livro->tombo_tipo }}</td>
                 <td>{{ $livro->titulo }}</td>
                 <td>{{ $livro->autor }}</td>
-                <td>{{ $livro->obs }}</td>
                 <td><a href="/livros/{{$livro->id}}">{{ $livro->localizacao }}</a></td>
-
+                <td>{{ $livro->obs }}</td>
+                <td>
+                    @if(\App\Models\Emprestimo::where('livro_id',$livro->id)->whereNull('data_devolucao')->first())
+                        Emprestado
+                    @else 
+                        Disponível
+                    @endif
+                </td>
                 <td>
                     <a href="/livros/{{$livro->id}}/edit" class="btn btn-warning col-auto float-left"><i class="fas fa-pencil-alt"></i></a>
                     <form method="POST" style="width:42px;" class="float-left col-auto" action="/livros/{{ $livro->id }}">
