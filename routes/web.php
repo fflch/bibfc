@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EmprestimoController;
 use App\Http\Controllers\LivroController;
-use App\Http\Controllers\EtiquetaController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -25,10 +25,10 @@ Route::post('/renovar/{emprestimo}', [EmprestimoController::class,'renovar']);
 
 Route::resource('/livros', LivroController::class);
 
-Route::get('/etiquetas', [EtiquetaController::class, 'etiquetas']);
-
 Route::get('/json_show/{livro}', [LivroController::class, 'json_show']);
 
 Route::get('/json_emprestimos_ativos/{matricula}', [EmprestimoController::class, 'json_emprestimos_ativos']);
 
 
+Route::get('/etiquetas/', [PdfController::class, 'etiquetas']);
+Route::get('/bolso/{livro}', [PdfController::class, 'bolso']);

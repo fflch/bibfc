@@ -11,8 +11,6 @@ Total de Empréstimos <b>finalizados:</b> {{ $emprestimos_finalizados }} <br> <b
     <h4>Livros Emprestados</h4> 
   </div>
 
-
-  
   <table class="table" id="emprestimos">
   <thead>
     <tr>

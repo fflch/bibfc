@@ -8,14 +8,14 @@ use Picqer\Barcode\BarcodeGeneratorHTML;
 
 use Illuminate\Http\Request;
 
-class EtiquetaController extends Controller
+class PdfController extends Controller
 {
     public function etiquetas(){
         $this->authorize('admin');
         $livros = Livro::inRandomOrder()->limit(100)->get();
         $generator = new BarcodeGeneratorHTML();
 
-        $pdf = PDF::loadView('etiquetas', [
+        $pdf = PDF::loadView('pdfs.etiquetas', [
             'livros'    => $livros,
             'generator' => $generator
         ]);
@@ -27,5 +27,13 @@ class EtiquetaController extends Controller
 
         #return $pdf->setPaper($customPaper)->download("etiquetas.pdf");
         return $pdf->download("etiquetas.pdf");
+    }
+
+    public function bolso(Livro $livro){
+        $this->authorize('admin');
+        $pdf = PDF::loadView('pdfs.bolso', [
+            'livro'    => $livro,
+        ])->setPaper('a4', 'landscape');
+        return $pdf->download('bolso' . $livro->tombo . '.pdf');
     }
 }
