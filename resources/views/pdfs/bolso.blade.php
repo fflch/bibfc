@@ -14,13 +14,19 @@
     height: 15cm;
 }
 
+.interna {
+    margin: 1cm;
+    border: 2px dashed;
+}
+
 </style>
 
-
 <div class="cartao">
-Tombo: {{ $livro->tombo }} <br>
-Autor: <b>{{ $livro->autor }}</b> <br>
-Título: {{ $livro->titulo }} <br>
+    <div class="interna">
+    Tombo: {{ $livro->tombo }} <br>
+    Autor: <b>{{ $livro->autor }}</b> <br>
+    Título: {{ $livro->titulo }} <br>
+    </div>
 </div>
 
 <div class="bolso">
