@@ -120,9 +120,4 @@ class LivroController extends Controller
         return redirect('/livros');
     }
 
-    public function json_show(Livro $livro)
-    {
-        $this->authorize('admin');
-        return response()->json($livro);
-    }
 }

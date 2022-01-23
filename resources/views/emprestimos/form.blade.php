@@ -28,29 +28,11 @@
             <select class="select-livros" name="livro">
                 <option value="default" >Digite para procurar o livros</option>
                 @foreach($livros as $livro)
-                    <option value="{{ $livro->id }}">{{ $livro->tombo }} - {{ $livro->titulo }} - {{ $livro->autor }}</option>
+                    <option value="{{ $livro->id }}">{{ $livro->tombo }} ({{ $livro->tombo_tipo }}) - {{ $livro->titulo }} - {{ $livro->autor }}</option>
                 @endforeach
             </select>
         </div>
 
-    </div>
-
-    @if(isset($livro))
-        <div class="form-row">
-            @include('livros.partials.tombo')
-        </div>
-    @endif 
-    <div class="form-row">
-
-        <div class="form-group col-md font-weight-bold">
-            <label for="titulo">Título</label>
-            <input type="text" class="form-control" name="titulo" id="titulo" value="{{ old('titulo') }}">
-        </div>
-
-        <div class="form-group col-md font-weight-bold">
-            <label for="autor">Autor</label>
-            <input type="text" class="form-control" name="autor"  id="autor" value="{{ old('autor') }}">
-        </div>
     </div>
 
     <div class="form-group">
@@ -67,11 +49,6 @@
 <script>
 
 $('.emprestados_titulo').hide();
-
-@if (!$errors->any())
-    $('#tombo').val("");
-    $('#tombo_tipo').val("");
-@endif
 
 $('.select-usuarios').select2({
     width: '100%',
@@ -112,22 +89,6 @@ $('.select-livros').select2({
     language: "pt-BR",
 });
 
-$('.select-livros').change(function(){
-    var livro = $( '.select-livros' ).val();
-    
-    function success(response) {
-        
-        $('#tombo').val(response.tombo);
-        $('#tombo_tipo').val(response.tombo_tipo);
-        $('#titulo').val(response.titulo);
-        $('#autor').val(response.autor);
-        
-        // TODO: zera campo 
-        // $("select[name='livro'] option:contains('default')").attr("selected", "selected");
-    };
-    $.get('/json_show/' + livro , {}, success);
-    
-});
 </script>
 
 
