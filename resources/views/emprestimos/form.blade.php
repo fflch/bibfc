@@ -25,10 +25,10 @@
     <div class="form-row">
 
         <div class="form-group col"><h5 class="font-weight-bold">Buscar Livro</h5>
-            <select class="select-livros" name="livro">
+            <select class="select-livros" name="instance_id">
                 <option value="default" >Digite para procurar o livros</option>
-                @foreach($livros as $livro)
-                    <option value="{{ $livro->id }}">{{ $livro->tombo }} ({{ $livro->tombo_tipo }}) - {{ $livro->titulo }} - {{ $livro->autor }}</option>
+                @foreach($instances as $instance)
+                    <option value="{{ $instance->id }}">{{ $instance->tombo }} ({{ $instance->tombo_tipo }}) - {{ $instance->livro->titulo }} - {{ $instance->livro->autor }}</option>
                 @endforeach
             </select>
         </div>

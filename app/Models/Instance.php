@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Instance extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function livro()
+    {
+        return $this->belongsTo(Livro::class);
+    }
 }

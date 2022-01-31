@@ -6,6 +6,7 @@ use App\Models\Emprestimo;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmprestimoRequest;
 use App\Models\Livro;
+use App\Models\Instance;
 use App\Models\User;
 use App\Models\Usuario;
 use Carbon\Carbon;
@@ -35,12 +36,11 @@ class EmprestimoController extends Controller
     public function create()
     {
         $this->authorize('admin');
-        $livros = Livro::all();
-        $usuarios = Usuario::all();
+
         return view('emprestimos.create')->with([
             'emprestimo' => New Emprestimo,
-            'livros'    => $livros,
-            'usuarios'  => $usuarios
+            'usuarios'  => Usuario::all(),
+            'instances' => Instance::all()
         ]);
     }
 
@@ -53,10 +53,10 @@ class EmprestimoController extends Controller
     public function store(EmprestimoRequest $request)
     {
         $this->authorize('admin');
+        dd();
 
         # Registra o Livro em realtime
-        $livro = Livro::where('tombo',trim($request->tombo))
-                    ->where('tombo_tipo',trim($request->tombo_tipo))->first();
+        $instance = Instance::where('tombo',trim($request->instance_id))->first();
         // verificar se o livro em questão já está emprestado
        
         if($livro){
@@ -68,14 +68,7 @@ class EmprestimoController extends Controller
             }
         }
 
-        if(!$livro) {
-            $livro = new Livro();
-        }
-        $livro->titulo = $request->titulo;
-        $livro->autor = $request->autor;
-        $livro->tombo = $request->tombo;
-        $livro->tombo_tipo = $request->tombo_tipo;
-        $livro->save();
+
 
         $usuario = Usuario::where('matricula',$request->usuario)->first();
 

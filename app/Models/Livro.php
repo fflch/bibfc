@@ -20,4 +20,8 @@ class Livro extends Model
         return $this->hasMany(Emprestimo::class);
     }
 
+    public function instances()
+    {
+        return $this->hasMany(Instance::class);
+    }
 }
