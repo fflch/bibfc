@@ -24,7 +24,6 @@ class CreateInstancesTable extends Migration
             $table->string('status')->default('Ativo');
 
             $table->integer('exemplar')->nullable();
-            $table->string('complemento_localizacao')->nullable();
             $table->text('notas')->nullable();
 
             $table->unsignedBigInteger('livro_id');

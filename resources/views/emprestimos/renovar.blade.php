@@ -12,18 +12,18 @@
         <div class="form-row">
             <div class="col-sm">
                 <p>Usuário: {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome }}</p>
-                <p class="font-weight-bold">Título: {{ $emprestimo->livro->titulo }}</p>
-                <p> Renovação de: {{ $emprestimo->livro->tombo }} 
-                    ({{ $emprestimo->livro->tombo_tipo }}) - {{ $emprestimo->livro->titulo }}
+                <p class="font-weight-bold">Título: {{ $emprestimo->instance->livro->titulo }}</p>
+                <p> Renovação de: {{ $emprestimo->instance->tombo }} 
+                    ({{ $emprestimo->instance->tombo_tipo }}) - {{ $emprestimo->instance->livro->titulo }}
                 </p>
                 
                 @if($emprestimos->isNotEmpty())
                     <div style="color:red;">Livros já emprestados:</div>
                     <ul style="color:red;">
                         @foreach($emprestimos as $emprestimo)
-                        <li>{{ $emprestimo->livro->tombo }} 
-                            ({{ $emprestimo->livro->tombo_tipo }}):
-                            {{ $emprestimo->livro->titulo }}
+                        <li>{{ $emprestimo->instance->tombo }} 
+                            ({{ $emprestimo->instance->tombo_tipo }}):
+                            {{ $emprestimo->instance->livro->titulo }}
                         </li>
                         @endforeach
                     </ul>

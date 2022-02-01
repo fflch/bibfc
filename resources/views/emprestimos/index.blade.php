@@ -23,13 +23,24 @@ Total de Empréstimos <b>finalizados:</b> {{ $emprestimos_finalizados }} <br> <b
   @foreach($emprestimos as $emprestimo)
     <tr>
       <td>
-          Título do Livro: <a href="/livros/{{ $emprestimo->livro->id }}">{{ $emprestimo->livro->titulo }} </a> <br>
-          Tombo: {{ $emprestimo->livro->tombo }} ({{ $emprestimo->livro->tombo_tipo }}) <br>
-          Renovações: {{ $emprestimo->renew }} <br>
-          Autor: {{ $emprestimo->livro->autor }} <br>
-          Localização: {{ $emprestimo->livro->localizacao }} <br>
-          Emprestado para: {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome}}<br>
-          Observação: {{ $emprestimo->obs }} <br>
+          <b>Título</b>: <a href="/livros/{{ $emprestimo->instance->livro->id }}">{{ $emprestimo->instance->livro->titulo }} </a> <br>
+          <b>Tombo:</b> {{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->tombo_tipo }}) <br>
+          <b>Renovações:</b> {{ $emprestimo->renew }} <br>
+          <b>Responsabilidade:</b> 
+          
+          <ul>
+            @forelse($emprestimo->instance->livro->responsabilidades as $responsabilidade)
+              <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})</li>
+            @empty
+              <li>Não há Responsabilidade cadastrada</li>
+            @endforelse
+          </ul>
+
+          @if($emprestimo->instance->livro->localizacao_formatada)
+            <b>Localização:</b> {{ $emprestimo->instance->livro->localizacao_formatada }} <br>
+          @endif
+          
+          <br> <i> {{ $emprestimo->obs }} </i> <br>
       </td>
       <td>
           @if($emprestimo->usuario->tem_foto())
@@ -38,9 +49,9 @@ Total de Empréstimos <b>finalizados:</b> {{ $emprestimos_finalizados }} <br> <b
             <i class="fas fa-user-tie fa-5x"></i>
           @endif
           <br>
-          Data do Empréstimo: {{ $emprestimo->data_emprestimo }} <br>
-          Prazo para devolução: {{ $emprestimo->prazo }} <br>
-          Usuário: <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} </a><br>
+          <b>Data do Empréstimo:</b> {{ $emprestimo->data_emprestimo }} <br>
+          <b>Prazo para devolução:</b> {{ $emprestimo->prazo }} <br>
+          <b>Emprestado para:</b> {{ $emprestimo->usuario->matricula }} - <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} </a><br>
           {{ $emprestimo->usuario->turma }} <br>
           @if($emprestimo->atrasado) <span style="color:red;"> (Atrasado)</span> @endif
       </td>

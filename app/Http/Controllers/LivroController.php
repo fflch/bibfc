@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Livro;
 use Illuminate\Http\Request;
 use App\Http\Requests\LivroRequest;
-use App\Models\Record;
+
+use App\Models\Instance;
 use App\Models\Emprestimo;
+use App\Models\Livro;
 use Illuminate\Support\Facades\DB;
 
 class LivroController extends Controller
@@ -16,19 +17,17 @@ class LivroController extends Controller
         $this->authorize('admin');
         if(isset($request->search) & !empty($request->search)) {
             $livros = Livro::where('titulo','LIKE',"%{$request->search}%")
-                    ->orWhere('autor','LIKE',"%{$request->search}%")
-                    ->orWhere('tombo','LIKE',"%{$request->search}%")
-                    ->orWhere('localizacao','LIKE',"%{$request->search}%")
-                    ->paginate(20);
+                        ->orWhere('localizacao','LIKE',"%{$request->search}%")
+                        ->paginate(20);
         } else {
             $livros = Livro::paginate(20);
         }
 
-        $totais = DB::table('livros')
+        $totais = DB::table('instances')
                 ->select(DB::raw('count(*) as num'),'tombo_tipo')
                 ->groupBy('tombo_tipo')
                 ->get();
-
+        
         return view('livros.index',[
             'livros' => $livros,
             'totais' => $totais

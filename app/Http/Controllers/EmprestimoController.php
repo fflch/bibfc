@@ -53,37 +53,34 @@ class EmprestimoController extends Controller
     public function store(EmprestimoRequest $request)
     {
         $this->authorize('admin');
-        dd();
 
-        # Registra o Livro em realtime
-        $instance = Instance::where('tombo',trim($request->instance_id))->first();
-        // verificar se o livro em questão já está emprestado
-       
-        if($livro){
-            $emprestado = Emprestimo::where('livro_id',$livro->id)->where('data_devolucao',null)->first();             
-            if($emprestado){
-                $request->session()->flash('alert-danger',"Não foi possível realizar o empréstimo! <br>" .
-                "O Livro {$emprestado->livro->titulo} está emprestado para {$emprestado->usuario->nome}");
-                return redirect('/emprestimos/create');
-            }
-        }
-
-
-
+        $instance = Instance::where('id',trim($request->instance_id))->first();
         $usuario = Usuario::where('matricula',$request->usuario)->first();
 
-        if($usuario){
-            $emprestimo = new Emprestimo;
-            $emprestimo->data_emprestimo = Carbon::now()->toDateString();
-            $emprestimo->usuario_id =  $usuario->id;
-            $emprestimo->user_id = auth()->user()->id;
-            $emprestimo->livro_id = $livro->id;
-            $emprestimo->obs = $request->obs;
-            $emprestimo->save();
-            $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
-        } else {
-            $request->session()->flash('alert-danger',"usuário desconhecido" );
+        # ficaria melhor se fizessemos essa checagem no EmprestimoRequest?
+        if(!$instance){
+            $request->session()->flash('alert-danger',"Livro não encontrado");
+            return redirect('/emprestimos/create');
         }
+
+        # Verificamos se livro não está emprestado
+        $emprestado = Emprestimo::where('instance_id',$instance->id)->where('data_devolucao',null)->first();             
+        if($emprestado){
+            $request->session()->flash('alert-danger',"Não foi possível realizar o empréstimo! <br>" .
+            "O Livro {$emprestado->instance->livro->titulo} está emprestado para {$emprestado->usuario->nome}");
+            return redirect('/emprestimos/create');
+        }
+
+        # Registrando empréstimo
+        $emprestimo = new Emprestimo;
+        $emprestimo->data_emprestimo = Carbon::now()->toDateString();
+        $emprestimo->usuario_id =  $usuario->id;
+        $emprestimo->user_id = auth()->user()->id;
+        $emprestimo->instance_id = $instance->id;
+        $emprestimo->obs = $request->obs;
+        $emprestimo->save();
+        $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
+
         return redirect('/emprestimos');
     }
 
@@ -147,7 +144,7 @@ class EmprestimoController extends Controller
         $this->authorize('admin');
         $emprestimos = Emprestimo::where('usuario_id',$emprestimo->usuario_id)
                                  ->where('data_devolucao',null)
-                                 ->where('livro_id',"!=",$emprestimo->livro_id)
+                                 ->where('instance_id',"!=",$emprestimo->instance_id)
                                  ->get();
 
         return view('emprestimos.renovar')->with([
@@ -164,7 +161,7 @@ class EmprestimoController extends Controller
         $emprestimo->obs = $request->obs;
         $emprestimo->save();
 
-        $request->session()->flash('alert-info',"Livro {$emprestimo->livro->nome} renovado!");
+        $request->session()->flash('alert-info',"Livro {$emprestimo->instance->livro->nome} renovado!");
 
         return redirect('/emprestimos');
     }
@@ -179,9 +176,9 @@ class EmprestimoController extends Controller
         $emprestimos_json = [];
         foreach($emprestimos as $emprestimo){
             $emprestimos_json[] = [
-                'titulo' => $emprestimo->livro->titulo,
-                'tombo' => $emprestimo->livro->tombo,
-                'tombo_tipo' => $emprestimo->livro->tombo_tipo,
+                'titulo' => $emprestimo->instance->livro->titulo,
+                'tombo' => $emprestimo->instance->tombo,
+                'tombo_tipo' => $emprestimo->instance->tombo_tipo,
             ];
         }
 

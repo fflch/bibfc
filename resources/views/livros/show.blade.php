@@ -6,14 +6,37 @@
 <div class="card bg-light">
   <div class="card-header border-info bg-light">
     <div class="container">
-      <a class="btn btn-outline-success btn-md" href="/livros/{{$livro->id}}/edit" role="button">Editar</a> <br><br>
+
+      <a class="btn btn-outline-success btn-md" href="/livros/{{$livro->id}}/edit">Editar</a> <br><br>
+      
       <div class="row">
+
         <div class="col-md text-break"><h6 class="font-weight-bold">Título</h6>
           {{ $livro->titulo }}
         </div>
 
-        <div class="col-md  text-break"><h6 class="font-weight-bold">Autor</h6>
-          {{ $livro->autor }}
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Responsabilidade</h6>
+            <ul>
+                @forelse($livro->responsabilidades as $responsabilidade)
+                    <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})</li>
+                @empty
+                    <li>Não há Responsabilidade cadastrada</li>
+                @endforelse
+              </ul>
+        </div>
+
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Exemplares</h6>
+            <ul>
+                @forelse($livro->instances as $instance)
+                    <li>
+                        <a href="/instances/{{ $instance->id }}/edit">
+                            {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
+                        </a>
+                    </li>
+                @empty
+                    <li>Não há exemplares cadastrados</li>
+                @endforelse
+            </ul>
         </div>
 
       </div>
@@ -21,21 +44,16 @@
       <hr>
 
       <div class="row">
-        <div class="col-md text-break"><h6 class="font-weight-bold">Tombo</h6>
-          {{ $livro->tombo }} - {{ $livro->tombo_tipo }}
-        </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Localização</h6>
-          {{ $livro->localizacao }}
+          {{ $livro->localizacao_formatada }}
         </div>
+
       </div>
 
       <hr>
       
       <div class="row">
-        <div class="col-md text-break"><h6 class="font-weight-bold">Exemplar</h6>
-          {{ $livro->exemplar }}
-        </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Volume</h6>
           {{ $livro->volume }}
@@ -64,8 +82,6 @@
 </div>
 
 </br>
-
-@include('livros.partials.emprestimos')
 
 @endsection('content')
 

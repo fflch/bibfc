@@ -17,9 +17,29 @@ class Livro extends Model
         return array_map('trim', explode(',', $tombo_tipos));
     }
 
-    public function emprestimos()
-    {
-        return $this->hasMany(Emprestimo::class);
+    public function getLocalizacaoFormatadaAttribute(){
+        if(!empty($this->localizacao)){
+
+            $retorno = $this->localizacao;
+
+            if(!empty($this->edicao) && (int) $this->edicao != 1) {
+                $retorno .= ' ' . (int) $this->edicao . '.ed.';
+            }
+                
+            if(!empty($this->volume)) {
+                $retorno .= ' v.' . $this->volume;
+            }
+
+            if(!empty($this->exemplar) && (int) $this->exemplar != 1) {
+                $retorno .= ' e.' . (int) $this->exemplar;
+            }
+            
+            if(!empty($this->complemento_localizacao)) {
+                $retorno .= ' ' . $this->complemento_localizacao;
+            }
+
+            return $retorno;
+        }
     }
 
     public function instances()

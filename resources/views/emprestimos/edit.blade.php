@@ -11,10 +11,13 @@
 
         <div class="form-row">
             <div class="col-sm">
-                <h6 class="font-weight-bold">Título: {{ $emprestimo->livro->titulo }}</h6>
-                <h6 class="font-weight-bold">Exemplar: {{ $emprestimo->livro->tombo }}</h6>
+                <b>Título:</b> {{ $emprestimo->instance->livro->titulo }} 
+                
+                <br>
+                <b>Tombo:</b> {{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->tombo_tipo }})
+
                 </br>
-                <h6 class="font-weight-bold">Usuário: {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome }}</h6>
+                <b>Usuário:</b> {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome }}
             </div>
 
             <div class="col-sm">

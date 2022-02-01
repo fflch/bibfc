@@ -2,7 +2,7 @@
 
 @section('content')
 
-<b>Total</b> de livros:<br>
+<b>Total</b> de Exemplares:<br>
 
 <ul>
 @foreach($totais as $total) 
@@ -34,41 +34,59 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Tombo</th>
-                <th>Tipo Tombo</th>
                 <th>Título</th>
-                <th>Autor</th>
+                <th>Responsabilidade</th>
                 <th>Localização</th>
-                <th>Observação</th>
-                <th>Status</th>
+                <th>Exemplares</th>
+                <th>Notas</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
         @foreach($livros as $livro)
             <tr>
-                <td><a href="/livros/{{$livro->id}}">{{ $livro->tombo }}</a></td>
-                <td>{{ $livro->tombo_tipo }}</td>
-                <td>{{ $livro->titulo }}</td>
-                <td>{{ $livro->autor }}</td>
-                <td><a href="/livros/{{$livro->id}}">{{ $livro->localizacao }}</a></td>
-                <td>{{ $livro->obs }}</td>
+
+                <td><a href="/livros/{{$livro->id}}">{{ $livro->titulo }}</a></td>
+
                 <td>
-                    @if(\App\Models\Emprestimo::where('livro_id',$livro->id)->whereNull('data_devolucao')->first())
-                        Emprestado
-                    @else 
-                        Disponível
-                    @endif
+                    <ul>
+                    @forelse($livro->responsabilidades as $responsabilidade)
+                        <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})</li>
+                    @empty
+                        <li>Não há Responsabilidade cadastrada</li>
+                    @endforelse
+                    </ul>
                 </td>
+
+                <td><a href="/livros/{{$livro->id}}">{{ $livro->localizacao_formatada }}</a></td>
+
                 <td>
-                    <a href="/bolso/{{$livro->id}}" class="btn col-auto float-left"><i class="fas fa-microchip"></i></a>
-                    <a href="/livros/{{$livro->id}}/edit" class="btn btn-warning col-auto float-left"><i class="fas fa-pencil-alt"></i></a>
-                    <form method="POST" style="width:42px;" class="float-left col-auto" action="/livros/{{ $livro->id }}">
+                    <ul>
+                        @forelse($livro->instances as $instance)
+                            <li><a href="/instances/{{ $instance->id }}/edit">
+                                    {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
+                                </a>
+                            </li>
+                        @empty
+                            <li>Não há exemplares cadastrados</li>
+                        @endforelse
+                    </ul>
+                </td>
+
+                <td>{{ $livro->obs }}</td>
+
+                <td>
+                    
+                    <a href="/livros/{{$livro->id}}/edit" ><i class="fas fa-pencil-alt"></i></a> 
+
+                    <form method="POST" style="width:42px;" action="/livros/{{ $livro->id }}">
                         @csrf 
                         @method('delete')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
                     </form>
+
                 </td>
+
             </tr>
         @endforeach
         </tbody>

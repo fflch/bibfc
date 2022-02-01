@@ -14,4 +14,9 @@ class Instance extends Model
     {
         return $this->belongsTo(Livro::class);
     }
+
+    public function emprestimos()
+    {
+        return $this->hasMany(Emprestimo::class);
+    }
 }

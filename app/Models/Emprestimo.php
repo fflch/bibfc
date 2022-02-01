@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Livro;
+use App\Models\Instance;
 use App\Models\Usuario;
 use Carbon\Carbon;
 
@@ -13,9 +14,9 @@ class Emprestimo extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function livro()
+    public function instance()
     {
-        return $this->belongsTo(Livro::class);
+        return $this->belongsTo(Instance::class);
     }
 
     public function usuario()

@@ -15,6 +15,10 @@ class MovendoCamposDeLivrosParaInstance extends Migration
      */
     public function up()
     {
+        Schema::table('livros', function (Blueprint $table) {
+            $table->string('complemento_localizacao')->nullable();
+        });
+
         foreach(Livro::all() as $livro){
             $instance = new Instance;
 
@@ -32,7 +36,7 @@ class MovendoCamposDeLivrosParaInstance extends Migration
             # quando tipo tombo é Infantil o último campo da localização é a cor
             if($instance->tombo_tipo == 'Infantil') {
                 $array_localizacao = explode(' ', $livro->localizacao);
-                $instance->complemento_localizacao = array_pop($array_localizacao);
+                $livro->complemento_localizacao = array_pop($array_localizacao);
 
                 # Removendo a cor do livro
                 $livro->localizacao = implode(' ',$array_localizacao);
