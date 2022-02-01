@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Responsabilidade;
+use App\Models\LivroResponsabilidade;
 
 class Livro extends Model
 {
@@ -23,5 +25,13 @@ class Livro extends Model
     public function instances()
     {
         return $this->hasMany(Instance::class);
+    }
+
+    public function responsabilidades()
+    {
+        return $this->belongsToMany(Responsabilidade::class)
+                    ->withPivot('tipo')
+                    ->withTimestamps()
+                    ->using(LivroResponsabilidade::class);
     }
 }
