@@ -10,6 +10,7 @@ use App\Models\Livro;
 class Responsabilidade extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function livros()
     {

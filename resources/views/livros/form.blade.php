@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group">
-        <label for="obs">Observações sobre este livro</label>
+        <label for="obs">Notas</label>
         <textarea class="form-control" name="obs" rows="3">{{ old('obs', $livro->obs) }}</textarea>
     </div>
 

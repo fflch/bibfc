@@ -265,6 +265,12 @@ return [
             'icon'        => 'fas fa-fw fa-book-reader',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Responsabilidades',
+            'url'         => 'responsabilidades',
+            'icon'        => 'fas fa-fw fa-book-reader',
+            'label_color' => 'success',
+        ],
     ],
 
     /*

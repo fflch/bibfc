@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Responsabilidade;
 use Illuminate\Http\Request;
+use App\Http\Requests\ResponsabilidadeRequest;
 
 class ResponsabilidadeController extends Controller
 {
@@ -12,9 +13,19 @@ class ResponsabilidadeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $this->authorize('admin');
+        if(isset($request->search) & !empty($request->search)) {
+            $responsabilidades = Responsabilidade::where('nome','LIKE',"%{$request->search}%")
+                        ->paginate(20);
+        } else {
+            $responsabilidades = Responsabilidade::paginate(20);
+        }
+        
+        return view('responsabilidades.index',[
+            'responsabilidades' => $responsabilidades,
+        ]);
     }
 
     /**
@@ -24,7 +35,10 @@ class ResponsabilidadeController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('admin');
+        return view('responsabilidades.create',[
+            'responsabilidade' => new Responsabilidade
+        ]);
     }
 
     /**
@@ -33,9 +47,13 @@ class ResponsabilidadeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ResponsabilidadeRequest $request)
     {
-        //
+        $this->authorize('admin');
+        $validated = $request->validated();
+        Responsabilidade::create($validated);
+
+        return redirect("/responsabilidades");
     }
 
     /**
@@ -46,7 +64,10 @@ class ResponsabilidadeController extends Controller
      */
     public function show(Responsabilidade $responsabilidade)
     {
-        //
+        $this->authorize('admin');
+        return view('responsabilidades.show',[
+            'responsabilidade' => $responsabilidade,
+        ]);
     }
 
     /**
@@ -57,7 +78,10 @@ class ResponsabilidadeController extends Controller
      */
     public function edit(Responsabilidade $responsabilidade)
     {
-        //
+        $this->authorize('admin');
+        return view('responsabilidades.edit')->with([
+            'responsabilidade' => $responsabilidade
+        ]);
     }
 
     /**
@@ -67,9 +91,13 @@ class ResponsabilidadeController extends Controller
      * @param  \App\Models\Responsabilidade  $responsabilidade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Responsabilidade $responsabilidade)
+    public function update(ResponsabilidadeRequest $request, Responsabilidade $responsabilidade)
     {
-        //
+        $this->authorize('admin');
+        $validated = $request->validated();
+        $responsabilidade->update($validated);
+
+        return redirect("/responsabilidades");
     }
 
     /**
@@ -78,8 +106,21 @@ class ResponsabilidadeController extends Controller
      * @param  \App\Models\Responsabilidade  $responsabilidade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Responsabilidade $responsabilidade)
+    public function destroy(Request $request, Responsabilidade $responsabilidade)
     {
-        //
+        $this->authorize('admin');
+
+        $livros = $responsabilidade->livros()->get();
+
+        if($livros){
+            $mensagem = 'Operação não realizada. Os seguintes livros usam essa Responsabilidade: ';
+            foreach($livros as $livro){
+                $mensagem .= " <br> {$livro->titulo}";
+            }
+            $request->session()->flash('alert-danger',$mensagem);
+        }
+
+        $responsabilidade->delete();
+        return redirect('/responsabilidades');
     }
 }
