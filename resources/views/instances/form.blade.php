@@ -41,7 +41,7 @@
         <div class="form-group col-md font-weight-bold">
             <label for="status">Status</label>
             <select name="status" id="status" class="form-control">
-
+                <option value="" selected> - Selecione - </option>
                 @foreach ($instance->status_list as $status)
                 {{ ( $instance->status == $status ) ? 'selected' : ''}}
 

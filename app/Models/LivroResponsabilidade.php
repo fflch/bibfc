@@ -8,8 +8,10 @@ class LivroResponsabilidade extends Pivot
 {
     public $incrementing = true;
 
+    const tipos = ['Autor', 'Ilustrador', 'Adaptador', 'Organizador'];
+
     public function getTiposAttribute(){
-        return ['Autor', 'Ilustrador', 'Adaptador', 'Organizador'];
+        return self::tipos;
     }
     
 }

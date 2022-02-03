@@ -36,7 +36,8 @@ Route::get('/json_emprestimos_ativos/{matricula}', [EmprestimoController::class,
 Route::get('/etiquetas', [PdfController::class, 'etiquetas']);
 Route::get('/bolso/{livro}', [PdfController::class, 'bolso']);
 
-
+Route::get('/livro_responsabilidades/{livro}', [LivroResponsabilidadeController::class, 'create']);
+Route::post('/livro_responsabilidades/{livro}', [LivroResponsabilidadeController::class, 'store']);
 Route::delete('/livro_responsabilidades/{pivot}', [LivroResponsabilidadeController::class, 'destroy']);
-Route::get('/livro_responsabilidades/create', [LivroResponsabilidadeController::class, 'create']);
+
 

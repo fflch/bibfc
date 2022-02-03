@@ -32,7 +32,7 @@
                 @empty
                     <li>Não há Responsabilidade cadastrada</li>
                 @endforelse
-                <li><a href="/livro_responsabilidades/create"> <i class="fas fa-plus"></i> Adicionar Responsabilidade</a></li>
+                <li><a href="/livro_responsabilidades/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Responsabilidade</a></li>
               </ul>
         </div>
 
