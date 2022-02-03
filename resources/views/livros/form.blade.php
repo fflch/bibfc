@@ -61,6 +61,12 @@
             <input type="text" class="form-control" name="extensao" value="{{ old('extensao', $livro->extensao) }}">
         </div>
 
+
+        <div class="form-group col-lg-1 font-weight-bold">
+            <label for="isbn">ISBN</label>
+            <input type="text" class="form-control" name="isbn" value="{{ old('isbn', $livro->isbn) }}">
+        </div>
+
     </div>
 
     <div class="form-row">

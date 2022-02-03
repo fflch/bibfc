@@ -80,6 +80,10 @@
           {{ $livro->ilustrado }}
         </div>
 
+        <div class="col-md  text-break"><h6 class="font-weight-bold">ISBN:</h6>
+          {{ $livro->isbn }}
+        </div>
+
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Dimensão:</h6>
           {{ $livro->dimensao }}
