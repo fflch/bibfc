@@ -80,6 +80,9 @@ class InstanceController extends Controller
      */
     public function destroy(Instance $instance)
     {
-        //
+        $this->authorize('admin');
+        $livro_id = $instance->livro->id;
+        $instance->delete();
+        return redirect("/livros/{$livro_id}");
     }
 }

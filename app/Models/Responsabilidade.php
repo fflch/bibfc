@@ -15,7 +15,7 @@ class Responsabilidade extends Model
     public function livros()
     {
         return $this->belongsToMany(Livro::class)
-                    ->withPivot('tipo')
+                    ->withPivot('tipo','id')
                     ->withTimestamps()
                     ->using(LivroResponsabilidade::class);
     }

@@ -79,10 +79,10 @@
                     
                     <a href="/livros/{{$livro->id}}/edit" ><i class="fas fa-pencil-alt"></i></a> 
 
-                    <form method="POST" style="width:42px;" action="/livros/{{ $livro->id }}">
+                    <form method="POST" action="/livros/{{ $livro->id }}" style="display:inline">
                         @csrf 
                         @method('delete')
-                        <button type="submit" class="" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="delete-item btn" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
                     </form>
 
                 </td>

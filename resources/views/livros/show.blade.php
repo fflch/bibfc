@@ -18,7 +18,17 @@
         <div class="col-md  text-break"><h6 class="font-weight-bold">Responsabilidade</h6>
             <ul>
                 @forelse($livro->responsabilidades as $responsabilidade)
-                    <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})</li>
+                    <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})
+
+                    <form method="POST" action="/livro_responsabilidades/{{ $responsabilidade->pivot->id }}" style="display:inline">
+                      @csrf
+                      @method('delete')
+                      <button type="submit" class="delete-item btn"><i class="fas fa-trash-alt"
+                        onclick="return confirm('Você tem certeza que deseja apagar?')"
+                      ></i></button>
+                    </form>
+
+                    </li>
                 @empty
                     <li>Não há Responsabilidade cadastrada</li>
                 @endforelse
@@ -32,6 +42,14 @@
                         <a href="/instances/{{ $instance->id }}/edit">
                             {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
                         </a>
+                        <form method="POST" action="/instances/{{ $instance->id }}" style="display:inline">
+                          @csrf
+                          @method('delete')
+                          <button type="submit" class="delete-item btn"><i class="fas fa-trash-alt"
+                            onclick="return confirm('Você tem certeza que deseja apagar?')"
+                          ></i></button>
+                        </form>
+
                     </li>
                 @empty
                     <li>Não há exemplares cadastrados</li>

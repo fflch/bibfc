@@ -112,12 +112,13 @@ class ResponsabilidadeController extends Controller
 
         $livros = $responsabilidade->livros()->get();
 
-        if($livros){
+        if($livros->isNotEmpty()){
             $mensagem = 'Operação não realizada. Os seguintes livros usam essa Responsabilidade: ';
             foreach($livros as $livro){
                 $mensagem .= " <br> {$livro->titulo}";
             }
             $request->session()->flash('alert-danger',$mensagem);
+            return redirect('/responsabilidades');
         }
 
         $responsabilidade->delete();
