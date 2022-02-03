@@ -12,11 +12,6 @@ class Livro extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function getTomboTiposAttribute(){
-        $tombo_tipos = env('TOMBO_TIPOS','Padrão');
-        return array_map('trim', explode(',', $tombo_tipos));
-    }
-
     public function getLocalizacaoFormatadaAttribute(){
         if(!empty($this->localizacao)){
 

@@ -38,4 +38,5 @@ Route::get('/bolso/{livro}', [PdfController::class, 'bolso']);
 
 
 Route::delete('/livro_responsabilidades/{pivot}', [LivroResponsabilidadeController::class, 'destroy']);
+Route::get('/livro_responsabilidades/create', [LivroResponsabilidadeController::class, 'create']);
 

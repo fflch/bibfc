@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Instance;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\InstanceRequest;
+
 class InstanceController extends Controller
 {
     /**
@@ -24,7 +26,10 @@ class InstanceController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('admin');
+        return view('instances.create',[
+            'instance' => new Instance
+        ]);
     }
 
     /**
@@ -33,9 +38,13 @@ class InstanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InstanceRequest $request)
     {
-        //
+        $this->authorize('admin');
+        $validated = $request->validated();
+        $instance = Instance::create($validated);
+
+        return redirect("/livros/{$instance->livro->id}");
     }
 
     /**
@@ -46,7 +55,10 @@ class InstanceController extends Controller
      */
     public function show(Instance $instance)
     {
-        //
+        $this->authorize('admin');
+        return view('instances.show',[
+            'instance' => $instance,
+        ]);
     }
 
     /**
@@ -57,7 +69,10 @@ class InstanceController extends Controller
      */
     public function edit(Instance $instance)
     {
-        //
+        $this->authorize('admin');
+        return view('instances.edit',[
+            'instance' => $instance
+        ]);
     }
 
     /**
@@ -67,9 +82,14 @@ class InstanceController extends Controller
      * @param  \App\Models\Instance  $instance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instance $instance)
+    public function update(InstanceRequest $request, Instance $instance)
     {
-        //
+        $this->authorize('admin');
+
+        $validated = $request->validated();
+        $instance->update($validated);
+
+        return redirect("/livros/{$instance->livro->id}");
     }
 
     /**

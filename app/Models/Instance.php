@@ -10,13 +10,22 @@ class Instance extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function livro()
-    {
+    const status = ['Ativo', 'Perdido', 'Muito Atrasado', 'Danificado'];
+
+    public function getTomboTiposAttribute(){
+        $tombo_tipos = env('TOMBO_TIPOS','Padrão');
+        return array_map('trim', explode(',', $tombo_tipos));
+    }
+
+    public function getStatusListAttribute(){
+        return self::status;
+    }
+
+    public function livro(){
         return $this->belongsTo(Livro::class);
     }
 
-    public function emprestimos()
-    {
+    public function emprestimos(){
         return $this->hasMany(Emprestimo::class);
     }
 }

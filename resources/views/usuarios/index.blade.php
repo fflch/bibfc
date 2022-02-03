@@ -54,11 +54,15 @@
                 <td>{{ $usuario->obs }}</td>
 
                 <td>
-                    <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning col-auto float-left"><i class="fas fa-pencil-alt"></i></a>
-                    <form method="POST" style="width:42px;" class="float-left col-auto" action="/usuarios/{{ $usuario->id }}">
+                   
+                    <a href="/usuarios/{{$usuario->id}}/edit"><i class="fas fa-pencil-alt"></i></a>
+                    <form method="POST" action="/usuarios/{{ $usuario->id }}" style="display:inline">
                         @csrf 
                         @method('delete')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="delete-item btn" 
+                            onclick="return confirm('Você tem certeza que deseja apagar?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </form>
                 </td>
             </tr>

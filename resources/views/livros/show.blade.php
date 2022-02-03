@@ -32,6 +32,7 @@
                 @empty
                     <li>Não há Responsabilidade cadastrada</li>
                 @endforelse
+                <li><a href="/livro_responsabilidades/create"> <i class="fas fa-plus"></i> Adicionar Responsabilidade</a></li>
               </ul>
         </div>
 
@@ -39,9 +40,12 @@
             <ul>
                 @forelse($livro->instances as $instance)
                     <li>
-                        <a href="/instances/{{ $instance->id }}/edit">
+                        <a href="/instances/{{ $instance->id }}">
                             {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
                         </a>
+
+                        <a href="/instances/{{ $instance->id }}/edit/?livro_id={{$livro->id}}" ><i class="fas fa-pencil-alt"></i></a>
+                        
                         <form method="POST" action="/instances/{{ $instance->id }}" style="display:inline">
                           @csrf
                           @method('delete')
@@ -49,11 +53,12 @@
                             onclick="return confirm('Você tem certeza que deseja apagar?')"
                           ></i></button>
                         </form>
-
+                        
                     </li>
                 @empty
                     <li>Não há exemplares cadastrados</li>
                 @endforelse
+                <li><a href="/instances/create/?livro_id={{$livro->id}}"> <i class="fas fa-plus"></i> Adicionar Exemplar </a></li>
             </ul>
         </div>
 

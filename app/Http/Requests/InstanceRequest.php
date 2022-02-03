@@ -4,9 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Livro;
+use App\Models\Instance;
 use Illuminate\Validation\Rule;
 
-class LivroRequest extends FormRequest
+class InstanceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,33 +26,30 @@ class LivroRequest extends FormRequest
      */
     public function rules()
     {
+        $livros = Livro::pluck('id')->toArray();
+
         $rules = [
-            'titulo'      => 'required',
             'tombo_tipo'  => ['required'],
-            'autor'       => 'nullable',
-            'editora'     => 'nullable',
-            'local'       => 'nullable',
-            'ano'         => 'nullable',
-            'edicao'      => 'nullable',
-            'volume'      => 'nullable',
-            'localizacao' => 'nullable',
-            'complemento_localizacao' => 'nullable',
-            'obs'         => 'nullable',
+            'notas'       => 'nullable',
+            'exemplar'    => 'nullable',
+            'notas'       => 'nullable',
+            'status'      => ['required', Rule::in(Instance::status)],
+            'livro_id'    => ['required','integer', Rule::in($livros)],
         ];
         if ($this->method() == 'PATCH' || $this->method() == 'PUT'){
             $rules['tombo'] = [
                 'required',
                 'integer',
-                 Rule::unique('livros')->where(function ($query) {
+                 Rule::unique('instances')->where(function ($query) {
                      $query->where('tombo', $this->tombo)
                         ->where('tombo_tipo', $this->tombo_tipo);
-                 })->ignore($this->livro->id)
+                 })->ignore($this->instance->id)
             ];
         } else {
             $rules['tombo'] = [
                 'required',
                 'integer',
-                 Rule::unique('livros')->where(function ($query) {
+                 Rule::unique('instances')->where(function ($query) {
                      $query->where('tombo', $this->tombo)
                         ->where('tombo_tipo', $this->tombo_tipo);
                  })

@@ -45,10 +45,10 @@
                     
                     <a href="/responsabilidades/{{$responsabilidade->id}}/edit" ><i class="fas fa-pencil-alt"></i></a> 
 
-                    <form method="POST" style="width:42px;" action="/responsabilidades/{{ $responsabilidade->id }}">
+                    <form method="POST" action="/responsabilidades/{{ $responsabilidade->id }}" style="display:inline">
                         @csrf 
                         @method('delete')
-                        <button type="submit" class="" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="delete-item btn" onclick="return confirm('Você tem certeza que deseja apagar?')"><i class="fas fa-trash-alt"></i></button>
                     </form>
 
                 </td>
