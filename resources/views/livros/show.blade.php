@@ -80,6 +80,15 @@
           {{ $livro->ilustrado }}
         </div>
 
+
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Dimensão:</h6>
+          {{ $livro->dimensao }}
+        </div>
+
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Extensão:</h6>
+          {{ $livro->extensao }}
+        </div>
+
       </div>
 
       <hr>
