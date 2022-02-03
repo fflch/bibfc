@@ -57,9 +57,23 @@ class LivroController extends Controller
     {
         $this->authorize('admin');
         $validated = $request->validated();
-        Livro::create($validated);
+        $livro = Livro::create($validated);
 
-        return redirect("/livros");
+        // esse trecho não está bom, mas é um quebra galho por hora
+        if($request->colorido == 'sim'){
+            $livro->colorido = 'sim';
+        } else {
+            $livro->colorido = 'não';
+        }
+
+        if($request->ilustrado == 'sim'){
+            $livro->ilustrado = 'sim';
+        } else {
+            $livro->ilustrado = 'não';
+        }
+        $livro->save();
+
+        return redirect("/livros/{$livro->id}");
     }
 
     /**
@@ -99,11 +113,26 @@ class LivroController extends Controller
      */
     public function update(LivroRequest $request, Livro $livro)
     {
+        
         $this->authorize('admin');
         $validated = $request->validated();
         $livro->update($validated);
 
-        return redirect("/livros");
+        // esse trecho não está bom, mas é um quebra galho por hora
+        if($request->colorido == 'sim'){
+            $livro->colorido = 'sim';
+        } else {
+            $livro->colorido = 'não';
+        }
+
+        if($request->ilustrado == 'sim'){
+            $livro->ilustrado = 'sim';
+        } else {
+            $livro->ilustrado = 'não';
+        }
+        $livro->save();
+
+        return redirect("/livros/{$livro->id}");
     }
 
     /**

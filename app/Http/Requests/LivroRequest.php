@@ -35,6 +35,11 @@ class LivroRequest extends FormRequest
             'localizacao' => 'nullable',
             'complemento_localizacao' => 'nullable',
             'obs'         => 'nullable',
+            'isbn'         => 'nullable',
+            'extensao'         => 'nullable',
+            'dimensao'         => 'nullable',
+            'ilustrado'        => 'nullable',
+            'colorido'         => 'nullable',
         ];
 
         return $rules;

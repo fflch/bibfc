@@ -68,8 +68,16 @@
 
       <div class="row">
 
-        <div class="col-md  text-break"><h6 class="font-weight-bold">Localização</h6>
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Localização:</h6>
           {{ $livro->localizacao_formatada }}
+        </div>
+
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Colorido:</h6>
+          {{ $livro->colorido }}
+        </div>
+
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Ilustrado:</h6>
+          {{ $livro->ilustrado }}
         </div>
 
       </div>
