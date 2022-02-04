@@ -19,7 +19,7 @@
 
             <tbody>
                 @php $rowid = 0; @endphp
-                <form method="POST" action="/mesclar/">
+                <form method="POST" action="/mesclar">
                 @foreach($livros as $livro)
                     
                         <tr>
