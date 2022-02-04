@@ -148,4 +148,42 @@ class LivroController extends Controller
         return redirect('/livros');
     }
 
+    public function mesclar()
+    {
+        $this->authorize('admin');
+
+        return view('livros.mesclar',[
+            'grupos' => Livro::all()->groupBy('localizacao'),
+        ]);
+    }
+
+    public function mesclarStore(Request $request)
+    {
+        $this->authorize('admin');
+        
+        $request->validate([
+            'livros' => 'required',
+        ]);
+
+        $livros = Livro::whereIn('id',$request->livros)->get();
+
+        # livro eleito como principal
+        $eleito = $livros->pop();
+
+        # movendo exemplares para eleito
+        foreach($livros as $livro){
+            $instances = $livro->instances;
+            foreach($instances as $instance){
+                $instance->livro_id = $eleito->id;
+                $instance->save();
+            }
+            $livro->delete();
+        }
+
+        $request->session()->flash('alert-info',"Exemplares unificados com sucesso!" );
+        return redirect("/livros/{$eleito->id}");
+    }
+
+    
+
 }

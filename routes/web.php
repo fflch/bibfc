@@ -29,6 +29,10 @@ Route::post('/renovar/{emprestimo}', [EmprestimoController::class,'renovar']);
 
 Route::resource('/instances', InstanceController::class);
 Route::resource('/livros', LivroController::class);
+
+Route::get('/mesclar', [LivroController::class,'mesclar']);
+Route::post('/mesclar', [LivroController::class,'mesclarStore']);
+
 Route::resource('/responsabilidades', ResponsabilidadeController::class);
 
 Route::get('/json_emprestimos_ativos/{matricula}', [EmprestimoController::class, 'json_emprestimos_ativos']);

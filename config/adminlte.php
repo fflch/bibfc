@@ -264,6 +264,12 @@ return [
             'url'         => 'livros',
             'icon'        => 'fas fa-fw fa-book-reader',
             'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Mesclar Registros',
+                    'url'  => 'mesclar',
+                ],
+            ],
         ],
         [
             'text'        => 'Responsabilidades',

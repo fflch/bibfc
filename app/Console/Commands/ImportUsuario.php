@@ -50,6 +50,7 @@ class ImportUsuario extends Command
             $usuario->save();
         }
 
+        // colunas do arquivo csv: matricula, nome, telefone, turma
         // Importar os novos
         $reader->setHeaderOffset(0);
         $records = $reader->getRecords();
@@ -64,7 +65,7 @@ class ImportUsuario extends Command
 
             $usuario->nome = $row['nome'];
             $usuario->telefone = $row['telefone'];
-            $usuario->turma = $row['turma'];
+            $usuario->turma = '2022 -' . $row['turma'];
             $usuario->save();       
         }
         return 0;
