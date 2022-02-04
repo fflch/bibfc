@@ -13,3 +13,7 @@ Renomeando fotos, o código que vale é o que está depois do underline:
 Import usuários:
 
     php artisan importusuarios arquivo.csv
+
+Deletar livros sem exemplar:
+
+    Livro::whereDoesntHave('instances')->delete();
