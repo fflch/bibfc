@@ -32,6 +32,7 @@ Route::resource('/livros', LivroController::class);
 
 Route::get('/mesclar', [LivroController::class,'mesclar']);
 Route::post('/mesclar', [LivroController::class,'mesclarStore']);
+Route::get('/pre', [LivroController::class,'pre']);
 
 Route::resource('/responsabilidades', ResponsabilidadeController::class);
 

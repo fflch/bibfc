@@ -19,22 +19,25 @@ class LivroController extends Controller
 
         $query = Livro::orderBy('titulo', 'desc');
 
+        # Excluindo itens da pré-catalogação (sem exemplares)
+        $query->whereHas('instances');
+
         if(isset($request->titulo) & !empty($request->titulo)) {
-            $livros = $query->where('titulo','LIKE',"%{$request->titulo}%");
+            $query->where('titulo','LIKE',"%{$request->titulo}%");
         } 
         
         if(isset($request->localizacao) & !empty($request->localizacao)) {
-            $livros = $query->where('localizacao','LIKE',"%{$request->localizacao}%");
+            $query->where('localizacao','LIKE',"%{$request->localizacao}%");
         } 
 
         if(isset($request->tombo) & !empty($request->tombo)) {
-            $livros = $query->whereHas('instances', function (Builder $q) use ($request) {
+            $query->whereHas('instances', function (Builder $q) use ($request) {
                 $q->where('tombo',$request->tombo);
             });
         }
 
         if(isset($request->responsabilidade) & !empty($request->responsabilidade)) {
-            $livros = $query->whereHas('responsabilidades', function (Builder $q) use ($request) {
+            $query->whereHas('responsabilidades', function (Builder $q) use ($request) {
                 $q->where('nome','LIKE',"%{$request->responsabilidade}%");
             });
         }
@@ -200,6 +203,19 @@ class LivroController extends Controller
         return redirect("/livros/{$eleito->id}");
     }
 
-    
+    public function pre(Request $request){
+        $this->authorize('admin');
+
+        $query = Livro::orderBy('titulo', 'desc');
+
+        # Somente itens da pré-catalogação (sem exemplares)
+        $query->whereDoesntHave('instances');
+
+        return view('livros.pre',[
+            'livros' => $query->get(),
+        ]);
+    }
+
+
 
 }

@@ -273,6 +273,10 @@ return [
                     'text' => 'Mesclar Registros',
                     'url'  => 'mesclar',
                 ],
+                [
+                    'text' => 'Pré-catalogação',
+                    'url'  => 'pre',
+                ],
             ],
         ],
         [
