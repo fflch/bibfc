@@ -11,7 +11,7 @@
   </thead>
   <tbody>
 
-    @foreach($livro->emprestimos as $emprestimo)
+    @foreach($instance->emprestimos as $emprestimo)
     <tr>
       <td>
         @if($emprestimo->usuario->tem_foto())

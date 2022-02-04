@@ -63,7 +63,7 @@
                 <td>
                     <ul>
                         @forelse($livro->instances as $instance)
-                            <li><a href="/instances/{{ $instance->id }}/edit">
+                            <li><a href="/instances/{{ $instance->id }}">
                                     {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
                                 </a>
                             </li>
