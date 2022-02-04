@@ -62,18 +62,20 @@ class ImportLivro extends Command
             $livro->volume = (int) filter_var($row['volume'], FILTER_SANITIZE_NUMBER_INT); ;
 
             $livro->localizacao = str_replace('A ','',$row['cdd']) . ' ' . $row['pha'];
-
-            $responsabilidade = Responsabilidade::where('nome',trim($row['autor']))->first();
-            if(!$responsabilidade) {
-                $responsabilidade = new Responsabilidade;
-                $responsabilidade->nome = trim($row['autor']);
-                $responsabilidade->save();
+            $livro->save();
+            
+            if (!empty(trim($row['autor']))){
+                $responsabilidade = Responsabilidade::where('nome',trim($row['autor']))->first();
+                if(!$responsabilidade) {
+                    $responsabilidade = new Responsabilidade;
+                    $responsabilidade->nome = trim($row['autor']);
+                    $responsabilidade->save();
+                }
+    
+                $livro->responsabilidades()->attach($responsabilidade->id, ['tipo' => 'Autor']);
+                $livro->save();
             }
 
-            $livro->save(); # é necessário salvar antes para fazer o attach abaixo
-
-            $livro->responsabilidades()->attach($responsabilidade->id, ['tipo' => 'Autor']);
-            $livro->save();
         } 
 
         return 0;
