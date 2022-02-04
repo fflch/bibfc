@@ -9,18 +9,34 @@ use App\Models\Instance;
 use App\Models\Emprestimo;
 use App\Models\Livro;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class LivroController extends Controller
 {
     public function index(Request $request)
     {
         $this->authorize('admin');
-        if(isset($request->search) & !empty($request->search)) {
-            $livros = Livro::where('titulo','LIKE',"%{$request->search}%")
-                        ->orWhere('localizacao','LIKE',"%{$request->search}%")
-                        ->paginate(20);
-        } else {
-            $livros = Livro::paginate(20);
+
+        $query = Livro::orderBy('titulo', 'desc');
+
+        if(isset($request->titulo) & !empty($request->titulo)) {
+            $livros = $query->where('titulo','LIKE',"%{$request->titulo}%");
+        } 
+        
+        if(isset($request->localizacao) & !empty($request->localizacao)) {
+            $livros = $query->where('localizacao','LIKE',"%{$request->localizacao}%");
+        } 
+
+        if(isset($request->tombo) & !empty($request->tombo)) {
+            $livros = $query->whereHas('instances', function (Builder $q) use ($request) {
+                $q->where('tombo',$request->tombo);
+            });
+        }
+
+        if(isset($request->responsabilidade) & !empty($request->responsabilidade)) {
+            $livros = $query->whereHas('responsabilidades', function (Builder $q) use ($request) {
+                $q->where('nome','LIKE',"%{$request->responsabilidade}%");
+            });
         }
 
         $totais = DB::table('instances')
@@ -29,7 +45,7 @@ class LivroController extends Controller
                 ->get();
         
         return view('livros.index',[
-            'livros' => $livros,
+            'livros' => $query->paginate(20),
             'totais' => $totais
         ]);
     }
