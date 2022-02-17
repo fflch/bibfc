@@ -46,6 +46,7 @@ class ImportLivro extends Command
         $reader = Reader::createFromPath($path, 'r');
         
         // Importar os novos
+        // colunas: localizacao, complemento_localizacao, volume
         $reader->setHeaderOffset(0);
         $records = $reader->getRecords();
 
@@ -53,15 +54,18 @@ class ImportLivro extends Command
 
             $livro = new Livro;
 
+            $livro->localizacao = trim($row['localizacao']);
+            $livro->complemento_localizacao = trim($row['complemento_localizacao']);
+
             $livro->titulo = trim($row['titulo']);
             $livro->editora = trim($row['editora']);
             $livro->local = trim($row['local']);
             $livro->ano = trim($row['ano']);
 
-            $livro->edicao = (int) filter_var($row['edicao'], FILTER_SANITIZE_NUMBER_INT);
-            $livro->volume = (int) filter_var($row['volume'], FILTER_SANITIZE_NUMBER_INT); ;
 
-            $livro->localizacao = str_replace('A ','',$row['cdd']) . ' ' . $row['pha'];
+            $livro->edicao = (int) filter_var($row['edicao'], FILTER_SANITIZE_NUMBER_INT);
+            $livro->volume = (int) filter_var($row['volume'], FILTER_SANITIZE_NUMBER_INT);
+
             $livro->save();
             
             if (!empty(trim($row['autor']))){
