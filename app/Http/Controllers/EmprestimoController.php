@@ -79,9 +79,11 @@ class EmprestimoController extends Controller
         $emprestimo->instance_id = $instance->id;
         $emprestimo->obs = $request->obs;
         $emprestimo->save();
-        $request->session()->flash('alert-info',"Prazo de devolução {$emprestimo->prazo}" );
+        $request->session()->flash('alert-info',
+            "Livro <b>{$instance->livro->titulo}</b> emprestado para <b>{$usuario->nome}</b>.<br>
+            Data de devolução {$emprestimo->prazo}" );
 
-        return redirect('/emprestimos');
+        return redirect('/emprestimos/create');
     }
 
     /**
