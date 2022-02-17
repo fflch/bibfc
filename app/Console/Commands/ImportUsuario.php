@@ -46,7 +46,7 @@ class ImportUsuario extends Command
         
         // Zerar o campo turma dos atuais
         foreach(Usuario::all() as $usuario){
-            $usuario->turma = 'Sem matrícula ativa ' . "({$usuario->turma})";
+            $usuario->turma = 'Sem matrícula ativa';
             $usuario->save();
         }
 
