@@ -45,12 +45,10 @@ class ImportUsuario extends Command
         $reader = Reader::createFromPath($path, 'r');
         
         // Zerar o campo turma dos atuais
-        /*
         foreach(Usuario::all() as $usuario){
             $usuario->turma = 'Sem matrícula ativa';
             $usuario->save();
         }
-        */
 
         // colunas do arquivo csv: matricula, nome, telefone, turma
         // Importar os novos
@@ -67,8 +65,8 @@ class ImportUsuario extends Command
             }
 
             $usuario->nome = $row['nome'];
-            #$usuario->telefone = $row['telefone'];
-            #$usuario->turma = '2022 - ' . $row['turma'];
+            $usuario->telefone = $row['telefone'];
+            $usuario->turma = '2022 - ' . $row['turma'];
             $usuario->save();       
         }
         return 0;
