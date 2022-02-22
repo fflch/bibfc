@@ -8,9 +8,11 @@ use App\Models\Livro;
 use App\Models\Instance;
 use App\Models\Usuario;
 use Carbon\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Emprestimo extends Model
+class Emprestimo extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     protected $guarded = ['id'];
 

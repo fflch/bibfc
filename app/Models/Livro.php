@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Responsabilidade;
 use App\Models\LivroResponsabilidade;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Livro extends Model
+class Livro extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     protected $guarded = ['id'];
 
