@@ -285,6 +285,12 @@ return [
             'icon'        => 'fas fa-fw fa-book-reader',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Assuntos',
+            'url'         => 'assuntos',
+            'icon'        => 'fas fa-fw fa-globe',
+            'label_color' => 'success',
+        ],
     ],
 
     /*

@@ -11,6 +11,7 @@ use App\Http\Controllers\ResponsabilidadeController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\LivroResponsabilidadeController;
 use App\Http\Controllers\InstanceController;
+use App\Http\Controllers\AssuntoController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
@@ -35,6 +36,7 @@ Route::post('/mesclar', [LivroController::class,'mesclarStore']);
 Route::get('/pre', [LivroController::class,'pre']);
 
 Route::resource('/responsabilidades', ResponsabilidadeController::class);
+Route::resource('/assuntos', AssuntoController::class);
 
 Route::get('/json_emprestimos_ativos/{matricula}', [EmprestimoController::class, 'json_emprestimos_ativos']);
 
