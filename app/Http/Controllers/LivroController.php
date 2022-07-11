@@ -146,19 +146,6 @@ class LivroController extends Controller
         return redirect("/livros/{$livro->id}");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Livro  $livro
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Livro $livro)
-    {
-        $this->authorize('admin');
-        $livro->delete();
-        return redirect('/livros');
-    }
-
     public function mesclar()
     {
         $this->authorize('admin');
@@ -220,4 +207,23 @@ class LivroController extends Controller
         return $query;
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Livro  $livro
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Livro $livro, Request $request)
+    {
+        $this->authorize('admin');
+
+        if($livro->instances->isNotEmpty()){
+            $request->session()->flash('alert-danger','Livro não pode ser deletado porque contém exemplares!');
+            return redirect('/livros/' . $livro->id );
+        }
+        $titulo = $livro->titulo; 
+        $livro->delete();
+        $request->session()->flash('alert-danger','Livro deletado: ' . $titulo);
+        return redirect('/livros');
+    }
 }

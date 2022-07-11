@@ -7,8 +7,15 @@
   <div class="card-header border-info bg-light">
     <div class="container">
 
-      <a class="btn btn-outline-success btn-md" href="/livros/{{$livro->id}}/edit">Editar</a> <br><br>
-      
+      <a class="btn btn-outline-success btn-md" href="/livros/{{$livro->id}}/edit">Editar</a> 
+
+      <form method="POST" action="/livros/{{ $livro->id }}" style="display:inline">
+          @csrf 
+          @method('delete')
+          <button type="submit" class="delete-item btn btn-danger" onclick="return confirm('Você tem certeza que deseja apagar?')">Deletar</button>
+      </form>
+
+      <br><br>
       <div class="row">
 
         <div class="col-md text-break"><h6 class="font-weight-bold">Título</h6>
