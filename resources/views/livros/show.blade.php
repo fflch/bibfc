@@ -22,7 +22,7 @@
           {{ $livro->titulo }}
         </div>
 
-        <div class="col-md  text-break"><h6 class="font-weight-bold">Termos</h6>
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Assuntos</h6>
             <ul>
                 @forelse($livro->assuntos as $assunto)
                     <li>{{ $assunto->titulo }}
@@ -39,7 +39,7 @@
                 @empty
                     <li>Não há termos cadastrados</li>
                 @endforelse
-                <li><a href="/livro_assuntos/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Termo</a></li>
+                <li><a href="/livro_assuntos/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Assunto</a></li>
               </ul>
         </div>
 
