@@ -286,7 +286,7 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text'        => 'Assuntos',
+            'text'        => 'Vocabulário Controlado',
             'url'         => 'assuntos',
             'icon'        => 'fas fa-fw fa-globe',
             'label_color' => 'success',

@@ -22,6 +22,27 @@
           {{ $livro->titulo }}
         </div>
 
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Termos</h6>
+            <ul>
+                @forelse($livro->assuntos as $assunto)
+                    <li>{{ $assunto->titulo }}
+
+                    <form method="POST" action="/livro_assuntos/{{ $assunto->pivot->id }}" style="display:inline">
+                      @csrf
+                      @method('delete')
+                      <button type="submit" class="delete-item btn"><i class="fas fa-trash-alt"
+                        onclick="return confirm('Você tem certeza que deseja apagar?')"
+                      ></i></button>
+                    </form>
+
+                    </li>
+                @empty
+                    <li>Não há termos cadastrados</li>
+                @endforelse
+                <li><a href="/livro_assuntos/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Termo</a></li>
+              </ul>
+        </div>
+
         <div class="col-md  text-break"><h6 class="font-weight-bold">Responsabilidade</h6>
             <ul>
                 @forelse($livro->responsabilidades as $responsabilidade)

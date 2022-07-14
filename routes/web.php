@@ -12,6 +12,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\LivroResponsabilidadeController;
 use App\Http\Controllers\InstanceController;
 use App\Http\Controllers\AssuntoController;
+use App\Http\Controllers\LivroAssuntoController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
@@ -46,5 +47,9 @@ Route::get('/bolso/{livro}', [PdfController::class, 'bolso']);
 Route::get('/livro_responsabilidades/{livro}', [LivroResponsabilidadeController::class, 'create']);
 Route::post('/livro_responsabilidades/{livro}', [LivroResponsabilidadeController::class, 'store']);
 Route::delete('/livro_responsabilidades/{pivot}', [LivroResponsabilidadeController::class, 'destroy']);
+
+Route::get('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'create']);
+Route::post('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'store']);
+Route::delete('/livro_assuntos/{pivot}', [LivroAssuntoController::class, 'destroy']);
 
 

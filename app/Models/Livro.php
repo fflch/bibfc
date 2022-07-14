@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Responsabilidade;
 use App\Models\LivroResponsabilidade;
+use App\Models\Assunto;
+use App\Models\LivroAssunto;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Livro extends Model implements Auditable
@@ -50,5 +52,13 @@ class Livro extends Model implements Auditable
                     ->withPivot('tipo','id')
                     ->withTimestamps()
                     ->using(LivroResponsabilidade::class);
+    }
+
+    public function assuntos()
+    {
+        return $this->belongsToMany(Assunto::class, 'livro_assuntos')
+                    ->withPivot('id')
+                    ->withTimestamps()
+                    ->using(LivroAssunto::class);
     }
 }

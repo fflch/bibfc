@@ -17,8 +17,7 @@ class AssuntoController extends Controller
     {
         $this->authorize('admin');
         if(isset($request->search) & !empty($request->search)) {
-            $assuntos = Assunto::where('titulo','LIKE',"%{$request->search}%")
-                            ->get();
+            $assuntos = Assunto::where('titulo','LIKE',"%{$request->search}%")->get();
         } else {
             $assuntos = Assunto::whereNull('parent_id')->get();
         }
@@ -36,9 +35,11 @@ class AssuntoController extends Controller
     public function create()
     {
         $this->authorize('admin');
+        $assuntos = Assunto::orderBy('titulo', 'asc')->get();
+
         return view('assuntos.create',[
             'assunto'  => new Assunto,
-            'assuntos' => Assunto::all(),
+            'assuntos' => $assuntos,
         ]);
     }
 
@@ -80,9 +81,10 @@ class AssuntoController extends Controller
     public function edit(Assunto $assunto)
     {
         $this->authorize('admin');
+        $assuntos = Assunto::orderBy('titulo', 'asc')->get();
         return view('assuntos.edit')->with([
             'assunto' => $assunto,
-            'assuntos' => Assunto::all(),
+            'assuntos' => $assuntos,
         ]);
     }
 

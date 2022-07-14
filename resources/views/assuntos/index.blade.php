@@ -5,7 +5,7 @@
 
     <div class="row" style="margin-bottom:0.5em;">
         <div class="col-sm">
-            <a href="/assuntos/create" class="btn btn-success">Novo assunto</a>
+            <a href="/assuntos/create" class="btn btn-success">Novo Descritor</a>
         </div>
     </div>
 
@@ -26,7 +26,8 @@
     </div>
 
     <ul>
-        @each('assuntos.partials.assunto', $assuntos, 'assunto')
+        @foreach($assuntos as $assunto)
+            <li><a href="/assuntos/{{ $assunto->id }}">{{ $assunto->titulo }}</a></li>
+        @endforeach
     </ul>
-
 @endsection('content')

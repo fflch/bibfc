@@ -6,7 +6,6 @@
             <th>Localização</th>
             <th>Exemplares</th>
             <th>Notas</th>
-            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -41,15 +40,6 @@
             </td>
 
             <td>{{ $livro->obs }}</td>
-
-            <td>
-                
-                <a href="/livros/{{$livro->id}}/edit" ><i class="fas fa-pencil-alt"></i></a> 
-
-
-                <br>
-                <a href="/instances/create/?livro_id={{$livro->id}}"> <i class="fas fa-plus"></i> Adicionar Exemplar </a>
-            </td>
 
         </tr>
     @endforeach
