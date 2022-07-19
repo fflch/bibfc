@@ -11,6 +11,9 @@
     <div class="col-sm">
         <input type="text" class="form-control" name="localizacao" value="{{ Request()->localizacao }}" placeholder="Localização">
     </div>
+    <div class="col-sm">
+        <input type="text" class="form-control" name="assunto" value="{{ Request()->assunto }}" placeholder="Assunto">
+    </div>
     <div class=" col-auto">
         <button type="submit" class="btn btn-success">Buscar</button>
     </div>

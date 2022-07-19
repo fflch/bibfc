@@ -5,6 +5,7 @@
             <th>Responsabilidade</th>
             <th>Localização</th>
             <th>Exemplares</th>
+            <th>Assuntos</th>
             <th>Notas</th>
         </tr>
     </thead>
@@ -36,6 +37,16 @@
                     @empty
                         <li>Não há exemplares cadastrados</li>
                     @endforelse
+                </ul>
+            </td>
+
+            <td>
+                <ul>
+                @forelse($livro->assuntos as $assunto)
+                    <li>{{ $assunto->titulo }}</li>
+                @empty
+                    <li>Não há assuntos cadastrados</li>
+                @endforelse
                 </ul>
             </td>
 

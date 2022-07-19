@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
+use App\Models\LivroAssunto;
+use App\Models\Livro;
+
 class Assunto extends Model implements Auditable
 {
     use HasFactory;
@@ -29,5 +32,13 @@ class Assunto extends Model implements Auditable
         }
 
         return;
+    }
+
+    public function livros()
+    {
+        return $this->belongsToMany(Livro::class, 'livro_assuntos')
+                    ->withPivot('id')
+                    ->withTimestamps()
+                    ->using(LivroAssunto::class);
     }
 }

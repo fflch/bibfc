@@ -204,6 +204,13 @@ class LivroController extends Controller
                 $q->where('nome','LIKE',"%{$request->responsabilidade}%");
             });
         }
+
+        if(isset($request->assunto) & !empty($request->assunto)) {
+            $query->whereHas('assuntos', function (Builder $q) use ($request) {
+                $q->where('titulo','LIKE',"%{$request->assunto}%");
+            });
+        }
+
         return $query;
     }
 
