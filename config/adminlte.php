@@ -295,6 +295,12 @@ return [
             'icon'        => 'fas fa-fw fa-globe',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Lembretes',
+            'url'         => 'lembretes',
+            'icon'        => 'fas fa-fw fa-globe',
+            'label_color' => 'success',
+        ],
     ],
 
     /*

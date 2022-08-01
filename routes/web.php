@@ -52,4 +52,6 @@ Route::get('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'create'])
 Route::post('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'store']);
 Route::delete('/livro_assuntos/{pivot}', [LivroAssuntoController::class, 'destroy']);
 
+Route::get('/lembretes', [EmprestimoController::class, 'lembretes']);
+
 

@@ -32,7 +32,6 @@ class EmprestimoController extends Controller
             'emprestimos' => $emprestimos,
             'emprestimos_finalizados' => Emprestimo::whereNotNull('data_devolucao')->count()
         ]);
-
     }
 
     /**
@@ -198,5 +197,20 @@ class EmprestimoController extends Controller
         }
 
         return response()->json($emprestimos_json); 
+    }
+
+    public function lembretes(Request $request)
+    {
+        $this->authorize('admin');
+        
+        $emprestimos = Emprestimo::whereNull('data_devolucao')
+            ->whereHas('instance', function($query) {
+                $query->where('status', '=', 'Ativo');
+            })
+            ->get();
+
+        return view('emprestimos.lembretes',[
+            'emprestimos' => $emprestimos,
+        ]);
     }
 }
