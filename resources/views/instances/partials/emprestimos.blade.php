@@ -1,3 +1,17 @@
+<a href="/instances/{{ $instance->id }}/edit/?livro_id={{ $instance->livro->id }}" class="btn btn-success"> Editar </a>
+<br><br>
+
+<ul>
+  <li>Título: <a href="/livros/{{ $instance->livro->id}}">{{ $instance->livro->titulo}}</a></li>
+  <li>Tombo: {{ $instance->tombo }}</li>
+  <li>Tipo Tombo: {{ $instance->tipo_tombo }}</li>
+  <li>Status: {{ $instance->status }}</li>
+</ul>
+
+<b>Empréstimos:</b>
+<br>
+<br>
+
 <table class="table">
   <thead>
     <tr>

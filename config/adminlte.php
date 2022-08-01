@@ -277,6 +277,10 @@ return [
                     'text' => 'Pré-catalogação',
                     'url'  => 'pre',
                 ],
+                [
+                    'text' => 'Extraviados',
+                    'url'  => 'instances',
+                ],
             ],
         ],
         [

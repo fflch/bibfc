@@ -21,8 +21,15 @@ class EmprestimoController extends Controller
     public function index(Request $request)
     {
         $this->authorize('admin');
+        
+        $emprestimos = Emprestimo::whereNull('data_devolucao')
+            ->whereHas('instance', function($query) {
+                $query->where('status', '=', 'Ativo');
+            })
+            ->get();
+
         return view('emprestimos.index',[
-            'emprestimos' => Emprestimo::whereNull('data_devolucao')->get(),
+            'emprestimos' => $emprestimos,
             'emprestimos_finalizados' => Emprestimo::whereNotNull('data_devolucao')->count()
         ]);
 
@@ -37,10 +44,12 @@ class EmprestimoController extends Controller
     {
         $this->authorize('admin');
 
+        $instances = Instance::all();
+
         return view('emprestimos.create')->with([
             'emprestimo' => New Emprestimo,
             'usuarios'  => Usuario::all(),
-            'instances' => Instance::all()
+            'instances' => $instances
         ]);
     }
 
@@ -94,6 +103,10 @@ class EmprestimoController extends Controller
      */
     public function show(Emprestimo $emprestimo)
     {
+        $this->authorize('admin');
+        return view('emprestimos.show')->with([
+            'emprestimo' => $emprestimo
+        ]);
     }
 
     /**

@@ -12,7 +12,7 @@ class Instance extends Model implements Auditable
     use HasFactory;
     protected $guarded = ['id'];
 
-    const status = ['Ativo', 'Perdido', 'Muito Atrasado', 'Danificado'];
+    const status = ['Ativo', 'Perdido', 'Muito Atrasado', 'Danificado','Descartado'];
 
     public function getTomboTiposAttribute(){
         $tombo_tipos = env('TOMBO_TIPOS','Padrão');

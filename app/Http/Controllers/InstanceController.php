@@ -16,7 +16,13 @@ class InstanceController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('admin');
+
+        $instances = Instance::where('status','!=','Ativo')->get();
+
+        return view('instances.index',[
+            'instances' => $instances
+        ]);
     }
 
     /**

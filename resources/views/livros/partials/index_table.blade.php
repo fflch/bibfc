@@ -31,8 +31,9 @@
                 <ul>
                     @forelse($livro->instances as $instance)
                         <li><a href="/instances/{{ $instance->id }}">
-                                {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
-                            </a>
+                                {{ $instance->tombo }} - {{ $instance->tombo_tipo }}
+                            </a> ({{ $instance->status }})
+                           
                         </li>
                     @empty
                         <li>Não há exemplares cadastrados</li>
