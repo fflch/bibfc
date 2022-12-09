@@ -306,6 +306,7 @@ return [
             'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-file',
             'label_color' => 'success',
+            'can'         => 'reports'
         ],
     ],
 

@@ -18,7 +18,6 @@ Deletar livros sem exemplar:
 
     Livro::whereDoesntHave('instances')->delete();
 
-
 Rascunhos:
 
     <ul>

@@ -28,5 +28,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin', function ($user) {
             return true;
         });
+
+        Gate::define('reports', function ($user) {
+            if($user->email == 'catalog@fito.br') return false;
+            return true;
+        });
     }
 }
