@@ -298,7 +298,13 @@ return [
         [
             'text'        => 'Lembretes',
             'url'         => 'lembretes',
-            'icon'        => 'fas fa-fw fa-globe',
+            'icon'        => 'fas fa-fw fa-bookmark',
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Relatório',
+            'url'         => 'reports',
+            'icon'        => 'fas fa-fw fa-file',
             'label_color' => 'success',
         ],
     ],

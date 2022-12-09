@@ -1,6 +1,5 @@
 @extends('main')
 
-
 @section('content')
 
 <div class="card bg-light">

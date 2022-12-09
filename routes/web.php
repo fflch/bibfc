@@ -13,6 +13,7 @@ use App\Http\Controllers\LivroResponsabilidadeController;
 use App\Http\Controllers\InstanceController;
 use App\Http\Controllers\AssuntoController;
 use App\Http\Controllers\LivroAssuntoController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
@@ -53,5 +54,7 @@ Route::post('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'store'])
 Route::delete('/livro_assuntos/{pivot}', [LivroAssuntoController::class, 'destroy']);
 
 Route::get('/lembretes', [EmprestimoController::class, 'lembretes']);
+
+Route::get('/reports', [ReportController::class, 'index']);
 
 
