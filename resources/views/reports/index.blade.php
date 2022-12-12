@@ -55,7 +55,7 @@
 </table>
 
 @foreach($years as $year)
-    <div><b>Top 10 livros em {{ $year }}</b></div>
+    <div><b>Top 20 livros em {{ $year }}</b></div>
     <table class="table">
         <thead>
             <tr>
@@ -64,7 +64,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($top10_livros[$year] as $key=>$value)
+            @foreach($top20_livros[$year] as $key=>$value)
                 <tr>
                     <td>{{ \App\Models\Livro::where('id',$key)->first()->titulo }}</td>
                     <td>{{$value}}</td>
@@ -74,6 +74,28 @@
     </table>
 
 @endforeach
+
+@foreach($years as $year)
+    <div><b>Top 20 usuários em {{ $year }}</b></div>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Empréstimos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($top20_usuarios[$year] as $key=>$value)
+                <tr>
+                    <td>{{ \App\Models\Usuario::where('id',$key)->first()->nome }}</td>
+                    <td>{{$value}}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+@endforeach
+
 
 
 @endsection('content')

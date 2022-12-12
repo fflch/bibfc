@@ -42,7 +42,7 @@ class ReportController extends Controller
                 $users_emprestimos_by_year_grouped[$year] = $count;
         }
 
-        $top10_livros = [];
+        $top20_livros = [];
         foreach($years as $year){
             $array = Emprestimo::whereYear('emprestimos.created_at', $year)
                 ->join('instances', 'instances.id', '=', 'emprestimos.instance_id')
@@ -52,7 +52,19 @@ class ReportController extends Controller
 
             $count = array_count_values(array_filter($array));
             arsort($count);
-            $top10_livros[$year] = array_slice($count,0,10,true);
+            $top20_livros[$year] = array_slice($count,0,20,true);
+        }
+
+        $top20_usuarios = [];
+        foreach($years as $year){
+            $array = Emprestimo::whereYear('emprestimos.created_at', $year)
+                ->join('usuarios', 'usuarios.id', '=', 'emprestimos.usuario_id')
+                ->pluck('usuarios.id')->toArray();
+
+
+            $count = array_count_values(array_filter($array));
+            arsort($count);
+            $top20_usuarios[$year] = array_slice($count,0,20,true);
         }
 
         return view('reports.index',[
@@ -62,7 +74,8 @@ class ReportController extends Controller
             'emprestimos_by_year' => $emprestimos_by_year,
             'users_emprestimos_by_year' => $users_emprestimos_by_year,
             'users_emprestimos_by_year_grouped' => $users_emprestimos_by_year_grouped,
-            'top10_livros' => $top10_livros
+            'top20_livros' => $top20_livros,
+            'top20_usuarios' => $top20_usuarios
         ]);
     }
 }
