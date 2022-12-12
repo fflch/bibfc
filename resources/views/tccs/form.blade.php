@@ -55,6 +55,15 @@
         <textarea class="form-control" name="resumo" rows="5">{{ old('resumo', $tcc->resumo) }}</textarea>
     </div>
 
+    <div class="form-group">
+        <label for="file">Arquivo PDF do TCC:</label>
+        @foreach($tcc->files as $file)
+            <a href="/files/{{$file->id}}"><i class="fas fa-file-pdf"></i> {{$file->original_name}} </a>
+        @endforeach
+        <br>
+        <input type="file" name="file">
+    </div>
+
     <div class="row">
         <div class="form-group">
             <button type="submit" class="btn btn-success">Salvar</button> 

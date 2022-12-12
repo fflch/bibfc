@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form method="POST" action="/tccs">
+<form method="POST" action="/tccs" enctype="multipart/form-data">
 @csrf
 <div class="card bg-light">
     <h5 class="card-header border-info bg-light font-weight-bold">Novo TCC</h5>

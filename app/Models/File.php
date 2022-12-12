@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\File;
+use \App\Models\Tcc;
 
-class Tcc extends Model
+class File extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
 
-    public function files()
-    {
-        return $this->hasMany(File::class);
+    public function tccs(){
+        return $this->belongsTo(Tcc::class);
     }
 }

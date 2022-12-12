@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form method="POST" action="/tccs/{{$tcc->id}}">
+<form method="POST" action="/tccs/{{$tcc->id}}" enctype="multipart/form-data">
 @csrf
 @method('patch')
 <div class="card bg-light">

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\TccRequest;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Tcc;
+use App\Models\File;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
@@ -68,6 +70,14 @@ class TccController extends Controller
         $tcc = Tcc::create($validated);
         $tcc->save();
 
+        if($request->file) {
+            $file = new File;
+            $file->tcc_id = $tcc->id;
+            $file->original_name = $request->file('file')->getClientOriginalName();
+            $file->path = $request->file('file')->store('.');
+            $file->save();
+        }
+
         return redirect("/tccs/{$tcc->id}");
     }
 
@@ -111,6 +121,20 @@ class TccController extends Controller
         $tcc->update($validated);
         $tcc->save();
 
+        if($request->file) {
+            // deletando arquivos anteriores
+            foreach($tcc->files as $file) {
+                Storage::move($file->path, $file->path . '_deletado_' . 'tcc_' . $tcc->id . '.pdf');
+                $file->delete();
+            }
+
+            $file = new File;
+            $file->tcc_id = $tcc->id;
+            $file->original_name = $request->file('file')->getClientOriginalName();
+            $file->path = $request->file('file')->store('.');
+            $file->save();
+        }
+
         return redirect("/tccs/{$tcc->id}");
     }
 
@@ -123,7 +147,12 @@ class TccController extends Controller
     {
         $this->authorize('admin');
 
-        // TODO: deletar arquivo
+        // deletando arquivos - renomando
+        foreach($tcc->files as $file) {
+            Storage::move($file->path, $file->path . '_deletado_' . 'tcc_' . $tcc->id . '.pdf');
+            $file->delete();
+        }
+
         $titulo = $tcc->titulo; 
         $tcc->delete();
         $request->session()->flash('alert-danger','TCC deletado: ' . $titulo);

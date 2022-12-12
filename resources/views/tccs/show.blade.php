@@ -51,6 +51,16 @@
       <div class="row">
         <div class="col-md text-break"><b>Resumo:</b> <br>{{ $tcc->resumo }} </div>
       </div>
+
+      <div class="row">
+        <div class="col-md text-break"><b>Arquivo PDF:</b>  
+          @forelse($tcc->files as $file)
+            <a href="/files/{{$file->id}}"><i class="fas fa-file-pdf"></i> {{$file->original_name}} </a>
+          @empty 
+            Não há arquivo pdf
+          @endforelse
+        </div>
+      </div>
     
     </div>
  </div>

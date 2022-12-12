@@ -35,6 +35,7 @@ class TccRequest extends FormRequest
             'localizacao'  => 'required',
             'resumo'       => 'required',
             'extensao'     => 'nullable',
+            'file'         => 'nullable|file|mimes:pdf|max:9000',
         ];
 
         return $rules;
