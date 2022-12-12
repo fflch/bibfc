@@ -81,13 +81,16 @@
         <thead>
             <tr>
             <th scope="col">Nome</th>
+            <th scope="col">Turma</th>
             <th scope="col">Empréstimos</th>
             </tr>
         </thead>
         <tbody>
             @foreach($top20_usuarios[$year] as $key=>$value)
+                @php $usuario = \App\Models\Usuario::where('id',$key)->first() @endphp
                 <tr>
-                    <td>{{ \App\Models\Usuario::where('id',$key)->first()->nome }}</td>
+                    <td>{{ $usuario->nome }}</td>
+                    <td>{{ $usuario->turma }}</td>
                     <td>{{$value}}</td>
                 </tr>
             @endforeach
