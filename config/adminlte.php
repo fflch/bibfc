@@ -296,6 +296,12 @@ return [
             'label_color' => 'success',
         ],
         [
+            'text'        => 'TCC',
+            'url'         => 'tccs',
+            'icon'        => 'fas fa-fw fa-book-reader',
+            'label_color' => 'success',
+        ],
+        [
             'text'        => 'Lembretes',
             'url'         => 'lembretes',
             'icon'        => 'fas fa-fw fa-bookmark',
