@@ -7,14 +7,20 @@
 <br>
 
 <div>
-    <b>Quantos livros tem a localização iniciada com i (ou I):</b> {{ $i_start }}
-
+    <b>Quantos títulos tem a localização iniciada com i (ou I):</b> {{ $i_start }}
 </div>
 <br>
 
 @foreach($years as $year)
 <div>
-    <b>Quantos livros foram cadastrados em {{ $year }}:</b> {{ $livros_by_year[$year] }}
+    <b>Quantos Títulos foram cadastrados em {{ $year }}:</b> {{ $livros_by_year[$year] }}
+</div>
+@endforeach
+<br>
+
+@foreach($years as $year)
+<div>
+    <b>Quantos Exemplares foram cadastrados em {{ $year }}:</b> {{ $exemplares[$year] }}
 </div>
 @endforeach
 <br>

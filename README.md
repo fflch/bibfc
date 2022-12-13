@@ -25,3 +25,10 @@ Rascunhos:
     </ul>
 
     update assuntos set parent_id=130 where (parent_id IS NULL and id!=130);
+
+Deletando livros pré-cataloção que começam com I:
+
+    $livros = Livro::where('localizacao','LIKE','I%')->whereDoesntHave('instances')->get();
+    foreach($livros as $livro){
+        $livro->delete();
+    }

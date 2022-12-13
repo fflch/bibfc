@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Livro;
 use App\Models\Emprestimo;
+use App\Models\Instance;
 
 class ReportController extends Controller
 {
@@ -18,6 +19,11 @@ class ReportController extends Controller
         $livros_by_year = [];
         foreach($years as $year){
             $livros_by_year[$year] = Livro::whereYear('created_at', $year)->count();
+        }
+
+        $exemplares = [];
+        foreach($years as $year){
+            $exemplares[$year] = Instance::whereYear('created_at', $year)->count();
         }
         
         $emprestimos_by_year = [];
@@ -71,6 +77,7 @@ class ReportController extends Controller
             'i_start' => $i_start,
             'years'   => $years,
             'livros_by_year' => $livros_by_year,
+            'exemplares' => $exemplares,
             'emprestimos_by_year' => $emprestimos_by_year,
             'users_emprestimos_by_year' => $users_emprestimos_by_year,
             'users_emprestimos_by_year_grouped' => $users_emprestimos_by_year_grouped,
