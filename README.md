@@ -10,8 +10,11 @@ Renomeando fotos, o código que vale é o que está depois do underline:
 
     for i in $(ls); do cp $i renomeados/$(echo $i |cut -d'_' -f1).jpg ; done
 
-Import usuários:
+Import usuários. Colunas do arquivo de usuários: matricula, nome, telefone, situacao, turma:
 
+
+    $usuarios = App\Models\Usuario::all();
+    foreach($usuarios as $usuario) { $usuario->turma = 'Sem matrícula ativa'; $usuario->save(); }  
     php artisan importusuarios arquivo.csv
 
 Deletar livros sem exemplar:
