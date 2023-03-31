@@ -14,6 +14,7 @@
       <th scope="col">Entidade Alterado</th>
       <th scope="col">valor antigo</th>
       <th scope="col">valor novo</th>
+      <th scope="col">url</th>
     </tr>
   </thead>
   <tbody>
@@ -36,6 +37,10 @@
             </td>
             <td> 
                 {!! implode('<br>',$audit->new_values) !!}
+            </td>
+
+            <td> 
+                <a href="{{$audit->url}}">{{ $audit->url }}</a>
             </td>
 
         </tr>
