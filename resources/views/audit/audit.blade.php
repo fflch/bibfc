@@ -34,7 +34,7 @@
             </td>
 
             <td> 
-                {{ audit->event }}
+                {{ $audit->event }}
             </td>
 
             <td> 
