@@ -314,6 +314,13 @@ return [
             'label_color' => 'success',
             'can'         => 'reports'
         ],
+        [
+            'text'        => 'Auditoria',
+            'url'         => 'audit',
+            'icon'        => 'fas fa-fw fa-file',
+            'label_color' => 'success',
+            'can'         => 'reports'
+        ],
     ],
 
     /*

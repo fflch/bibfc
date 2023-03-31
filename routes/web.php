@@ -16,6 +16,7 @@ use App\Http\Controllers\LivroAssuntoController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TccController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\AuditController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
@@ -59,5 +60,6 @@ Route::delete('/livro_assuntos/{pivot}', [LivroAssuntoController::class, 'destro
 Route::get('/lembretes', [EmprestimoController::class, 'lembretes']);
 
 Route::get('/reports', [ReportController::class, 'index']);
+Route::get('/audit', [AuditController::class, 'audit']);
 
 Route::resource('files', FileController::class);
