@@ -12,6 +12,7 @@
       <th scope="col">Data</th>
       <th scope="col">Usuário(a)</th>
       <th scope="col">Entidade Alterado</th>
+      <th scope="col">Evento</th>
       <th scope="col">valor antigo</th>
       <th scope="col">valor novo</th>
       <th scope="col">url</th>
@@ -30,6 +31,10 @@
 
             <td> 
                 {{ str_replace('App\\Models\\','',$audit->auditable_type) }}
+            </td>
+
+            <td> 
+                {{ audit->event }}
             </td>
 
             <td> 
