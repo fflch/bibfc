@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Instance;
 use Illuminate\Http\Request;
+use App\Models\Livro;
 
 use App\Http\Requests\InstanceRequest;
 
@@ -30,11 +31,14 @@ class InstanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $this->authorize('admin');
+        $livro = Livro::find($request->livro_id);
+
         return view('instances.create',[
-            'instance' => new Instance
+            'instance' => new Instance,
+            'livro' => $livro
         ]);
     }
 

@@ -1,4 +1,4 @@
-<b> Livro </b>: {{ App\Models\Livro::find(Request()->livro_id)->titulo }}
+<b> Livro </b>: {{ $livro->titulo }}
 
 <br><br>
 
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <input name="livro_id" type="hidden" value=" {{ Request()->livro_id }} ">
+    <input name="livro_id" type="hidden" value=" {{ $livro->id }} ">
 
     <div class="row">
         <div class="form-group col-md">
