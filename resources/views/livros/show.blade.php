@@ -71,7 +71,7 @@
                             {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
                         </a>
 
-                        <a href="/instances/{{ $instance->id }}/edit/?livro_id={{$livro->id}}" ><i class="fas fa-pencil-alt"></i></a>
+                        <a href="/instances/{{ $instance->id }}/edit?livro_id={{$livro->id}}" ><i class="fas fa-pencil-alt"></i></a>
                         
                         <form method="POST" action="/instances/{{ $instance->id }}" style="display:inline">
                           @csrf
@@ -85,7 +85,7 @@
                 @empty
                     <li>Não há exemplares cadastrados</li>
                 @endforelse
-                <li><a href="/instances/create/?livro_id={{$livro->id}}"> <i class="fas fa-plus"></i> Adicionar Exemplar </a></li>
+                <li><a href="/instances/create?livro_id={{$livro->id}}"> <i class="fas fa-plus"></i> Adicionar Exemplar </a></li>
             </ul>
         </div>
 
