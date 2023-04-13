@@ -77,7 +77,7 @@ class InstanceController extends Controller
      * @param  \App\Models\Instance  $instance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instance $instance)
+    public function edit(Instance $instance, Request $request)
     {
         $this->authorize('admin');
         $livro = Livro::find($request->livro_id);
