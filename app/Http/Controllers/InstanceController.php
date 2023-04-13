@@ -80,8 +80,10 @@ class InstanceController extends Controller
     public function edit(Instance $instance)
     {
         $this->authorize('admin');
+        $livro = Livro::find($request->livro_id);
         return view('instances.edit',[
-            'instance' => $instance
+            'instance' => $instance,
+            'livro' => $livro
         ]);
     }
 
