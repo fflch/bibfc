@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -26,6 +27,13 @@ class LoginController extends Controller
      *
      * @var string
      */
+    
+    //https://laracasts.com/discuss/channels/laravel/laravel-got-stuck-after-login-laravel-58?page=1&replyId=632727
+    protected function authenticated(HttpRequest $request, $user)
+    {
+        return view('loggedin');
+    }
+    
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
