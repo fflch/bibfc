@@ -34,7 +34,8 @@ class LoginController extends Controller
         return view('loggedin');
     }
     
-    protected $redirectTo = RouteServiceProvider::HOME;
+    #protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
