@@ -29,7 +29,7 @@ class LoginController extends Controller
      */
     
     //https://laracasts.com/discuss/channels/laravel/laravel-got-stuck-after-login-laravel-58?page=1&replyId=632727
-    protected function authenticated(HttpRequest $request, $user)
+    protected function authenticated(Request $request, $user)
     {
         return view('loggedin');
     }

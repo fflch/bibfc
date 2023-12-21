@@ -17,6 +17,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TccController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ExportController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
@@ -63,3 +64,5 @@ Route::get('/reports', [ReportController::class, 'index']);
 Route::get('/audit', [AuditController::class, 'audit']);
 
 Route::resource('files', FileController::class);
+
+Route::get('instances', [ExportController::class,'instances']);

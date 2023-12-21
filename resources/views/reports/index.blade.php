@@ -6,6 +6,9 @@
 
 <br>
 
+<a href="/instances">Download dos exemplares em excel <i class="fa fa-file-excel"></i></a>
+<br><br>
+
 <div>
     <b>Quantos títulos tem a localização iniciada com i (ou I):</b> {{ $i_start }}
 </div>
