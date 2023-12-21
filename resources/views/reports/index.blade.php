@@ -9,8 +9,22 @@
 <a href="/instances">Download dos exemplares em excel <i class="fa fa-file-excel"></i></a>
 <br><br>
 
+<b>Total</b> de Exemplares Ativos:<br>
+
+<ul>
+@foreach($totais as $total) 
+    <li><b>{{ $total->tombo_tipo }}:</b> {{ $total->num }} </li>
+@endforeach
+</ul>
+
 <div>
-    <b>Quantos títulos tem a localização iniciada com i (ou I):</b> {{ $i_start }}
+    <b>Quantos Exemplares Ativos tem a localização iniciada com
+        
+    <form style="width:65px;display:inline">
+        <input class="form-control" name="start_with" value="{{ request()->start_with }}" style="width:65px;display:inline">
+        <button>Buscar Novo</button>
+    </form>
+    Resultado:</b> {{ $start_with_result }}
 </div>
 <br>
 

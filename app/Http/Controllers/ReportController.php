@@ -6,16 +6,28 @@ use Illuminate\Http\Request;
 use App\Models\Livro;
 use App\Models\Emprestimo;
 use App\Models\Instance;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $this->authorize('reports');
 
-        $i_start = Livro::where('localizacao','LIKE','I%')->orWhere('localizacao','LIKE','i%')->count();
+        $totais = DB::table('instances')
+            ->where('status','Ativo')
+            ->select(DB::raw('count(*) as num'),'tombo_tipo')
+            ->groupBy('tombo_tipo')
+            ->get();
+
+
+        # buscas na localização
+        $start_with_result = 0;
+        $livros_start_with = Livro::where('localizacao','LIKE',$request->start_with . '%')->get();
+        foreach($livros_start_with as $i){
+            $start_with_result+= $i->instances->where('status','Ativo')->count();
+        }
 
         $years = range(2021, date('Y'));
-
         $livros_by_year = [];
         foreach($years as $year){
             $livros_by_year[$year] = Livro::whereYear('created_at', $year)->count();
@@ -74,7 +86,7 @@ class ReportController extends Controller
         }
 
         return view('reports.index',[
-            'i_start' => $i_start,
+            'start_with_result' => $start_with_result,
             'years'   => $years,
             'livros_by_year' => $livros_by_year,
             'exemplares' => $exemplares,
@@ -82,7 +94,8 @@ class ReportController extends Controller
             'users_emprestimos_by_year' => $users_emprestimos_by_year,
             'users_emprestimos_by_year_grouped' => $users_emprestimos_by_year_grouped,
             'top20_livros' => $top20_livros,
-            'top20_usuarios' => $top20_usuarios
+            'top20_usuarios' => $top20_usuarios,
+            'totais' => $totais
         ]);
     }
 }

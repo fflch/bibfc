@@ -23,7 +23,8 @@ class ExportController extends Controller
                         'localização',
                         'complemento_localizacao',
                         'isbn',
-                        'ano'
+                        'ano',
+                        'ano_que_foi_cadastrado'
                     ];
 
         $exemplares = Instance::all();
@@ -53,7 +54,8 @@ class ExportController extends Controller
                 $exemplar->livro->localizacao,
                 $exemplar->livro->complemento_localizacao,
                 $exemplar->livro->isbn,
-                $exemplar->livro->ano
+                $exemplar->livro->ano,
+                $exemplar->created_at->year
             ];
 
             // MAIS campos, colocar?

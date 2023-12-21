@@ -20,15 +20,9 @@ class LivroController extends Controller
 
         # Excluindo itens da pré-catalogação (sem exemplares)
         $query->whereHas('instances');
-
-        $totais = DB::table('instances')
-                ->select(DB::raw('count(*) as num'),'tombo_tipo')
-                ->groupBy('tombo_tipo')
-                ->get();
         
         return view('livros.index',[
-            'livros' => $query->paginate(20),
-            'totais' => $totais
+            'livros' => $query->paginate(20)
         ]);
     }
 
