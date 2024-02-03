@@ -18,6 +18,7 @@ use App\Http\Controllers\TccController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\BarcodeController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
@@ -66,3 +67,11 @@ Route::get('/audit', [AuditController::class, 'audit']);
 Route::resource('files', FileController::class);
 
 Route::get('instances', [ExportController::class,'instances']);
+
+Route::get('/barcode/step1', [BarcodeController::class, 'step1']);
+Route::post('/barcode/step2', [BarcodeController::class, 'step2']);
+Route::get('/barcode/step3', [BarcodeController::class, 'step3']);
+Route::post('/barcode/step4', [BarcodeController::class, 'step4']);
+
+Route::get('/barcode/emprestar', [BarcodeController::class, 'emprestar']);
+Route::post('/barcode/emprestar', [BarcodeController::class, 'emprestar_store']);

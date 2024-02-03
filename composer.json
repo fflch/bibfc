@@ -18,7 +18,7 @@
         "league/csv": "^9.7",
         "maatwebsite/excel": "^3.1",
         "owen-it/laravel-auditing": "^12.2",
-        "picqer/php-barcode-generator": "^2.2"
+        "proner/phppimaco": "^1.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

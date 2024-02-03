@@ -284,6 +284,22 @@ return [
             ],
         ],
         [
+            'text'        => 'Código de Barras',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-barcode',
+            'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Emprestar',
+                    'url'  => 'barcode/emprestar',
+                ],
+                [
+                    'text' => 'Gerar Etiquetas',
+                    'url'  => 'barcode/step1',
+                ],
+            ],
+        ],
+        [
             'text'        => 'Responsabilidades',
             'url'         => 'responsabilidades',
             'icon'        => 'fas fa-fw fa-book-reader',
