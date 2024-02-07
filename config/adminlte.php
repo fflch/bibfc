@@ -297,6 +297,10 @@ return [
                     'text' => 'Gerar Etiquetas',
                     'url'  => 'barcode/step1',
                 ],
+                [
+                    'text' => 'Gerar Etiquetas por tombo',
+                    'url'  => 'barcode/tombo',
+                ],
             ],
         ],
         [

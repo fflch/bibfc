@@ -14,6 +14,12 @@ class Instance extends Model implements Auditable
 
     const status = ['Ativo', 'Perdido', 'Muito Atrasado', 'Danificado','Descartado'];
 
+
+    public static function tombo_tipos(){
+        $tombo_tipos = env('TOMBO_TIPOS','Padrão');
+        return array_map('trim', explode(',', $tombo_tipos));
+    }
+
     public function getTomboTiposAttribute(){
         $tombo_tipos = env('TOMBO_TIPOS','Padrão');
         return array_map('trim', explode(',', $tombo_tipos));

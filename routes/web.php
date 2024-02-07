@@ -73,5 +73,8 @@ Route::post('/barcode/step2', [BarcodeController::class, 'step2']);
 Route::get('/barcode/step3', [BarcodeController::class, 'step3']);
 Route::post('/barcode/step4', [BarcodeController::class, 'step4']);
 
+Route::get('/barcode/tombo', [BarcodeController::class, 'tombo']);
+Route::post('/barcode/tombo', [BarcodeController::class, 'tombo_store']);
+
 Route::get('/barcode/emprestar', [BarcodeController::class, 'emprestar']);
 Route::post('/barcode/emprestar', [BarcodeController::class, 'emprestar_store']);

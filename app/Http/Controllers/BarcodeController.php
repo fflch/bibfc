@@ -33,18 +33,33 @@ class BarcodeController extends Controller
         ]);
     }
 
-    public function step4(Request $request){
-
+    public function tombo(){
         $this->authorize('admin');
-        $pimaco = new Pimaco('A4363');
+        return view('barcode.tombo');
+    }
 
+    public function tombo_store(Request $request){
+        $this->authorize('admin');
+
+        $tombos = explode(',',$request->tombos);
+        $tombos = array_map('trim', $tombos);
+
+        $instances = Instance::whereIn('tombo',$tombos)->where('tombo_tipo', $request->tombo_tipo)->get();
+
+        return view('barcode.step3',[
+            'instances' => $instances,
+        ]);
+    }
+
+    public function step4(Request $request){
+        $this->authorize('admin');
         $itens = Instance::findMany($request->instances);
-
+        $pimaco = new Pimaco('A4363');
         foreach($itens as $item){
             $tag = new Tag();
             $tag->setBorder(0);
             $tag->setSize(6);
-
+   
             $tompo_composto = $item->tombo_tipo . ' - '. $item->tombo;
 
             $barcode = new Barcode((string)$tompo_composto, 'TYPE_CODE_128');
@@ -106,6 +121,10 @@ class BarcodeController extends Controller
             Data de devolução {$emprestimo->prazo}" );
         
         return redirect('/barcode/emprestar');
+
+    }
+
+    private function pimaco($itens){
 
     }
 }
