@@ -32,5 +32,10 @@ class AuthServiceProvider extends ServiceProvider
             if($user->email == 'catalog@fito.br') return false;
             return true;
         });
+
+        Gate::define('cadastro_registros', function ($user){
+            if($user->id == auth()->user()->id) return true;
+            return false;
+        });
     }
 }

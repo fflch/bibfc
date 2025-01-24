@@ -6,7 +6,7 @@
         <input type="text" class="form-control" name="tombo" value="{{ Request()->tombo }}" placeholder="Tombo">
     </div>
     <div class="col-sm">
-        <input type="text" class="form-control" name="responsabilidade" value="{{ Request()->responsabilidade }}" placeholder="Reponsabilidade">
+        <input type="text" class="form-control" name="responsabilidade" value="{{ Request()->responsabilidade }}" placeholder="Autor">
     </div>
     <div class="col-sm">
         <input type="text" class="form-control" name="localizacao" value="{{ Request()->localizacao }}" placeholder="Localização">

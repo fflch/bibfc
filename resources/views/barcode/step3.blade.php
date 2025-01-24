@@ -14,7 +14,7 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="{{ $instance->id }}" id="{{ $instance->id }}" name="instances[]" checked>
                     <label class="form-check-label" for="{{ $instance->id }}">
-                        {{ $instance->tombo_tipo}} - {{ $instance->tombo }}: {{ $instance->livro->titulo }}
+                        {{ $instance->tombo_tipo}} - {{ $instance->tombo }} {{ $instance->livro->titulo }}
                     </label>
                 </div>
             @endforeach

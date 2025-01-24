@@ -5,12 +5,12 @@
 
     <div class="row" style="margin-bottom:0.5em;">
         <div class="col-sm">
-            <a href="/responsabilidades/create" class="btn btn-success">Nova Responsabilidade</a>
+            <a href="/responsabilidades/create" class="btn btn-success">Novo autor</a>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-header"><b></b></div>
+        <div class="card-header"><b>Pesquisar autores</b></div>
         <div class="card-body">
             <form method="GET" action="/responsabilidades">
                 <div class="row form-group">
@@ -29,7 +29,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Nascimento</th>
-                <th>Falecimento</th>
+                <th>Morte</th>
                 <th>Ações</th>
             </tr>
         </thead>

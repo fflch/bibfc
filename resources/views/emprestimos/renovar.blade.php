@@ -12,7 +12,8 @@
         <div class="form-row">
             <div class="col-sm">
                 <p>Usuário: {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome }}</p>
-                <p class="font-weight-bold">Título: {{ $emprestimo->instance->livro->titulo }}</p>
+                <p class="font-weight-bold">Título: {{ $emprestimo->instance->livro->titulo }}
+                </p>
                 <p> Renovação de: {{ $emprestimo->instance->tombo }} 
                     ({{ $emprestimo->instance->tombo_tipo }}) - {{ $emprestimo->instance->livro->titulo }}
                 </p>

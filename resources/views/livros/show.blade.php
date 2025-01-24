@@ -18,7 +18,8 @@
       <div class="row">
 
         <div class="col-md text-break"><h6 class="font-weight-bold">Título</h6>
-          {{ $livro->titulo }}
+          <b>{{ $livro->titulo }}</b><br/>
+          {{ $livro->subtitulo }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Assuntos</h6>
@@ -36,16 +37,16 @@
 
                     </li>
                 @empty
-                    <li>Não há termos cadastrados</li>
+                    <li>Não há assuntos cadastrados</li>
                 @endforelse
                 <li><a href="/livro_assuntos/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Assunto</a></li>
               </ul>
         </div>
 
-        <div class="col-md  text-break"><h6 class="font-weight-bold">Responsabilidade</h6>
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Autor</h6>
             <ul>
                 @forelse($livro->responsabilidades as $responsabilidade)
-                    <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})
+                    <li>{{ $responsabilidade->nome }} {{ $responsabilidade->sobrenome }} ({{ $responsabilidade->pivot->tipo }})
 
                     <form method="POST" action="/livro_responsabilidades/{{ $responsabilidade->pivot->id }}" style="display:inline">
                       @csrf
@@ -57,9 +58,9 @@
 
                     </li>
                 @empty
-                    <li>Não há Responsabilidade cadastrada</li>
+                    <li>Não há Autor cadastrado</li>
                 @endforelse
-                <li><a href="/livro_responsabilidades/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Responsabilidade</a></li>
+                <li><a href="/livro_responsabilidades/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Autor</a></li>
               </ul>
         </div>
 
@@ -67,11 +68,11 @@
             <ul>
                 @forelse($livro->instances as $instance)
                     <li>
+                      
                         <a href="/instances/{{ $instance->id }}">
                             {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
                         </a>
-
-                        <a href="/instances/{{ $instance->id }}/edit?livro_id={{$livro->id}}" ><i class="fas fa-pencil-alt"></i></a>
+                        <a href="/instances/{{ $instance->id }}/edit?livro_id={{$livro->id}}"><i class="fas fa-pencil-alt"></i></a>
                         
                         <form method="POST" action="/instances/{{ $instance->id }}" style="display:inline">
                           @csrf
@@ -96,7 +97,7 @@
       <div class="row">
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Localização:</h6>
-          {{ $livro->localizacao_formatada }}
+          {{ $livro->localizacao_formatada ?? 'N/A' }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Colorido:</h6>
@@ -104,20 +105,24 @@
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Ilustrado:</h6>
-          {{ $livro->ilustrado }}
+          {{ $livro->ilustrado ?? 'N/A' }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">ISBN:</h6>
-          {{ $livro->isbn }}
+          {{ $livro->isbn ?? 'N/A' }}
         </div>
 
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Dimensão:</h6>
-          {{ $livro->dimensao }}
+          {{ $livro->dimensao ?? 'N/A' }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Extensão:</h6>
-          {{ $livro->extensao }}
+          {{ $livro->extensao ?? 'N/A' }}
+        </div>
+
+        <div class="col-md text-break"><h6 class="font-weight-bold">Nº de Páginas</h6>
+          {{ $livro->paginas }}
         </div>
 
       </div>
@@ -127,15 +132,15 @@
       <div class="row">
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Volume</h6>
-          {{ $livro->volume }}
+          {{ $livro->volume ?? 'N/A' }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Editora</h6>
-          {{ $livro->editora }}
+          {{ $livro->editora ?? 'N/A' }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Local</h6>
-          {{ $livro->local }}
+          {{ $livro->local ?? 'N/A' }}
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Ano</h6>
@@ -143,7 +148,11 @@
         </div>
 
         <div class="col-md  text-break"><h6 class="font-weight-bold">Edição</h6>
-          {{ $livro->edicao }}
+          {{ $livro->edicao ?? 'N/A' }}
+        </div>
+        
+        <div class="col-md text-break"><h6 class="font-weight-bold">Idioma</h6>
+        {{ $livro->idioma ?? 'N/A'}}
         </div>
       </div>
 

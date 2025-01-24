@@ -22,6 +22,22 @@
             </form>
         </div>
     </div>
+    <div class="row">
+        <div class="col-2">
+            <label for="export">Exportar dados para Excel</label>
+            <form method="get" action="/adolescentes">
+                <button class="btn btn-success"><i class="fas fa-file-export"></i> Exportar</button>
+            </form>
+        </div>
+        <div class="col">
+            <label for="file">Importar Excel para o sistema</label>
+            <form method="post" action="adolescentes/import" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file">
+                <button type="submit" class="btn btn-success"><i class="fas fa-file-import"></i> Importar</button>
+            </form>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>

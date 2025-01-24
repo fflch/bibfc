@@ -5,6 +5,27 @@
             <label for="titulo">Título</label>
             <input type="text" class="form-control" name="titulo" value="{{ old('titulo', $livro->titulo) }}">
         </div>
+        <div class="form-group col-md font-weight-bold">
+            <label>Subtítulo</label>
+            <input type="text" class="form-control" name="subtitulo" value="{{ old('subtitulo', $livro->subtitulo) }}">
+        </div>
+        <div class="form-group col-lg-2 font-weight-bold">
+            <label for="tipologia">Tipologia</label>
+            <select class="form-control" name="tipologia">
+                <option selected="" value="">- Selecionar -</option>
+                @foreach($livro::tipologia() as $tipologia)
+                <option value="{{$tipologia}}" name="tipologia">{{$tipologia}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col">
+            <label for="responsabilidade">Autores</label>
+            <select class="form-control" name="responsabilidade">
+                @foreach(\App\Models\Responsabilidade::all() as $livro_responsabilidade)
+                    <option value="{{$livro_responsabilidade->id}}">{{$livro_responsabilidade->nome}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <div class="form-row">
@@ -15,7 +36,7 @@
         </div>
 
         <div class="form-group col-md font-weight-bold">
-            <label for="local">Local</label>
+            <label for="local">Local de publicação</label>
             <input type="text" class="form-control" name="local" value="{{ old('local', $livro->local) }}">
         </div>
 
@@ -39,35 +60,33 @@
             <label for="localizacao">Localização</label>
             <input type="text" class="form-control" name="localizacao" value="{{ old('localizacao', $livro->localizacao) }}">
         </div>
-
-
-
     </div>
 
 
     <div class="form-row">
-        <div class="form-group col-lg-4 font-weight-bold">
-            <label for="localizacao">Complemento da Localização</label>
-            <input type="text" class="form-control" name="complemento_localizacao" value="{{ old('complemento_localizacao', $livro->complemento_localizacao) }}">
-        </div>
-
-        <div class="form-group col-lg-1 font-weight-bold">
-            <label for="dimensao">Dimensão</label>
-            <input type="text" class="form-control" name="dimensao" value="{{ old('dimensao', $livro->dimensao) }}">
-        </div>
-
-        <div class="form-group col-lg-1 font-weight-bold">
-            <label for="extensao">Extensão</label>
-            <input type="text" class="form-control" name="extensao" value="{{ old('extensao', $livro->extensao) }}">
-        </div>
-
 
         <div class="form-group col-lg-1 font-weight-bold">
             <label for="isbn">ISBN</label>
             <input type="text" class="form-control" name="isbn" value="{{ old('isbn', $livro->isbn) }}">
+        </div>        
+        <div class="form-group col-md font-weight-bold">
+            <label for="idioma">Idioma</label>
+            <select class="form-control" name="idioma">
+                @foreach($livro::idiomas() as $idioma)
+                <option value="{{$idioma}}">{{$idioma}}</option>
+                @endforeach
+            </select>
         </div>
-
+        <div class="form-group col-md font-weight-bold">
+            <label for="serie">Série/Coleção</label>
+            <input type="text" class="form-control" name="serie" value="{{ old('serie', $livro->serie) }}">
+        </div>
+        <div class="form-group col-md font-weight-bold">
+            <label for="paginas">Total de páginas</label>
+            <input type="text" class="form-control" name="paginas" value="{{ old('paginas', $livro->paginas) }}">
+        </div>
     </div>
+    
 
     <div class="form-row">
         <div class="form-check">

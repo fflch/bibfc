@@ -8,7 +8,7 @@
     </div>
 
     <div class="form-row">
-        <label for="parent_id" class="required">Termo geral</label>
+        <label for="parent_id" class="required">Assunto geral</label>
         <select name="parent_id" class="form-control" id="parent_id">
 
         <option value="" selected="">- Selecione -</option>

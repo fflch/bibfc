@@ -117,7 +117,7 @@ class AssuntoController extends Controller
         $assuntos = $assunto->children()->get();
 
         if($assuntos->isNotEmpty()){
-            $request->session()->flash('alert-danger', "<b>$assunto->titulo</b>".' não pode ser deletado porque contém termos específicos');
+            $request->session()->flash('alert-danger', "<b>$assunto->titulo</b>".' não pode ser deletado porque contém assuntos específicos');
             return redirect('/assuntos');
         }
 

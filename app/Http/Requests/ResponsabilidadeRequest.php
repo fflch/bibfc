@@ -25,13 +25,23 @@ class ResponsabilidadeRequest extends FormRequest
      */
     public function rules()
     {
+        
         $rules = [
-            'nome'              => 'required',
-            'ano_nascimento'    => 'nullable|integer',
-            'ano_falecimento'   => 'nullable|integer',
+            'nome' => 'required',
+            'ano_nascimento'    => 'nullable',
+            'ano_falecimento'   => 'nullable',
         ];
-
+        
         return $rules;
     }
-
+/*
+    public function validationNome(){
+        
+        $nome = $this->get('nome');
+        $sobrenome = $this->get('sobrenome');
+        $nomesToArray = [$nome, $sobrenome];
+        $nomeCompleto['nome'] = $nomesToArray[0] . $nomesToArray[1];
+        return $nomeCompleto;
+    }
+*/
 }

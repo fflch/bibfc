@@ -6,7 +6,7 @@
 @csrf
 @method('patch')
 <div class="card bg-light">
-    <h5 class="card-header border-info bg-light font-weight-bold">Edição da Responsabilidade</h5>
+    <h5 class="card-header border-info bg-light font-weight-bold">Edição do Autor</h5>
     <div class="card-body">
     @include('responsabilidades.form')
     </div>

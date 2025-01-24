@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
+#use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExcelExport;
 use App\Models\Instance;
+use App\Models\Usuario;
+use App\Imports\UsuariosImport;
+use App\Exports\UsuariosExport;
 
 class ExportController extends Controller
 {
@@ -75,4 +79,14 @@ class ExportController extends Controller
         $export = new ExcelExport($data,$headings);
         return $excel->download($export, 'exemplares.xlsx');
     }
+
+    public function exportAdolescentes(Excel $excel){
+        return Excel::download(new UsuariosExport, 'Lista_de_adolescentes.xlsx');
+    }
+
+    public function importAdolescentes(Request $request, Excel $excel){
+        Excel::import(new UsuariosImport, request()->file('file'));
+        return redirect('/usuarios');
+    }
+
 }

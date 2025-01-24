@@ -20,16 +20,17 @@ use App\Http\Controllers\AuditController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\BarcodeController;
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/home',[HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::resource('/usuarios', UsuarioController::class);
-Route::get('/foto/{matricula}', [UsuarioController::class,'foto']);
 Route::get('/temfoto/{matricula}', [UsuarioController::class,'temfoto']);
+Route::get('/foto/{matricula}', [UsuarioController::class,'foto']);
 
 Route::resource('/emprestimos', EmprestimoController::class);
 Route::get('/renovar/{emprestimo}', [EmprestimoController::class,'renovarForm']);
@@ -37,11 +38,13 @@ Route::post('/renovar/{emprestimo}', [EmprestimoController::class,'renovar']);
 
 Route::resource('/instances', InstanceController::class);
 Route::resource('/livros', LivroController::class);
-Route::resource('/tccs', TccController::class);
 
 Route::get('/mesclar', [LivroController::class,'mesclar']);
 Route::post('/mesclar', [LivroController::class,'mesclarStore']);
 Route::get('/pre', [LivroController::class,'pre']);
+
+Route::post('/pre/{livro}', [LivroController::class, 'status']); //aprova ou reprova
+Route::put('/pre/aprovar_todos', [LivroController::class, 'aprovar_todos']);
 
 Route::resource('/responsabilidades', ResponsabilidadeController::class);
 Route::resource('/assuntos', AssuntoController::class);
@@ -59,14 +62,14 @@ Route::get('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'create'])
 Route::post('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'store']);
 Route::delete('/livro_assuntos/{pivot}', [LivroAssuntoController::class, 'destroy']);
 
-Route::get('/lembretes', [EmprestimoController::class, 'lembretes']);
-
 Route::get('/reports', [ReportController::class, 'index']);
 Route::get('/audit', [AuditController::class, 'audit']);
 
 Route::resource('files', FileController::class);
 
 Route::get('instances', [ExportController::class,'instances']);
+Route::get('adolescentes', [ExportController::class, 'exportAdolescentes']);
+Route::post('adolescentes/import', [ExportController::class, 'importAdolescentes']);
 
 Route::get('/barcode/step1', [BarcodeController::class, 'step1']);
 Route::post('/barcode/step2', [BarcodeController::class, 'step2']);

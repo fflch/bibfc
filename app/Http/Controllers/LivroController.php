@@ -10,14 +10,16 @@ use App\Models\Emprestimo;
 use App\Models\Livro;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Responsabilidade;
+use App\Models\LivroResponsabilidade;
 
 class LivroController extends Controller
 {
+
     public function index(Request $request)
     {
-        $this->authorize('admin');
+        //$this->authorize('admin');
         $query = $this->prepareQuery($request);
-
         # Excluindo itens da pré-catalogação (sem exemplares)
         $query->whereHas('instances');
         
@@ -26,7 +28,7 @@ class LivroController extends Controller
         ]);
     }
 
-    public function pre(Request $request){
+    public function pre(Request $request){ //pré-catalogação
         $this->authorize('admin');
 
         $query = $this->prepareQuery($request);
@@ -39,6 +41,27 @@ class LivroController extends Controller
         ]);
     }
 
+    public function status(Request $request, Livro $livro){
+        $this->authorize('admin');
+        $livro->status = $request->status;
+        $livro->update();
+        return redirect("/pre");
+    }
+
+    /*
+    fazer query para aprovar somente os que estão em null,
+    pois aqui está alterando para todos os registros
+    */
+    public function aprovar_todos(Request $request){ 
+        $this->authorize('admin');
+        $livros = Livro::where('status', NULL)->get();
+        foreach($livros as $livro){
+            $livro->status = $request->status;
+            $livro->update();
+        }
+        return redirect("/pre");
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,7 +71,8 @@ class LivroController extends Controller
     {
         $this->authorize('admin');
         return view('livros.create',[
-            'livro' => new Livro
+            'livro' => new Livro,
+            'livro_responsabilidade' => new Responsabilidade
         ]);
     }
 
@@ -77,7 +101,11 @@ class LivroController extends Controller
             $livro->ilustrado = 'não';
         }
         $livro->save();
-
+        $livro_responsabilidade = new LivroResponsabilidade;
+        $livro_responsabilidade->livro_id = $livro->id;
+        $livro_responsabilidade->responsabilidade_id = $request->responsabilidade;
+        $livro_responsabilidade->tipo = 'Tipo';
+        $livro->livro_responsabilidades()->save($livro_responsabilidade);
         return redirect("/livros/{$livro->id}");
     }
 
@@ -196,6 +224,7 @@ class LivroController extends Controller
         if(isset($request->responsabilidade) & !empty($request->responsabilidade)) {
             $query->whereHas('responsabilidades', function (Builder $q) use ($request) {
                 $q->where('nome','LIKE',"%{$request->responsabilidade}%");
+                #->orwhere('sobrenome','LIKE',"%{$request->responsabilidade}%");
             });
         }
 
@@ -204,7 +233,7 @@ class LivroController extends Controller
                 $q->where('titulo','LIKE',"%{$request->assunto}%");
             });
         }
-
+        
         return $query;
     }
 

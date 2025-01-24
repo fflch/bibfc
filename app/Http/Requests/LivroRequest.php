@@ -27,19 +27,24 @@ class LivroRequest extends FormRequest
     {
         $rules = [
             'titulo'      => 'required',
+            'subtitulo'   => 'nullable',
             'editora'     => 'nullable',
-            'local'       => 'nullable',
+            'local'       => 'nullable', //local de publicação
             'ano'         => 'nullable',
             'edicao'      => 'nullable',
             'volume'      => 'nullable',
-            'localizacao' => 'nullable',
+            'localizacao' => 'required', //localizacao na estante
             'complemento_localizacao' => 'nullable',
             'obs'         => 'nullable',
-            'isbn'         => 'nullable',
-            'extensao'         => 'nullable',
-            'dimensao'         => 'nullable',
-            'ilustrado'        => 'nullable',
-            'colorido'         => 'nullable',
+            'isbn'        => 'nullable',
+            'extensao'    => 'nullable',
+            'dimensao'    => 'nullable',
+            'ilustrado'   => 'nullable',
+            'colorido'    => 'nullable',
+            'colecao'     => 'nullable', #colecao/serie
+            'idioma' => 'nullable',
+            'paginas' => 'nullable|integer',
+            'responsabilidade' => 'required',
         ];
 
         return $rules;

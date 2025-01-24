@@ -6,6 +6,7 @@ use App\Models\Responsabilidade;
 use Illuminate\Http\Request;
 use App\Http\Requests\ResponsabilidadeRequest;
 
+
 class ResponsabilidadeController extends Controller
 {
     /**
@@ -16,13 +17,14 @@ class ResponsabilidadeController extends Controller
     public function index(Request $request)
     {
         $this->authorize('admin');
+
         if(isset($request->search) & !empty($request->search)) {
             $responsabilidades = Responsabilidade::where('nome','LIKE',"%{$request->search}%")
                         ->paginate(20);
         } else {
             $responsabilidades = Responsabilidade::paginate(20);
         }
-        
+
         return view('responsabilidades.index',[
             'responsabilidades' => $responsabilidades,
         ]);
@@ -47,11 +49,24 @@ class ResponsabilidadeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ResponsabilidadeRequest $request)
+    public function store(Request $request)
     {
         $this->authorize('admin');
-        $validated = $request->validated();
-        Responsabilidade::create($validated);
+        
+        $validated = $request->validate([
+            'nome' => 'required',
+            'ano_falecimento' => 'nullable',
+            'ano_nascimento' => 'nullable',
+        ]);
+
+        $nomeCompleto = $request->input('nome'). ' ' . $request->input('sobrenome');
+        $responsabilidade = new Responsabilidade();
+        $responsabilidade->nome = $nomeCompleto;
+        $responsabilidade->ano_nascimento = $request->ano_nascimento;
+        $responsabilidade->ano_falecimento = $request->ano_falecimento;
+        $responsabilidade->save();
+
+        //Responsabilidade::create($validated);
 
         return redirect("/responsabilidades");
     }
@@ -94,8 +109,17 @@ class ResponsabilidadeController extends Controller
     public function update(ResponsabilidadeRequest $request, Responsabilidade $responsabilidade)
     {
         $this->authorize('admin');
-        $validated = $request->validated();
-        $responsabilidade->update($validated);
+        $validated = $request->validate([
+            'nome' => 'required',
+            'ano_falecimento' => 'nullable',
+            'ano_nascimento' => 'nullable',
+        ]);
+
+        $nomeCompleto = $request->input('nome'). ' ' . $request->input('sobrenome');
+        $responsabilidade->nome = $nomeCompleto;
+        $responsabilidade->ano_nascimento = $request->ano_nascimento;
+        $responsabilidade->ano_falecimento = $request->ano_falecimento;
+        $responsabilidade->save();
 
         return redirect("/responsabilidades");
     }

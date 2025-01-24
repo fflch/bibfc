@@ -41,6 +41,41 @@ class Livro extends Model implements Auditable
         }
     }
 
+    public static function tipologia(){
+        return[
+            'Gibi',
+            'História em Quadrinhos',
+            'Revista',
+            'Livro'
+        ];
+    }
+
+    public static function idiomas(){
+        return [
+            'PT-BR' => 'Português do Brasil',
+            'PT' => 'Português',
+            'EN' => 'Inglês',
+            'ES' => 'Espanhol',
+            'FR' => 'Francês',
+            'DE' => 'Alemão',
+            'IT' => 'Italiano',
+            'RU' => 'Russo',
+            'ZH' => 'Chinês',
+            'JA' => 'Japonês',
+            'AR' => 'Árabe',
+            'HI' => 'Hindi',
+            'KO' => 'Coreano',
+            'TR' => 'Turco',
+            'NL' => 'Holandês',
+            'SV' => 'Sueco',
+            'PL' => 'Polonês',
+            'EL' => 'Grego',
+            'DA' => 'Dinamarquês',
+            'NO' => 'Norueguês',
+            'FI' => 'Finlandês',
+        ];
+    }
+
     public function instances()
     {
         return $this->hasMany(Instance::class);
@@ -61,4 +96,9 @@ class Livro extends Model implements Auditable
                     ->withTimestamps()
                     ->using(LivroAssunto::class);
     }
+
+    public function livro_responsabilidades(){
+        return $this->hasMany(LivroResponsabilidade::class);
+    }
+
 }

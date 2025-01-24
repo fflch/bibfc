@@ -10,7 +10,7 @@
             <th>Status</th>
             <th>Tombo</th>
             <th>Título</th>
-            <th>Responsabilidade</th>
+            <th>Autor</th>
             <th>Localização</th>
             <th>Notas</th>
             <th>Possui Empréstimos?</th>
@@ -29,7 +29,7 @@
                 @forelse($instance->livro->responsabilidades as $responsabilidade)
                     <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})</li>
                 @empty
-                    <li>Não há Responsabilidade cadastrada</li>
+                    <li>Não há Autor cadastrado</li>
                 @endforelse
                 </ul>
             </td>
