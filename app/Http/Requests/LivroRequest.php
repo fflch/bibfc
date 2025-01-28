@@ -26,7 +26,7 @@ class LivroRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'titulo'      => 'required',
+            'titulo'      => 'required|unique:livros,titulo,NULL,' . request()->titulo,
             'subtitulo'   => 'nullable',
             'editora'     => 'nullable',
             'local'       => 'nullable', //local de publicação
@@ -48,6 +48,14 @@ class LivroRequest extends FormRequest
         ];
 
         return $rules;
+    }
+    public function messages(){
+        return [
+            'titulo.required' => 'O título do livro é obrigatório',
+            'titulo.unique' => 'Este livro já está cadastrado no sistema',
+            'paginas.integer' => 'Insira um número inteiro nas páginas',
+            'localizacao.required' => 'A localização é obrigatória',
+        ];
     }
 
 }

@@ -249,6 +249,12 @@ return [
             'label_color' => 'success',
         ],
         [
+            'text' => 'Registrar',
+            'url' => 'registrar',
+            'icon' => 'fas fa-fw fa-plus',
+            'can' => 'admin'
+        ],
+        [
             'text'        => 'Novo Empréstimo',
             'url'         => 'emprestimos/create',
             'icon'        => 'far fa-fw fa-file',

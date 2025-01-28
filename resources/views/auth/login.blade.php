@@ -12,7 +12,7 @@
             <label for="unidade">Selecione a unidade</label>
             <select class="form-control" name="unidade">
                 @foreach(\App\Models\Unidade::all() as $unidade)
-                <option value="{{$unidade->id}}">{{$unidade->nome_unidade}}</option>
+                <option value="{{$unidade->id}}">{{$unidade->nome_unidade}} - {{$unidade->localizacao_unidade}}</option>
                 @endforeach
             </select>
         </div>

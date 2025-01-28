@@ -41,6 +41,7 @@ class LivroController extends Controller
         ]);
     }
 
+    //aprova ou reprova o status de um registro na pré-catalogação
     public function status(Request $request, Livro $livro){
         $this->authorize('admin');
         $livro->status = $request->status;
@@ -49,8 +50,7 @@ class LivroController extends Controller
     }
 
     /*
-    fazer query para aprovar somente os que estão em null,
-    pois aqui está alterando para todos os registros
+        Aprova todos os registros em pré-catalogação
     */
     public function aprovar_todos(Request $request){ 
         $this->authorize('admin');
@@ -82,7 +82,7 @@ class LivroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LivroRequest $request)
+    public function store(LivroRequest $request, Livro $livro)
     {
         $this->authorize('admin');
         $validated = $request->validated();

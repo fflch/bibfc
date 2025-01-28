@@ -19,14 +19,19 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\BarcodeController;
+use App\Http\Controllers\UserController;
 
 //Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home',[HomeController::class, 'index'])->name('home');
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/registrar', [UserController::class, 'registrar']);
+Route::post('/store', [UserController::class, 'store']);
+
+Route::get('/login', [UserController::class, 'index']);
+Route::post('/login', [UserController::class, 'auth']);
+Route::post('/logout', [UserController::class, 'logout']);
 
 Route::resource('/usuarios', UsuarioController::class);
 Route::get('/temfoto/{matricula}', [UsuarioController::class,'temfoto']);

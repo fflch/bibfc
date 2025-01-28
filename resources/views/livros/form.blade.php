@@ -11,10 +11,10 @@
         </div>
         <div class="form-group col-lg-2 font-weight-bold">
             <label for="tipologia">Tipologia</label>
-            <select class="form-control" name="tipologia">
+            <select class="form-control" name="tipo">
                 <option selected="" value="">- Selecionar -</option>
                 @foreach($livro::tipologia() as $tipologia)
-                <option value="{{$tipologia}}" name="tipologia">{{$tipologia}}</option>
+                <option value="{{$tipologia}}" name="tipo">{{$tipologia}}</option>
                 @endforeach
             </select>
         </div>
