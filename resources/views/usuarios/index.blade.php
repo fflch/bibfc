@@ -22,7 +22,7 @@
             </form>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-bottom:5px;">
         <div class="col-2">
             <label for="export">Exportar dados para Excel</label>
             <form method="get" action="/adolescentes">
@@ -36,6 +36,9 @@
                 <input type="file" name="file">
                 <button type="submit" class="btn btn-success"><i class="fas fa-file-import"></i> Importar</button>
             </form>
+        </div>
+        <div class="col-g" style="margin-top:31px;">
+            <a href="/download" class="btn btn-primary"><i class="fas fa-download"></i> Baixar modelo de planilha</a>
         </div>
     </div>
     <table class="table table-striped">
@@ -56,9 +59,11 @@
             <tr>
                 <td>
                     @if($usuario->tem_foto())
-                        <img src="/foto/{{ $usuario->matricula }}" width="120px">
+                        <img src="/foto/{{ $usuario->matricula }}" width="120px"><br/>
+                        {{$usuario->unidade->nome_unidade}} - {{$usuario->unidade->localizacao_unidade}}
                     @else 
-                        <i class="fas fa-user-tie fa-5x"></i>
+                        <i class="fas fa-user-tie fa-5x"></i><br/>
+                        {{$usuario->unidade->nome_unidade}} - {{$usuario->unidade->localizacao_unidade}}
                     @endif
             
                 </td>

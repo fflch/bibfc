@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\UsuarioRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class UsuarioController extends Controller
 {
@@ -13,11 +14,12 @@ class UsuarioController extends Controller
     {
         $this->authorize('admin');
         if(isset($request->search) & !empty($request->search)) {
-            $usuarios = Usuario::where('nome','LIKE',"%{$request->search}%")
+            $usuarios = Usuario::where('unidade_id',auth()->user()->unidade_id)
+                    ->where('nome','LIKE',"%{$request->search}%")
                     ->orWhere('matricula','LIKE',"%{$request->search}%")
                     ->paginate(20);
         } else {
-            $usuarios = Usuario::paginate(20);
+            $usuarios = Usuario::where('unidade_id',auth()->user()->unidade_id)->paginate(20);
         }
 
         return view('usuarios.index',[
@@ -35,7 +37,7 @@ class UsuarioController extends Controller
     {
         $this->authorize('admin');
         $validated = $request->validated();
-
+        $validated['unidade_id'] = auth()->user()->unidade_id;
         if($validated['foto'] != null) {
             $image = str_replace('data:image/png;base64,', '', $validated['foto']);
             $image = str_replace(' ', '+', $image);
@@ -49,7 +51,7 @@ class UsuarioController extends Controller
 
     public function show(Usuario $usuario)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin_unidade',$usuario);
         return view('usuarios.show')->with('usuario',$usuario);
     }
 
@@ -99,5 +101,4 @@ class UsuarioController extends Controller
         $usuario->delete();
         return redirect('/usuarios');
     }
-
 }

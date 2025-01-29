@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Unidade;
 
 class Usuario extends Model implements Auditable
 {
@@ -27,4 +28,8 @@ class Usuario extends Model implements Auditable
         return $this->hasMany(Emprestimo::class);
     }
     
+    public function unidade(){
+        return $this->belongsTo(Unidade::class);
+    }
+
 }

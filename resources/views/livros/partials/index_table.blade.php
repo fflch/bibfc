@@ -37,9 +37,8 @@
                 <ul>
                     @forelse($livro->instances as $instance)
                         <li><a href="/instances/{{ $instance->id }}">
-                                {{ $instance->tombo }} - {{ $instance->tombo_tipo }}
+                                {{ $instance->tombo }} - {{ $instance->tombo_tipo }} ({{$instance->unidade->nome_unidade}}) 
                             </a> ({{ $instance->status }})
-                           
                         </li>
                     @empty
                         <li>Não há exemplares cadastrados</li>
@@ -61,7 +60,7 @@
             <td>
                 @if($livro->status === NULL)
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-g">
                         <form method="post" action="/pre/{{$livro->id}}">
                             @csrf
                             <button class="btn btn-success" name="status" value="1">Aprovar</button>

@@ -12,19 +12,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Responsabilidade;
 use App\Models\LivroResponsabilidade;
+use Illuminate\Support\Facades\Gate;
 
 class LivroController extends Controller
 {
 
     public function index(Request $request)
     {
-        //$this->authorize('admin');
+        Gate::authorize('admin');
         $query = $this->prepareQuery($request);
         # Excluindo itens da pré-catalogação (sem exemplares)
         $query->whereHas('instances');
         
         return view('livros.index',[
-            'livros' => $query->paginate(20)
+            'livros' => $query->paginate(20),
         ]);
     }
 

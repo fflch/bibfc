@@ -19,13 +19,13 @@ class UsuariosImport implements ToModel, WithStartRow
         $campos = array_slice(Schema::getColumnListing('usuarios'), 3);
         $atributos = [];
         foreach($campos as $key => $campo){
-            $atributos[$campo] = $row[$key];
+            $atributos[$campo] = $row[$key] ?? auth()->user()->unidade_id; //caso não haja ID da unidade no excel será setado automaticamente
         }
             return new Usuario($atributos);
     }
 
     public function startRow(): int //pula o cabeçalho (1ª Linha). alterar em caso de erro
     {
-        return 1;
+        return 2;
     }
 }

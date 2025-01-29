@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Unidade;
 
 class User extends Authenticatable implements Auditable
 {
@@ -44,5 +45,8 @@ class User extends Authenticatable implements Auditable
         'email_verified_at' => 'datetime',
     ];
 
+    public function unidade(){
+        return $this->belongsTo(Unidade::class);
+    }
 
 }

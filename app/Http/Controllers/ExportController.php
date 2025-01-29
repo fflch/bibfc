@@ -85,8 +85,13 @@ class ExportController extends Controller
     }
 
     public function importAdolescentes(Request $request, Excel $excel){
-        Excel::import(new UsuariosImport, request()->file('file'));
+        Excel::import(new UsuariosImport, request()->file('file')->store('temp'));
         return redirect('/usuarios');
+    }
+
+    public function download(){
+        $arquivo = public_path('modelo_planilha.xlsx');
+        return response()->download($arquivo);
     }
 
 }

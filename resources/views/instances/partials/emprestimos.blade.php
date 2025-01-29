@@ -6,6 +6,7 @@
   <li>Tombo: {{ $instance->tombo }}</li>
   <li>Tipo Tombo: {{ $instance->tipo_tombo }}</li>
   <li>Status: {{ $instance->status }}</li>
+  <li>Unidade: {{ $instance->unidade->nome_unidade }} - {{$instance->unidade->localizacao_unidade}} </li>
 </ul>
 
 <b>Empréstimos:</b>

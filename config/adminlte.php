@@ -249,7 +249,7 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text' => 'Registrar',
+            'text' => 'Registrar Admin.',
             'url' => 'registrar',
             'icon' => 'fas fa-fw fa-plus',
             'can' => 'admin'
@@ -269,7 +269,7 @@ return [
             'can'         => 'admin',
         ],
         [
-            'text' => 'Usuários',
+            'text' => 'Adolescentes',
             'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-user',
             'can'         => 'admin',

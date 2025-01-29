@@ -75,6 +75,7 @@ Route::resource('files', FileController::class);
 Route::get('instances', [ExportController::class,'instances']);
 Route::get('adolescentes', [ExportController::class, 'exportAdolescentes']);
 Route::post('adolescentes/import', [ExportController::class, 'importAdolescentes']);
+Route::get('/download', [ExportController::class, 'download']);
 
 Route::get('/barcode/step1', [BarcodeController::class, 'step1']);
 Route::post('/barcode/step2', [BarcodeController::class, 'step2']);

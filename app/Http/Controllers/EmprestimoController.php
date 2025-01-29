@@ -24,7 +24,7 @@ class EmprestimoController extends Controller
         
         $emprestimos = Emprestimo::whereNull('data_devolucao')
             ->whereHas('instance', function($query) {
-                $query->where('status', '=', 'Ativo');
+                $query->where('status', '=', 'CIRCULA');
             })
             ->get();
 
@@ -43,11 +43,11 @@ class EmprestimoController extends Controller
     {
         $this->authorize('admin');
 
-        $instances = Instance::all();
-
+        $instances = Instance::where('unidade_id',auth()->user()->unidade_id)->get();
+         
         return view('emprestimos.create')->with([
             'emprestimo' => New Emprestimo,
-            'usuarios'  => Usuario::all(),
+            'usuarios'  => Usuario::where('unidade_id',auth()->user()->unidade_id)->get(),
             'instances' => $instances
         ]);
     }

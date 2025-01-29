@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Unidade;
 
 class Instance extends Model implements Auditable
 {
@@ -36,4 +37,9 @@ class Instance extends Model implements Auditable
     public function emprestimos(){
         return $this->hasMany(Emprestimo::class);
     }
+
+    public function unidade(){
+        return $this->belongsTo(Unidade::class);
+    }
+
 }
