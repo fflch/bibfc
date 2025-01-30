@@ -14,18 +14,26 @@
         </div>
 
         <div class="form-group">
-            <label for="telefone"><b>Telefone</b></label>
-            <input type="text" class="form-control" name="telefone" placeholder="" value="{{ old('telefone', $usuario->telefone) }}">   
+            <label for="telefone"><b>Quarto</b></label>
+            <input type="text" class="form-control" name="quarto" placeholder="" value="{{ old('quarto', $usuario->quarto) }}">   
         </div>
 
         <div class="form-group">
-            <label for="turma"><b>Turma</b></label>
-            <input type="text" class="form-control" name="turma" placeholder="" value="{{ old('turma', $usuario->turma) }}">   
+            <label for="prontuario"><b>Prontuario</b></label>
+            <input type="text" class="form-control" name="prontuario" placeholder="" value="{{ old('prontuario', $usuario->prontuario) }}">   
         </div>
 
         <div class="form-group">
-            <label for="turma"><b>Setor</b></label>
-            <input type="text" class="form-control" name="setor" placeholder="" value="{{ old('setor', $usuario->setor) }}">   
+            <label for="turma"><b>Sala</b></label>
+            <input type="text" class="form-control" name="sala_de_aula" placeholder="" value="{{ old('sala_de_aula', $usuario->sala_de_aula) }}">   
+        </div>
+
+        <div class="form-group">
+            <label for="turma"><b>Status</b></label>
+            <select class="form-control" name="status">
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+            </select>
         </div>
 
         <div class="form-group">

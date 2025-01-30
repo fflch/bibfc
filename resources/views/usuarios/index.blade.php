@@ -47,10 +47,11 @@
                 <th>Foto</th>
                 <th>Código de Matrícula</th>
                 <th>Nome</th>
-                <th>Telefone</th>
-                <th>Turma</th>
-                <th>Setor</th>
+                <th>Prontuário</th>
+                <th>Sala de Aula</th>
+                <th>Quarto</th>
                 <th>Observação</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -69,10 +70,11 @@
                 </td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->matricula }}</a></td>
                 <td><a href="/usuarios/{{$usuario->id}}">{{ $usuario->nome }}</a></td>
-                <td>{{ $usuario->telefone }}</td>
-                <td>{{ $usuario->turma }}</td>
-                <td>{{ $usuario->setor }}</td>
+                <td>{{ $usuario->prontuario }}</td>
+                <td>{{ $usuario->sala_de_aula }}</td>
+                <td>{{ $usuario->quarto }}</td>
                 <td>{{ $usuario->obs }}</td>
+                <td>{{ $usuario->status ? 'Ativo' : 'Inativo' }}</td>
 
                 <td>
                    

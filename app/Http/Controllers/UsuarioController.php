@@ -97,7 +97,7 @@ class UsuarioController extends Controller
     public function destroy(Usuario $usuario)
     {
         $this->authorize('admin');
-        dd('temporariamente desativado');
+        request()->session()->flash('alert-danger','Usuário deletado: ' . $usuario->nome . ' - ' . $usuario->matricula);
         $usuario->delete();
         return redirect('/usuarios');
     }

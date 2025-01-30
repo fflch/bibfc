@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Unidade;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -21,7 +23,7 @@ class UserController extends Controller
             'unidade_id' => ['required']
         ]);
         if(Auth::attempt($credenciais)){
-            request()->session()->regenerate();
+            $request->session()->regenerate();
             return redirect()->intended('/');
         }else{
             $request->session()->flash('alert-danger','Credenciais incorretas');
@@ -41,16 +43,13 @@ class UserController extends Controller
         return view('user.login');
     }
 
-    public function registrar(){
-        return view('user.create');
+    public function registrar(Unidade $unidades){
+        return view('user.create', ['user' => new User, 'unidades' => $unidades]);
     }
 
-    public function store(Request $request, User $user){
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->unidade_id = $request->unidade;
-        $user->save();
+    public function store(UserRequest $request, User $user){
+        $validated = $request->validated();
+        User::create($validated);
         return redirect('/');
     }
 

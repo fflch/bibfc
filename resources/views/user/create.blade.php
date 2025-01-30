@@ -10,15 +10,15 @@
                 <div class="card">
                     <div class="card-body">
                         <label for="unidade">Selecione a unidade</label>
-                        <select class="form-control" name="unidade">
-                        @foreach(\App\Models\Unidade::all() as $unidade)
-                        <option value="{{$unidade->id}}" name="unidade">{{$unidade->nome_unidade}} - {{$unidade->localizacao_unidade}}</option>
+                        <select class="form-control" name="unidade_id">
+                        @foreach($unidades->get() as $unidade)
+                        <option value="{{$unidade->id}}">{{$unidade->nome_unidade}} - {{$unidade->localizacao_unidade}}</option>
                         @endforeach
                         </select>
                         <label>Nome</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" value="{{ old('name', $user->name ) }}">
                         <label>Email</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" value="{{ old('email', $user->email ) }}">
                         <label>Senha</label>
                         <input type="password" class="form-control" name="password" value=" ">
                         <button type="submit" class="btn btn-success">Registrar usuário</button>

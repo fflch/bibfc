@@ -24,6 +24,7 @@ class User extends Authenticatable implements Auditable
         'name',
         'email',
         'password',
+        'unidade_id'
     ];
 
     /**

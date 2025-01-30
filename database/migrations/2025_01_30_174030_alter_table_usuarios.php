@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->unsignedBigInteger('unidade_id')->nullable();
-            $table->foreign('unidade_id')->references('id')->on('unidades')->onDelete('cascade');
+            $table->string('prontuario')->nullable();
+            $table->string('sala_de_aula')->nullable();
+            $table->string('quarto')->nullable();
+            $table->boolean('status');
+            $table->dropColumn('telefone');
+            $table->dropColumn('turma');
+            $table->dropColumn('setor');
         });
     }
 
