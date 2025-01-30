@@ -102,11 +102,14 @@ class LivroController extends Controller
             $livro->ilustrado = 'não';
         }
         $livro->save();
-        $livro_responsabilidade = new LivroResponsabilidade;
-        $livro_responsabilidade->livro_id = $livro->id;
-        $livro_responsabilidade->responsabilidade_id = $request->responsabilidade;
-        $livro_responsabilidade->tipo = 'Tipo';
-        $livro->livro_responsabilidades()->save($livro_responsabilidade);
+        
+        foreach($request->responsabilidade as $autor){
+            $livro_responsabilidade = new LivroResponsabilidade;
+            $livro_responsabilidade->livro_id = $livro->id;
+            $livro_responsabilidade->tipo = 'Tipo';
+            $livro_responsabilidade->responsabilidade_id = $autor;
+            $livro->livro_responsabilidades()->save($livro_responsabilidade);
+        }
         return redirect("/livros/{$livro->id}");
     }
 

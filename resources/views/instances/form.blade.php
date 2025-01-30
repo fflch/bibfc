@@ -10,24 +10,22 @@
             <label for="tombo">Tombo</label>
             <input type="number" id="tombo" class="form-control" name="tombo" value="{{ old('tombo', $instance->tombo) }}">
         </div>
-
         <div class="form-group col-md font-weight-bold">
-            <label for="tombo_tipo">Tipo do Tombo</label>
-            <select name="tombo_tipo" id="tombo_tipo" class="form-control">
+            <label for="unidade">Unidade</label>
+            <select name="unidade_id" id="unidade" class="form-control">
                 <option value="" selected=""> - Selecione - </option>
 
-                @foreach ($instance->tombo_tipos as $tombo_tipo)
-                
+                @foreach ($unidades as $unidade)
                     {{-- 1. Situação em que não houve tentativa de submissão --}}
-                    @if (old('tombo_tipo') == '')
-                    <option value="{{$tombo_tipo}}" {{ ( $instance->tombo_tipo == $tombo_tipo) ? 'selected' : ''}}>
-                        {{$tombo_tipo}}
+                    @if (old('unidade') == '')
+                    <option value="{{$unidade->id}}" {{ ( $unidades == $unidade) ? 'selected' : ''}}>
+                        {{$unidade->nome_unidade}} - {{$unidade->localizacao_unidade}}
                     </option>
 
                     {{-- 2. Situação em que houve tentativa de submissão, o valor de old prevalece --}}
                     @else
-                        <option value="{{$tombo_tipo}}" {{ ( old('tombo_tipo') == $tombo_tipo) ? 'selected' : ''}}>
-                            {{$tombo_tipo}}
+                        <option value="{{$unidade->id}}" {{ ( old('unidade') == $unidade) ? 'selected' : ''}}>
+                            {{$unidade->nome_unidade}} - {{$unidade->localizacao_unidade}}
                         </option>
                     @endif
 

@@ -38,10 +38,11 @@ class InstanceController extends Controller
     {
         $this->authorize('admin');
         $livro = Livro::find($request->livro_id);
-
+        $unidades = Unidade::all();
         return view('instances.create',[
             'instance' => new Instance,
-            'livro' => $livro
+            'livro' => $livro,
+            'unidades' => $unidades
         ]);
     }
 
@@ -55,7 +56,7 @@ class InstanceController extends Controller
     {
         $this->authorize('admin');
         $validated = $request->validated();
-        $validated['unidade_id'] = auth()->user()->unidade_id;
+        #$validated['unidade_id'] = auth()->user()->unidade_id;
         $instance = Instance::create($validated);
 
         return redirect("/livros/{$instance->livro->id}");
@@ -86,9 +87,11 @@ class InstanceController extends Controller
     {
         Gate::authorize('admin_unidade', $instance);   
         $livro = Livro::find($request->livro_id);
+        $unidades = Unidade::all();
         return view('instances.edit',[
             'instance' => $instance,
-            'livro' => $livro
+            'livro' => $livro,
+            'unidades' => $unidades
         ]);
     }
 

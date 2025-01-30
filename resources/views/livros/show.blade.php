@@ -70,7 +70,7 @@
                     <li>
                       
                         <a href="/instances/{{ $instance->id }}">
-                            {{ $instance->tombo }} ({{ $instance->tombo_tipo }})
+                            {{ $instance->tombo }} ({{ $instance->unidade->nome_unidade }})
                         </a>
                         <a href="/instances/{{ $instance->id }}/edit?livro_id={{$livro->id}}"><i class="fas fa-pencil-alt"></i></a>
                         

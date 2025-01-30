@@ -57,7 +57,7 @@ class UsuarioController extends Controller
 
     public function edit(Usuario $usuario)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin_unidade', $usuario);
         return view('usuarios.edit',[
             'usuario' => $usuario,
         ]);
@@ -65,7 +65,7 @@ class UsuarioController extends Controller
 
     public function update(UsuarioRequest $request, Usuario $usuario)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin_unidade', $usuario);
         $validated = $request->validated();
 
         if($validated['foto'] != null) {

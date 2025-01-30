@@ -58,7 +58,7 @@
 
             <td>{{ $livro->obs }}</td>
             <td>
-                @if($livro->status === NULL)
+                @if($livro->status === NULL && !$livro->instances->toArray())
                 <div class="row">
                     <div class="col-g">
                         <form method="post" action="/pre/{{$livro->id}}">
@@ -76,6 +76,8 @@
                 @else
                     @if($livro->status == 1)
                         <p class="text-success">Aprovado</p>
+                    @elseif($livro->status === NULL)
+                        <p class="text-info">Status não cadastrado</p>
                     @else
                         <p class="text-danger">Reprovado</p>
                     @endif  
