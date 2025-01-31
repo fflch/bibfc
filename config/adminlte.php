@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => 'Empréstimos',
+    'logo' => 'Login', //login
     'logo_img' => 'images/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -243,28 +243,55 @@ return [
         ],
         */
         [
+            'text' => 'Login',
+            'url' => 'login',
+            'icon' => 'fas fa-fw fa-user',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Registrar Admin.',
+            'url' => 'registrar',
+            'icon' => 'fas fa-fw fa-plus',
+            'can' => 'admin'
+        ],
+        [
             'text'        => 'Novo Empréstimo',
             'url'         => 'emprestimos/create',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
+            'can'         => 'admin',
         ],
         [
             'text'        => 'Emprestados',
             'url'         => 'emprestimos',
             'icon'        => 'fas fa-fw fa-swatchbook',
             'label_color' => 'success',
+            'can'         => 'admin',
         ],
         [
-            'text' => 'Usuários',
+            'text' => 'Adolescentes',
             'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-user',
+            'can'         => 'admin',
+        ],
+        [
+            'text'        => 'Autor',
+            'url'         => 'responsabilidades',
+            'icon'        => 'fas fa-fw fa-book-reader',
+            'label_color' => 'success',
+            'can'         => 'admin',
         ],
         [
             'text'        => 'Livros',
             'url'         => '#',
             'icon'        => 'fas fa-fw fa-book-reader',
             'label_color' => 'success',
+            'can'         => 'admin',
             'submenu' => [
+                [
+                    'text' => 'Cadastramento',
+                    'url' => 'livros/create'
+                ],
                 [
                     'text' => 'Listar',
                     'url'  => 'livros',
@@ -277,10 +304,6 @@ return [
                     'text' => 'Pré-catalogação',
                     'url'  => 'pre',
                 ],
-                [
-                    'text' => 'Extraviados',
-                    'url'  => 'instances',
-                ],
             ],
         ],
         [
@@ -288,6 +311,7 @@ return [
             'url'         => '#',
             'icon'        => 'fas fa-fw fa-barcode',
             'label_color' => 'success',
+            'can'         => 'admin',
             'submenu' => [
                 [
                     'text' => 'Emprestar',
@@ -304,42 +328,32 @@ return [
             ],
         ],
         [
-            'text'        => 'Responsabilidades',
-            'url'         => 'responsabilidades',
-            'icon'        => 'fas fa-fw fa-book-reader',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Vocabulário Controlado',
+            'text'        => 'Assuntos',
             'url'         => 'assuntos',
             'icon'        => 'fas fa-fw fa-globe',
             'label_color' => 'success',
+            'can'         => 'admin',
         ],
-        [
-            'text'        => 'TCC',
-            'url'         => 'tccs',
-            'icon'        => 'fas fa-fw fa-book-reader',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Lembretes',
-            'url'         => 'lembretes',
-            'icon'        => 'fas fa-fw fa-bookmark',
-            'label_color' => 'success',
-        ],
-        [
+        /*[
             'text'        => 'Relatório',
             'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-file',
             'label_color' => 'success',
-            'can'         => 'reports'
+            'can'         => 'admin',
+            'submenu' => [
+                [
+                    'text' => 'Extraviados',
+                    'url'  => 'instances',
+                ],
+            ],
         ],
+        */
         [
             'text'        => 'Auditoria',
             'url'         => 'audit',
             'icon'        => 'fas fa-fw fa-file',
             'label_color' => 'success',
-            'can'         => 'reports'
+            'can'         => 'admin'
         ],
     ],
 

@@ -32,5 +32,16 @@ class AuthServiceProvider extends ServiceProvider
             if($user->email == 'catalog@fito.br') return false;
             return true;
         });
+
+        Gate::define('cadastro_registros', function ($user){
+            if($user->id == auth()->user()->id) return true;
+            return false;
+        });
+
+        Gate::define('admin_unidade', function ($user, $model){ //Gate para admins terem acesso somente à unidade participante
+            if($model->unidade_id == $user->unidade_id) return true;
+            return false;
+        });
+
     }
 }

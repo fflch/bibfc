@@ -1,14 +1,14 @@
 <td>
-    <b>Título</b>: <a href="/livros/{{ $emprestimo->instance->livro->id }}">{{ $emprestimo->instance->livro->titulo }} </a> <br>
+    <b>Título</b>: <a href="/livros/{{ $emprestimo->instance->livro->id }}">{{ $emprestimo->instance->livro->titulo }} {{$emprestimo->instance->livro->subtitulo}}</a> <br>
     <b>Tombo</b>: <a href="/instances/{{ $emprestimo->instance->id }}">{{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->tombo_tipo }}) </a> <br>
     <b>Renovações:</b> {{ $emprestimo->renew }} <br>
-    <b>Responsabilidade:</b> 
+    <b>Autor:</b> 
     
     <ul>
     @forelse($emprestimo->instance->livro->responsabilidades as $responsabilidade)
-        <li>{{ $responsabilidade->nome }} ({{ $responsabilidade->pivot->tipo }})</li>
+        <li>{{ $responsabilidade->nome }} {{$responsabilidade->sobrenome}} ({{ $responsabilidade->pivot->tipo }})</li>
     @empty
-        <li>Não há Responsabilidade cadastrada</li>
+        <li>Não há Autor cadastrado</li>
     @endforelse
     </ul>
 

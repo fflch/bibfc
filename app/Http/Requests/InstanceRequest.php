@@ -29,7 +29,7 @@ class InstanceRequest extends FormRequest
         $livros = Livro::pluck('id')->toArray();
 
         $rules = [
-            'tombo_tipo'  => ['required'],
+            'unidade_id'  => ['required'],
             'notas'       => 'nullable',
             'exemplar'    => 'nullable',
             'notas'       => 'nullable',
@@ -41,8 +41,8 @@ class InstanceRequest extends FormRequest
                 'required',
                 'integer',
                  Rule::unique('instances')->where(function ($query) {
-                     $query->where('tombo', $this->tombo)
-                        ->where('tombo_tipo', $this->tombo_tipo);
+                     $query->where('tombo', $this->tombo);
+                        #->where('tombo_tipo', $this->tombo_tipo);
                  })->ignore($this->instance->id)
             ];
         } else {
@@ -50,8 +50,8 @@ class InstanceRequest extends FormRequest
                 'required',
                 'integer',
                  Rule::unique('instances')->where(function ($query) {
-                     $query->where('tombo', $this->tombo)
-                        ->where('tombo_tipo', $this->tombo_tipo);
+                     $query->where('tombo', $this->tombo);
+                        #->where('tombo_tipo', $this->tombo_tipo);
                  })
             ];
             
@@ -63,6 +63,7 @@ class InstanceRequest extends FormRequest
     public function messages() {
         return [
            'tombo.unique' => 'Esse tombo para essa categoria está em uso!',
+           'unidade_id.required' => 'A unidade é obrigatória'
         ];
     }
 

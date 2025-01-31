@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Livro;
 
 class LivroResponsabilidade extends Pivot implements Auditable
 {
@@ -16,5 +17,7 @@ class LivroResponsabilidade extends Pivot implements Auditable
     public function getTiposAttribute(){
         return self::tipos;
     }
-    
+    public function livro(){
+        return $this->belongsTo(Livro::class);
+    }
 }

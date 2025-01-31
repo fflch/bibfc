@@ -12,7 +12,7 @@
       <div class="row">
 
         <div class="col-md text-break"><h6 class="font-weight-bold">Nome</h6>
-          {{ $responsabilidade->nome }}
+          {{ $responsabilidade->nome }} {{$responsabilidade->sobrenome}}
         </div>
 
       </div>
@@ -25,7 +25,7 @@
           {{ $responsabilidade->ano_nascimento }}
         </div>
 
-        <div class="col-md  text-break"><h6 class="font-weight-bold">Ano Falecimento</h6>
+        <div class="col-md  text-break"><h6 class="font-weight-bold">Morte</h6>
           {{ $responsabilidade->ano_falecimento }}
         </div>
 
@@ -53,7 +53,7 @@
       </tr>
     @empty
       <tr>
-        <td>Responsabilidade não utilizada em nenhum registro</td>
+        <td>Autor não utilizado em nenhum registro</td>
       </tr> 
     @endforelse
 

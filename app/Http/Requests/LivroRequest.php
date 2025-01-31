@@ -26,23 +26,36 @@ class LivroRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'titulo'      => 'required',
+            'titulo'      => 'required|unique:livros,titulo,NULL,' . request()->titulo,
+            'subtitulo'   => 'nullable',
             'editora'     => 'nullable',
-            'local'       => 'nullable',
+            'local'       => 'nullable', //local de publicação
             'ano'         => 'nullable',
             'edicao'      => 'nullable',
             'volume'      => 'nullable',
-            'localizacao' => 'nullable',
+            'localizacao' => 'required', //localizacao na estante
             'complemento_localizacao' => 'nullable',
             'obs'         => 'nullable',
-            'isbn'         => 'nullable',
-            'extensao'         => 'nullable',
-            'dimensao'         => 'nullable',
-            'ilustrado'        => 'nullable',
-            'colorido'         => 'nullable',
+            'isbn'        => 'nullable',
+            'extensao'    => 'nullable',
+            'dimensao'    => 'nullable',
+            'ilustrado'   => 'nullable',
+            'colorido'    => 'nullable',
+            'colecao'     => 'nullable', #colecao/serie
+            'idioma' => 'nullable',
+            'paginas' => 'nullable|integer',
+            'responsabilidade' => 'required',
         ];
 
         return $rules;
+    }
+    public function messages(){
+        return [
+            'titulo.required' => 'O título do livro é obrigatório',
+            'titulo.unique' => 'Este livro já está cadastrado no sistema',
+            'paginas.integer' => 'Insira um número inteiro nas páginas',
+            'localizacao.required' => 'A localização é obrigatória',
+        ];
     }
 
 }

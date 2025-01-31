@@ -5,14 +5,14 @@
 <form method="POST" action="/livro_assuntos/{{ $livro->id }}">
 @csrf
 <div class="card bg-light">
-    <h5 class="card-header border-info bg-light font-weight-bold">Adicionar Termo</h5>
+    <h5 class="card-header border-info bg-light font-weight-bold">Adicionar assunto</h5>
     <div class="card-body">
 
     <b>Livro:</b> {{ $livro->titulo }} <br><br>
     
     <div class="form-row">
 
-        <div class="form-group col"><h5 class="font-weight-bold">Termos</h5>
+        <div class="form-group col"><h5 class="font-weight-bold">Assuntos</h5>
             <select class="select-assunto" name="assunto_id">
                 <option value="default" >Buscar ...</option>
                 @foreach($assuntos as $assunto)

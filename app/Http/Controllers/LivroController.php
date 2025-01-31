@@ -10,23 +10,26 @@ use App\Models\Emprestimo;
 use App\Models\Livro;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Responsabilidade;
+use App\Models\LivroResponsabilidade;
+use Illuminate\Support\Facades\Gate;
 
 class LivroController extends Controller
 {
+
     public function index(Request $request)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin');
         $query = $this->prepareQuery($request);
-
         # Excluindo itens da pré-catalogação (sem exemplares)
         $query->whereHas('instances');
         
         return view('livros.index',[
-            'livros' => $query->paginate(20)
+            'livros' => $query->paginate(20),
         ]);
     }
 
-    public function pre(Request $request){
+    public function pre(Request $request){ //pré-catalogação
         $this->authorize('admin');
 
         $query = $this->prepareQuery($request);
@@ -39,6 +42,27 @@ class LivroController extends Controller
         ]);
     }
 
+    //aprova ou reprova o status de um registro na pré-catalogação
+    public function status(Request $request, Livro $livro){
+        $this->authorize('admin');
+        $livro->status = $request->status;
+        $livro->update();
+        return redirect("/pre");
+    }
+
+    /*
+        Aprova todos os registros em pré-catalogação
+    */
+    public function aprovar_todos(Request $request){ 
+        $this->authorize('admin');
+        $livros = Livro::where('status', NULL)->get();
+        foreach($livros as $livro){
+            $livro->status = $request->status;
+            $livro->update();
+        }
+        return redirect("/pre");
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,7 +72,8 @@ class LivroController extends Controller
     {
         $this->authorize('admin');
         return view('livros.create',[
-            'livro' => new Livro
+            'livro' => new Livro,
+            'livro_responsabilidade' => new Responsabilidade
         ]);
     }
 
@@ -58,7 +83,7 @@ class LivroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LivroRequest $request)
+    public function store(LivroRequest $request, Livro $livro)
     {
         $this->authorize('admin');
         $validated = $request->validated();
@@ -77,7 +102,14 @@ class LivroController extends Controller
             $livro->ilustrado = 'não';
         }
         $livro->save();
-
+        
+        foreach($request->responsabilidade as $autor){
+            $livro_responsabilidade = new LivroResponsabilidade;
+            $livro_responsabilidade->livro_id = $livro->id;
+            $livro_responsabilidade->tipo = 'Tipo';
+            $livro_responsabilidade->responsabilidade_id = $autor;
+            $livro->livro_responsabilidades()->save($livro_responsabilidade);
+        }
         return redirect("/livros/{$livro->id}");
     }
 
@@ -196,6 +228,7 @@ class LivroController extends Controller
         if(isset($request->responsabilidade) & !empty($request->responsabilidade)) {
             $query->whereHas('responsabilidades', function (Builder $q) use ($request) {
                 $q->where('nome','LIKE',"%{$request->responsabilidade}%");
+                #->orwhere('sobrenome','LIKE',"%{$request->responsabilidade}%");
             });
         }
 
@@ -204,7 +237,7 @@ class LivroController extends Controller
                 $q->where('titulo','LIKE',"%{$request->assunto}%");
             });
         }
-
+        
         return $query;
     }
 

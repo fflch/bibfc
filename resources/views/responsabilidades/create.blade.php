@@ -5,7 +5,7 @@
 <form method="POST" action="/responsabilidades">
 @csrf
 <div class="card bg-light">
-    <h5 class="card-header border-info bg-light font-weight-bold">Nova responsabilidade</h5>
+    <h5 class="card-header border-info bg-light font-weight-bold">Novo autor</h5>
     <div class="card-body">
     @include('responsabilidades.form')
     </div>

@@ -21,8 +21,10 @@ class UsuarioRequest extends FormRequest
             'nome'      => 'required',
             'matricula' => ['required','integer'],
             'telefone'  => 'nullable',
-            'turma'     => 'nullable',
-            'setor'     => 'nullable',
+            'quarto'     => 'nullable',
+            'prontuario' => 'nullable',
+            'sala_de_aula'       => 'nullable',
+            'status'    => 'required',
             'foto'      => 'nullable',
             'obs'       => 'nullable',
         ];

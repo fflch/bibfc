@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Instance;
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Unidade;
+use App\Models\User;
 
 use App\Http\Requests\InstanceRequest;
 
@@ -35,10 +38,11 @@ class InstanceController extends Controller
     {
         $this->authorize('admin');
         $livro = Livro::find($request->livro_id);
-
+        $unidades = Unidade::all();
         return view('instances.create',[
             'instance' => new Instance,
-            'livro' => $livro
+            'livro' => $livro,
+            'unidades' => $unidades
         ]);
     }
 
@@ -52,6 +56,7 @@ class InstanceController extends Controller
     {
         $this->authorize('admin');
         $validated = $request->validated();
+        #$validated['unidade_id'] = auth()->user()->unidade_id;
         $instance = Instance::create($validated);
 
         return redirect("/livros/{$instance->livro->id}");
@@ -65,7 +70,8 @@ class InstanceController extends Controller
      */
     public function show(Instance $instance)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin_unidade', $instance);
+        
         return view('instances.show',[
             'instance' => $instance,
         ]);
@@ -79,11 +85,13 @@ class InstanceController extends Controller
      */
     public function edit(Instance $instance, Request $request)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin_unidade', $instance);   
         $livro = Livro::find($request->livro_id);
+        $unidades = Unidade::all();
         return view('instances.edit',[
             'instance' => $instance,
-            'livro' => $livro
+            'livro' => $livro,
+            'unidades' => $unidades
         ]);
     }
 
@@ -96,8 +104,8 @@ class InstanceController extends Controller
      */
     public function update(InstanceRequest $request, Instance $instance)
     {
-        $this->authorize('admin');
-
+        #$this->authorize('admin');
+        Gate::authorize('admin_unidade', $instance);
         $validated = $request->validated();
         $instance->update($validated);
 
