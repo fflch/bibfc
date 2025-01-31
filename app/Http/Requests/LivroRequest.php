@@ -26,7 +26,11 @@ class LivroRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'titulo'      => 'required|unique:livros,titulo,NULL,' . request()->titulo,
+            #'titulo'      => 'required|unique:livros,titulo,'  . $this->titulo,
+            'titulo' => [
+                'required',
+                Rule::unique('livros', 'titulo')->ignore($this->route('livro')),
+            ],
             'subtitulo'   => 'nullable',
             'editora'     => 'nullable',
             'local'       => 'nullable', //local de publicação
@@ -45,10 +49,14 @@ class LivroRequest extends FormRequest
             'idioma' => 'nullable',
             'paginas' => 'nullable|integer',
             'responsabilidade' => 'required',
+            'livro_id' => 'integer',
+            'tipo' => 'required',
         ];
 
         return $rules;
     }
+
+    
     public function messages(){
         return [
             'titulo.required' => 'O título do livro é obrigatório',
@@ -56,6 +64,13 @@ class LivroRequest extends FormRequest
             'paginas.integer' => 'Insira um número inteiro nas páginas',
             'localizacao.required' => 'A localização é obrigatória',
         ];
+    }
+
+    public function prepareForValidation(){
+        $this->merge([
+            'colorido' => $this->input('colorido') === 'sim' ? 'sim' : 'não',
+            'ilustrado' => $this->input('ilustrado') === 'sim' ? 'sim' : 'não',
+        ]);
     }
 
 }
