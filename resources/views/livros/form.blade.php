@@ -11,16 +11,17 @@
         </div>
         <div class="form-group col-lg-2 font-weight-bold">
             <label for="tipologia">Tipologia</label>
-            <select class="form-control" name="tipo">
+            <select class="form-control" name="tipologia">
                 <option selected="" value="">- Selecionar -</option>
                 @foreach($livro::tipologia() as $tipologia)
-                <option value="{{$tipologia}}" name="tipo">{{$tipologia}}</option>
+                <option value="{{$tipologia}}">{{$tipologia}}</option>
                 @endforeach
             </select>
         </div>
         <div class="col" id="inputsContainer">
             <label for="responsabilidade">Autores</label>
             <select class="form-control" name="responsabilidade[]">
+                <option value="" name="">- Selecionar - </option>
                 @foreach(\App\Models\Responsabilidade::all() as $livro_responsabilidade)
                     <option value="{{$livro_responsabilidade->id}}">{{$livro_responsabilidade->nome}}</option>
                 @endforeach
@@ -29,6 +30,7 @@
         <div class="col" id="inputsContainer2">
             <label for="tipo">Tipo</label>
             <select class="form-control" name="tipo[]">
+                <option value="-" name="">- Selecionar -</option>
                 @foreach(\App\Models\LivroResponsabilidade::tipos as $tipos)
                     <option value="{{$tipos }}">{{$tipos}}</option>
                 @endforeach
@@ -165,9 +167,19 @@
         select.name = 'responsabilidade[]';
         select.style = "width:100%; padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
 
+        let defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.innerText = '- Selecionar -';
+        select.appendChild(defaultOption);
+
         let select2 = document.createElement('select');
         select2.name = 'tipo[]';
         select2.style = "width:80%;padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
+
+        let defaultOption2 = document.createElement('option');
+        defaultOption2.value = '';
+        defaultOption2.innerText = '- Selecionar -';
+        select2.appendChild(defaultOption2);
 
         // Criando opções para responsabilidade
         @foreach(\App\Models\Responsabilidade::all() as $opcao)
@@ -223,12 +235,5 @@
             addSelect(responsabilidades[i], tipos[i]);
         }
     }
-
-    if (responsabilidades.length === 0) {
-        addButton.style.display = 'block';
-    } else {
-        addButton.style.display = 'none';
-    }
-
 });
 </script>

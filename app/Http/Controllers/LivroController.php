@@ -138,11 +138,12 @@ class LivroController extends Controller
         $livro->update($request->validated());
 
         // Atualiza as responsabilidades (pode ser necessário apagar as antigas antes)
+        
         $livro->livro_responsabilidades()->delete();
         foreach ($request->input('tipo') as $index => $tipo) {
             $livro->livro_responsabilidades()->create([
-                'tipo' => $tipo,
-                'responsabilidade_id' => $request->input('responsabilidade')[$index]
+                'tipo' => $tipo ?? '-',
+                'responsabilidade_id' => $request->input('responsabilidade')[$index] ?? NULL
             ]);
         }
 
