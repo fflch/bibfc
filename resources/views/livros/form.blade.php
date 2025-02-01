@@ -11,18 +11,28 @@
         </div>
         <div class="form-group col-lg-2 font-weight-bold">
             <label for="tipologia">Tipologia</label>
-            <select class="form-control" name="tipo">
+            <select class="form-control" name="tipologia">
                 <option selected="" value="">- Selecionar -</option>
                 @foreach($livro::tipologia() as $tipologia)
-                <option value="{{$tipologia}}" name="tipo">{{$tipologia}}</option>
+                <option value="{{$tipologia}}">{{$tipologia}}</option>
                 @endforeach
             </select>
         </div>
         <div class="col" id="inputsContainer">
             <label for="responsabilidade">Autores</label>
             <select class="form-control" name="responsabilidade[]">
+                <option value="" name="">- Selecionar - </option>
                 @foreach(\App\Models\Responsabilidade::all() as $livro_responsabilidade)
                     <option value="{{$livro_responsabilidade->id}}">{{$livro_responsabilidade->nome}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col" id="inputsContainer2">
+            <label for="tipo">Tipo</label>
+            <select class="form-control" name="tipo[]">
+                <option value="-" name="">- Selecionar -</option>
+                @foreach(\App\Models\LivroResponsabilidade::tipos as $tipos)
+                    <option value="{{$tipos }}">{{$tipos}}</option>
                 @endforeach
             </select>
         </div>
@@ -137,40 +147,93 @@
 </div>
 
 <script>
-document.getElementById('add-select').addEventListener('click', function () {
+    document.addEventListener('DOMContentLoaded', function () {
+
+    let responsabilidades = @json($livro->livro_responsabilidades->pluck('responsabilidade_id'));
+    let tipos = @json($livro->livro_responsabilidades->pluck('tipo'));
+
     let container = document.getElementById('inputsContainer');
-    
-    let newDiv = document.createElement('div');
-    newDiv.classList.add('form-group');
+    let container2 = document.getElementById('inputsContainer2');
+    let addButton = document.getElementById('add-select');
 
-    let select = document.createElement('select');
-    select.name = 'responsabilidade[]';
-    select.style = "width:80%; padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
+    function addSelect(responsabilidadeSelecionada = null, tipoSelecionado = null) {
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('form-group');
 
-    // Opções do select
-    let defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.innerText = 'Selecione uma opção';
-    select.appendChild(defaultOption);
+        let newDiv2 = document.createElement('div');
+        newDiv2.classList.add('form-group');
 
-    @foreach(\App\Models\Responsabilidade::all() as $opcao)
-        let option{{ $opcao->id }} = document.createElement('option');
-        option{{ $opcao->id }}.value = '{{ $opcao->id }}';
-        option{{ $opcao->id }}.innerText = '{{ $opcao->nome}}';
-        select.appendChild(option{{ $opcao->id }});
-    @endforeach
+        let select = document.createElement('select');
+        select.name = 'responsabilidade[]';
+        select.style = "width:100%; padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
 
-    let removeButton = document.createElement('button');
-    removeButton.innerText = '-';
-    removeButton.classList.add('btn', 'btn-danger');
-    removeButton.type = 'button';
-    removeButton.onclick = function () {
-        newDiv.remove();
-    };
+        let defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.innerText = '- Selecionar -';
+        select.appendChild(defaultOption);
 
-    newDiv.appendChild(select);
-    newDiv.appendChild(removeButton);
-    
-    container.appendChild(newDiv);
+        let select2 = document.createElement('select');
+        select2.name = 'tipo[]';
+        select2.style = "width:80%;padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
+
+        let defaultOption2 = document.createElement('option');
+        defaultOption2.value = '';
+        defaultOption2.innerText = '- Selecionar -';
+        select2.appendChild(defaultOption2);
+
+        // Criando opções para responsabilidade
+        @foreach(\App\Models\Responsabilidade::all() as $opcao)
+            let option{{ $opcao->id }} = document.createElement('option');
+            option{{ $opcao->id }}.value = '{{ $opcao->id }}';
+            option{{ $opcao->id }}.innerText = '{{ $opcao->nome }}';
+            
+            if (responsabilidadeSelecionada == '{{ $opcao->id }}') {
+                option{{ $opcao->id }}.selected = true;
+            }
+
+            select.appendChild(option{{ $opcao->id }});
+        @endforeach
+
+        // Criando opções para tipo
+        @foreach(\App\Models\LivroResponsabilidade::tipos as $tipos)
+            let option{{ $tipos }} = document.createElement('option');
+            option{{ $tipos }}.value = '{{ $tipos }}';
+            option{{ $tipos }}.innerText = '{{ $tipos }}';
+            
+            if (tipoSelecionado == '{{ $tipos }}') {
+                option{{ $tipos }}.selected = true;
+            }
+
+            select2.appendChild(option{{ $tipos }});
+        @endforeach
+
+        let removeButton = document.createElement('button');
+        removeButton.innerText = '-';
+        removeButton.classList.add('btn', 'btn-danger');
+        removeButton.type = 'button';
+        removeButton.onclick = function () {
+            newDiv.remove();
+            newDiv2.remove();
+        };
+
+        newDiv.appendChild(select);
+        newDiv2.appendChild(select2);
+        newDiv2.appendChild(removeButton);
+
+        container.appendChild(newDiv);
+        container2.appendChild(newDiv2);
+    }
+
+    // Adiciona selects ao clicar no botão
+    addButton.addEventListener('click', function () {
+        addSelect();
+    });
+
+    // Preencher selects já cadastrados na edição
+    if (responsabilidades.length > 0) {
+        for (let i = 0; i < responsabilidades.length; i++) {
+            addSelect(responsabilidades[i], tipos[i]);
+        }
+    }
 });
 </script>

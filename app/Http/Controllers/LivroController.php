@@ -86,28 +86,12 @@ class LivroController extends Controller
     public function store(LivroRequest $request, Livro $livro)
     {
         $this->authorize('admin');
-        $validated = $request->validated();
-        $livro = Livro::create($validated);
-
-        // esse trecho não está bom, mas é um quebra galho por hora
-        if($request->colorido == 'sim'){
-            $livro->colorido = 'sim';
-        } else {
-            $livro->colorido = 'não';
-        }
-
-        if($request->ilustrado == 'sim'){
-            $livro->ilustrado = 'sim';
-        } else {
-            $livro->ilustrado = 'não';
-        }
-        $livro->save();
-        
-        foreach($request->responsabilidade as $autor){
+        $livro = Livro::create($request->validated());
+        foreach($request->tipo as $index => $row){
             $livro_responsabilidade = new LivroResponsabilidade;
             $livro_responsabilidade->livro_id = $livro->id;
-            $livro_responsabilidade->tipo = 'Tipo';
-            $livro_responsabilidade->responsabilidade_id = $autor;
+            $livro_responsabilidade->tipo = $request->tipo[$index];
+            $livro_responsabilidade->responsabilidade_id = $request->responsabilidade[$index];
             $livro->livro_responsabilidades()->save($livro_responsabilidade);
         }
         return redirect("/livros/{$livro->id}");
@@ -150,24 +134,18 @@ class LivroController extends Controller
      */
     public function update(LivroRequest $request, Livro $livro)
     {
-        
         $this->authorize('admin');
-        $validated = $request->validated();
-        $livro->update($validated);
+        $livro->update($request->validated());
 
-        // esse trecho não está bom, mas é um quebra galho por hora
-        if($request->colorido == 'sim'){
-            $livro->colorido = 'sim';
-        } else {
-            $livro->colorido = 'não';
+        // Atualiza as responsabilidades (pode ser necessário apagar as antigas antes)
+        
+        $livro->livro_responsabilidades()->delete();
+        foreach ($request->input('tipo') as $index => $tipo) {
+            $livro->livro_responsabilidades()->create([
+                'tipo' => $tipo ?? '-',
+                'responsabilidade_id' => $request->input('responsabilidade')[$index] ?? NULL
+            ]);
         }
-
-        if($request->ilustrado == 'sim'){
-            $livro->ilustrado = 'sim';
-        } else {
-            $livro->ilustrado = 'não';
-        }
-        $livro->save();
 
         return redirect("/livros/{$livro->id}");
     }

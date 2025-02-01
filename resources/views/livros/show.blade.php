@@ -46,7 +46,7 @@
         <div class="col-md  text-break"><h6 class="font-weight-bold">Autor</h6>
             <ul>
                 @forelse($livro->responsabilidades as $responsabilidade)
-                    <li>{{ $responsabilidade->nome }} {{ $responsabilidade->sobrenome }} ({{ $responsabilidade->pivot->tipo }})
+                    <li>{{ $responsabilidade->nome ?? '' }} {{ $responsabilidade->sobrenome ?? '' }} ({{ $responsabilidade->pivot->tipo }})
 
                     <form method="POST" action="/livro_responsabilidades/{{ $responsabilidade->pivot->id }}" style="display:inline">
                       @csrf
