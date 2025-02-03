@@ -12,14 +12,14 @@
 
             <div class="form-row">
                 <div class="form-group col-md font-weight-bold">
-                    <label for="usuario">Usuário</label>
+                    <label for="usuario">Matrícula do Adolescente</label>
                     <input type="text" class="form-control" name="usuario" value="{{ old('usuario') }}" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md font-weight-bold">
-                    <label for="barcode">Livro</label>
+                    <label for="barcode">Tombo do Livro</label>
                     <input type="text" class="form-control" name="barcode" value="{{ old('barcode') }}" required>
                 </div>
             </div>

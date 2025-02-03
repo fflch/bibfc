@@ -26,7 +26,7 @@
                 {{ Carbon\Carbon::parse($audit->created_at)->format('d/m/Y H:i') }}
             </td>
             <td> 
-                {{ \App\Models\User::find($audit->user_id)->email }}
+                {{ \App\Models\User::find($audit->user_id)->email ?? 'Não encontrado' }}
             </td>
 
             <td> 
