@@ -117,7 +117,7 @@ class LivroController extends Controller
      * @param  \App\Livro  $livro
      * @return \Illuminate\Http\Response
      */
-    public function edit(Livro $livro)
+    public function edit(Livro $livro, LivroResponsabilidade $livro_responsabilidade)
     {
         $this->authorize('admin');
         return view('livros.edit')->with([
@@ -138,9 +138,10 @@ class LivroController extends Controller
         $livro->update($request->validated());
 
         // Atualiza as responsabilidades (pode ser necessário apagar as antigas antes)
-        
-        $livro->livro_responsabilidades()->delete();
+        $livro->livro_responsabilidades()->delete(); //apaga as responsabilidades vazias
         foreach ($request->input('tipo') as $index => $tipo) {
+            //Pega os inputs com campos vazios e exclui, impedindo a sua inserção na DB
+            $livro->livro_responsabilidades()->where('responsabilidade_id',NULL)->delete();
             $livro->livro_responsabilidades()->create([
                 'tipo' => $tipo ?? '-',
                 'responsabilidade_id' => $request->input('responsabilidade')[$index] ?? NULL

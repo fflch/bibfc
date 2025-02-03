@@ -91,10 +91,6 @@
             </select>
         </div>
         <div class="form-group col-md font-weight-bold">
-            <label for="serie">Série/Coleção</label>
-            <input type="text" class="form-control" name="serie" value="{{ old('serie', $livro->serie) }}">
-        </div>
-        <div class="form-group col-md font-weight-bold">
             <label for="paginas">Total de páginas</label>
             <input type="text" class="form-control" name="paginas" value="{{ old('paginas', $livro->paginas) }}">
         </div>
