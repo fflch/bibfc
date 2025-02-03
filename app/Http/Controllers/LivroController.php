@@ -47,7 +47,7 @@ class LivroController extends Controller
         $this->authorize('admin');
         $livro->status = $request->status;
         $livro->update();
-        return redirect("/pre");
+        return redirect()->back();
     }
 
     /*
@@ -60,7 +60,7 @@ class LivroController extends Controller
             $livro->status = $request->status;
             $livro->update();
         }
-        return redirect("/pre");
+        return redirect()->back();
     }
 
     /**
@@ -138,7 +138,7 @@ class LivroController extends Controller
         $livro->update($request->validated());
 
         // Atualiza as responsabilidades (pode ser necessário apagar as antigas antes)
-        $livro->livro_responsabilidades()->delete(); //apaga as responsabilidades vazias
+        $livro->livro_responsabilidades()->delete(); //apaga dados repetidos
         foreach ($request->input('tipo') as $index => $tipo) {
             //Pega os inputs com campos vazios e exclui, impedindo a sua inserção na DB
             $livro->livro_responsabilidades()->where('responsabilidade_id',NULL)->delete();

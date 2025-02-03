@@ -89,10 +89,7 @@ class BarcodeController extends Controller
         $usuario = Usuario::where('matricula',$request->usuario)->first();
         
         // achando exemplar
-        $barcode = explode(' - ', $request->barcode);
-        $tombo_tipo = $barcode[0];
-        $tombo = $barcode[1];
-        $instance = Instance::where('tombo',$tombo)->where('tombo_tipo',$tombo_tipo)->first();
+        $instance = Instance::where('tombo',$request->barcode)->first();
 
         # ficaria melhor se fizessemos essa checagem no EmprestimoRequest?
         if(!$instance){
