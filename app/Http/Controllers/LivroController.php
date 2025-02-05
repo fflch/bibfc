@@ -90,7 +90,7 @@ class LivroController extends Controller
         foreach($request->tipo as $index => $row){
             $livro_responsabilidade = new LivroResponsabilidade;
             $livro_responsabilidade->livro_id = $livro->id;
-            $livro_responsabilidade->tipo = $request->tipo[$index];
+            $livro_responsabilidade->tipo = $request->tipo[$index] ?? '-'; //impede erro por inserção nula no campo
             $livro_responsabilidade->responsabilidade_id = $request->responsabilidade[$index];
             $livro->livro_responsabilidades()->save($livro_responsabilidade);
         }
@@ -117,11 +117,12 @@ class LivroController extends Controller
      * @param  \App\Livro  $livro
      * @return \Illuminate\Http\Response
      */
-    public function edit(Livro $livro, LivroResponsabilidade $livro_responsabilidade)
+    public function edit(Livro $livro, LivroResponsabilidade $livro_responsabilidade1)
     {
         $this->authorize('admin');
         return view('livros.edit')->with([
-            'livro' => $livro
+            'livro' => $livro,
+            'livro_responsabilidade1' => $livro_responsabilidade1->where('livro_id',$livro->id)->first()->toArray()['tipo']
         ]);
     }
 

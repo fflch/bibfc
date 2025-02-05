@@ -9,35 +9,39 @@
             <label>Subtítulo</label>
             <input type="text" class="form-control" name="subtitulo" value="{{ old('subtitulo', $livro->subtitulo) }}">
         </div>
-        <div class="form-group col-lg-2 font-weight-bold">
-            <label for="tipologia">Tipologia</label>
-            <select class="form-control" name="tipologia">
-                <option selected="" value="">- Selecionar -</option>
-                @foreach($livro::tipologia() as $tipologia)
-                <option value="{{$tipologia}}">{{$tipologia}}</option>
-                @endforeach
-            </select>
-        </div>
         <div class="col" id="inputsContainer">
             <label for="responsabilidade">Autores</label>
             <select class="form-control" name="responsabilidade[]">
                 <option value="" name="">- Selecionar - </option>
                 @foreach(\App\Models\Responsabilidade::all() as $livro_responsabilidade)
-                    <option value="{{$livro_responsabilidade->id}}">{{$livro_responsabilidade->nome}}</option>
+                    <option value="{{$livro_responsabilidade->id}}"
+                    {{ (in_array($livro_responsabilidade->id, old('responsabilidade', [])) || in_array($livro_responsabilidade->id, $livro->livro_responsabilidades->pluck('responsabilidade_id')->toArray())) ? 'selected' : '' }}>
+                    {{ $livro_responsabilidade->nome }}
+                </option>
                 @endforeach
             </select>
         </div>
         <div class="col" id="inputsContainer2">
             <label for="tipo">Tipo</label>
             <select class="form-control" name="tipo[]">
-                <option value="-" name="">- Selecionar -</option>
+                <option value="" name="">- Selecionar -</option>
                 @foreach(\App\Models\LivroResponsabilidade::tipos as $tipos)
-                    <option value="{{$tipos }}">{{$tipos}}</option>
+                @if(old('tipo') == '' and isset($livro_responsabilidade1))
+                {{-- Tentativa de Edição --}}
+                    <option value="{{$tipos}}" {{ ($livro_responsabilidade1 == $tipos) ? 'selected' : '' }}>
+                        {{$tipos}}
+                    </option>
+                    @else
+                {{-- Tentativa de Cadastro --}}
+                    <option value="{{ $tipos }}" {{ in_array($tipos, old('tipo', $livro->livro_responsabilidades->pluck('tipo')->toArray() )) ? 'selected' : '' }}>
+                        {{ $tipos }}
+                    </option>
+                    @endif
                 @endforeach
             </select>
         </div>
         <div class="col-g">
-            <a class="btn btn-primary" id="add-select" style="margin-top:1.85rem;">+</a>
+            <a class="btn btn-primary" id="add-select" style="margin-top:1.85rem;"><i class="fas fa-plus"></i></a>
         </div>
     </div>
 
@@ -155,13 +159,15 @@
     function addSelect(responsabilidadeSelecionada = null, tipoSelecionado = null) {
         let newDiv = document.createElement('div');
         newDiv.classList.add('form-group');
+        newDiv.style="margin-top:0.55rem; margin-bottom:0 !important;";
 
         let newDiv2 = document.createElement('div');
         newDiv2.classList.add('form-group');
+        newDiv2.style="margin-top:0.55rem; margin-bottom:0 !important; margin-right:-25%;";
 
         let select = document.createElement('select');
         select.name = 'responsabilidade[]';
-        select.style = "width:100%; padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
+        select.classList.add('form-control');
 
         let defaultOption = document.createElement('option');
         defaultOption.value = '';
@@ -170,13 +176,28 @@
 
         let select2 = document.createElement('select');
         select2.name = 'tipo[]';
-        select2.style = "width:80%;padding:8px; border:1px solid #ced4da; border-radius:.25rem; background-color:#fff;";
+        select2.classList.add('form-control');
+        select2.style= "width:80%; display:initial; !important;";
 
         let defaultOption2 = document.createElement('option');
         defaultOption2.value = '';
         defaultOption2.innerText = '- Selecionar -';
         select2.appendChild(defaultOption2);
 
+
+    function validaCampos(){
+        setTimeout(() => {
+            [select, select2].forEach(el => {
+            el.classList.toggle('blinking-border', !el.value);
+        });
+        }, 100);
+    }
+    
+    validaCampos();
+    select.addEventListener("change",validaCampos);
+    select2.addEventListener("change",validaCampos);
+    setTimeout(validaCampos, 200);
+    
         // Criando opções para responsabilidade
         @foreach(\App\Models\Responsabilidade::all() as $opcao)
             let option{{ $opcao->id }} = document.createElement('option');
@@ -204,7 +225,10 @@
         @endforeach
 
         let removeButton = document.createElement('button');
-        removeButton.innerText = '-';
+        let trash = document.createElement('i');
+        trash.classList.add('fas','fa-trash');
+        removeButton.style = "margin-left:8px;";
+        removeButton.appendChild(trash);
         removeButton.classList.add('btn', 'btn-danger');
         removeButton.type = 'button';
         removeButton.onclick = function () {
@@ -227,9 +251,20 @@
 
     // Preencher selects já cadastrados na edição
     if (responsabilidades.length > 0) {
-        for (let i = 0; i < responsabilidades.length; i++) {
+        for (let i = 1; i < responsabilidades.length; i++) {
             addSelect(responsabilidades[i], tipos[i]);
         }
     }
 });
 </script>
+<style>
+    @keyframes piscar {
+    0% { border-color: rgba(255, 0, 0, 1); }
+    50% { border-color: rgba(255, 0, 0, 0.3); }
+    100% { border-color: rgba(255, 0, 0, 1); }
+}
+
+.blinking-border {
+    animation: piscar 1s infinite;
+}
+</style>
