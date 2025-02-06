@@ -21,4 +21,14 @@ class Responsabilidade extends Model implements Auditable
                     ->withTimestamps()
                     ->using(LivroResponsabilidade::class);
     }
+
+    //método para deixar o nome do autor como SOBRENOME, Nome
+    public static function nomeAutor(string $nome)
+    {
+        $partes = explode(' ', trim($nome));
+        $sobrenome = strtoupper(array_pop($partes));
+        $prenome = implode(' ', $partes);
+        return "{$sobrenome}, {$prenome}";
+    }
+
 }
