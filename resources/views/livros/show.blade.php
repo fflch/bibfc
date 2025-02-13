@@ -58,7 +58,7 @@
 
                     </li>
                 @empty
-                    <li>Não há Autor cadastrado</li>
+                    <li><b class="text-danger">Não há Autor cadastrado</b></li>
                 @endforelse
                 <li><a href="/livro_responsabilidades/{{ $livro->id }}"> <i class="fas fa-plus"></i> Adicionar Autor</a></li>
               </ul>

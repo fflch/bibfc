@@ -25,8 +25,17 @@
   <tbody>
       @foreach($livros as $livro)
       <tr>
-      <td>{{$livro->nome}}</td>
-      <td><b>{{$livro->titulo}}</b>: {{$livro->subtitulo}}</td>
+      <td>
+        @php
+          $autores = explode(', ',$livro->responsabilidades);
+        @endphp
+        @foreach($autores as $autor)
+          <li>
+            {{\App\Models\Responsabilidade::nomeAutor($autor)}}
+          </li>
+        @endforeach
+      </td>
+      <td><b>{{$livro->titulo}}</b>{{$livro->subtitulo ? ": " . $livro->subtitulo : ''}}</td>
       <td>{{$livro->isbn ?? 'N/A'}}</td>
     </tr>
     @endforeach

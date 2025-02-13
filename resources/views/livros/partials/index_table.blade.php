@@ -20,13 +20,15 @@
     <tbody>
     @foreach($livros as $livro)
         <tr>
-            <td><a href="/livros/{{$livro->id}}">{{ $livro->titulo }} {{$livro->subtitulo}}</a></td>
+            <td><a href="/livros/{{$livro->id}}"><b>{{ $livro->titulo }}</b>{{$livro->subtitulo ? ": " . $livro->subtitulo : ''}}</a></td>
             <td>
                 <ul>
                 @forelse($livro->responsabilidades as $responsabilidade)
-                    <li>{{ $responsabilidade->nome }} {{ $responsabilidade->sobrenome }} ({{ $responsabilidade->pivot->tipo }})</li>
+                    <li>{{\App\Models\Responsabilidade::nomeAutor($responsabilidade->nome)}} ({{ $responsabilidade->pivot->tipo }})
+                    </li>
+
                 @empty
-                    <li>Não há Autor cadastrado</li>
+                    <p class="text-danger">Não há autor cadastrado</p>
                 @endforelse
                 </ul>
             </td>
