@@ -52,7 +52,9 @@ class LivroRequest extends FormRequest
             'responsabilidade.*' => ['required','integer', Rule::exists('responsabilidades','id')],
             'livro_id' => 'integer',
             'tipo' => ['required','array'],
-            'tipo.*' => ['required','string',Rule::in(\App\Models\LivroResponsabilidade::tipos)]
+            'tipo.*' => ['required','string',Rule::in(\App\Models\LivroResponsabilidade::tipos)],
+            'assunto' => ['required','array'],
+            'assunto.*' => ['required','integer', Rule::exists('assuntos','id')],
         ];
 
         return $rules;

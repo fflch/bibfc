@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Responsabilidade;
 use App\Models\LivroResponsabilidade;
+use App\Models\LivroAssunto;
 use Illuminate\Support\Facades\Gate;
 
 class LivroController extends Controller
@@ -71,9 +72,11 @@ class LivroController extends Controller
     public function create()
     {
         $this->authorize('admin');
+        
         return view('livros.create',[
             'livro' => new Livro,
-            'livro_responsabilidade' => new Responsabilidade
+            'livro_responsabilidade' => new Responsabilidade,
+            'livro_assunto' => new LivroAssunto
         ]);
     }
 
@@ -93,6 +96,12 @@ class LivroController extends Controller
             $livro_responsabilidade->tipo = $request->tipo[$index] ?? '-'; //impede erro por inserção nula no campo
             $livro_responsabilidade->responsabilidade_id = $request->responsabilidade[$index];
             $livro->livro_responsabilidades()->save($livro_responsabilidade);
+        }
+        foreach($request->assunto as $key => $row){
+            $livro_assunto = new LivroAssunto;
+            $livro_assunto->livro_id = $livro->id;
+            $livro_assunto->assunto_id = $row;
+            $livro->assuntos()->attach($row);
         }
         return redirect("/livros/{$livro->id}");
     }
@@ -117,12 +126,20 @@ class LivroController extends Controller
      * @param  \App\Livro  $livro
      * @return \Illuminate\Http\Response
      */
-    public function edit(Livro $livro, LivroResponsabilidade $livro_responsabilidade1)
+    public function edit(Livro $livro)
     {
         $this->authorize('admin');
+
+        $livro_responsabilidade1 = optional( //evita erro caso não tenha autor
+            LivroResponsabilidade::where('livro_id', $livro->id)->first()
+        )->tipo;
+
+        $livro_assunto = LivroAssunto::where('livro_id',$livro->id)->pluck('assunto_id')->toArray();
+
         return view('livros.edit')->with([
             'livro' => $livro,
-            'livro_responsabilidade1' => $livro_responsabilidade1->where('livro_id',$livro->id)->first()->toArray()['tipo']
+            'livro_assunto' => $livro_assunto,
+            'livro_responsabilidade1' => $livro_responsabilidade1
         ]);
     }
 
@@ -148,7 +165,12 @@ class LivroController extends Controller
                 'responsabilidade_id' => $request->input('responsabilidade')[$index] ?? NULL
             ]);
         }
-
+        $livro->livro_assuntos()->delete(); //exclui as existentes para evitar repetição
+        $array = array_map(fn($row) => [
+            'livro_id' => $livro->id,
+            'assunto_id' => $row
+        ],$request->assunto);
+        LivroAssunto::upsert($array, ['livro_id','assunto_id']);
         return redirect("/livros/{$livro->id}");
     }
 

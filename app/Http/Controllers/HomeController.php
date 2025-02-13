@@ -15,7 +15,6 @@ class HomeController extends Controller
 {
     public function index(Request $request, Livro $livros)
     {
-
         //Fazendo group by para não repetir registros
         $query = LivroResponsabilidade::join('responsabilidades', 'responsabilidades.id', '=', 'responsabilidade_id')
         ->join('livros', 'livros.id', '=', 'livro_id')
@@ -25,7 +24,9 @@ class HomeController extends Controller
             'livros.isbn',
             DB::raw("GROUP_CONCAT(responsabilidades.nome SEPARATOR ', ') as responsabilidades")
         )
-        ->where('status', 1)
+        ->join('instances','livros.id','instances.livro_id')
+        ->where('livros.status', 1)
+        ->where('livro_responsabilidade.id','<>',null)
         ->groupBy('livros.id', 'livros.titulo', 'livros.subtitulo', 'livros.isbn');
     $query->when($request->busca, function ($query) use ($request) {
         $query->where('livros.titulo','like','%'.$request->busca.'%')

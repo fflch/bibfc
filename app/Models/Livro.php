@@ -97,6 +97,10 @@ class Livro extends Model implements Auditable
                     ->using(LivroAssunto::class);
     }
 
+    public function livro_assuntos(){
+        return $this->hasMany(LivroAssunto::class);
+    }
+
     public function livro_responsabilidades(){
         return $this->hasMany(LivroResponsabilidade::class);
     }

@@ -98,6 +98,28 @@
             <label for="paginas">Total de páginas</label>
             <input type="text" class="form-control" name="paginas" value="{{ old('paginas', $livro->paginas) }}">
         </div>
+        <div class="form-group col font-weight-bold" id="inputsContainer3">
+            <label for="assunto">Assunto</label>
+            <select class="form-control" name="assunto[]">
+                <option value="" name="">- Selecionar -</option>
+                @foreach(\App\Models\Assunto::all() as $assunto)
+                @if(old('assunto') == '' and isset($livro_assunto))
+                {{-- Tentativa de edição --}}
+                <option value="{{$assunto->id}}" {{ in_array($assunto->id, old('assunto', $livro->assuntos->pluck('id')->toArray() )) ? 'selected' : '' }}>
+                    {{$assunto->titulo}}
+                </option>
+                @else 
+                <option value="{{$assunto->id}}" {{ in_array($assunto->id, old('assunto', $livro_assunto ?? [])) ? 'selected' : '' }}>
+                    {{$assunto->titulo}}
+                </option>
+                {{-- Tentativa de cadastro --}}
+                @endif
+                @endforeach
+            </select>
+        </div>
+        <div class="col-g">
+            <a class="btn btn-primary" id="add-select2" style="margin-top:1.85rem"><i class="fas fa-plus"></i></a>
+        </div>
     </div>
     
 
@@ -151,10 +173,15 @@
 
     let responsabilidades = @json($livro->livro_responsabilidades->pluck('responsabilidade_id'));
     let tipos = @json($livro->livro_responsabilidades->pluck('tipo'));
+    let assuntos = @json($livro->assuntos->pluck('id'));
+    {{-- let assuntos = @json($livro_assunto->pluck('assunto_id')); --}}
+    
 
     let container = document.getElementById('inputsContainer');
     let container2 = document.getElementById('inputsContainer2');
+    let container3 = document.getElementById('inputsContainer3');
     let addButton = document.getElementById('add-select');
+    let addButton2 = document.getElementById('add-select2');
 
     function addSelect(responsabilidadeSelecionada = null, tipoSelecionado = null) {
         let newDiv = document.createElement('div');
@@ -164,26 +191,25 @@
         let newDiv2 = document.createElement('div');
         newDiv2.classList.add('form-group');
         newDiv2.style="margin-top:0.55rem; margin-bottom:0 !important; margin-right:-25%;";
-
+        
         let select = document.createElement('select');
         select.name = 'responsabilidade[]';
         select.classList.add('form-control');
+        
+        let select2 = document.createElement('select');
+        select2.name = 'tipo[]';
+        select2.classList.add('form-control');
+        select2.style= "width:80%; display:initial; !important;";
 
         let defaultOption = document.createElement('option');
         defaultOption.value = '';
         defaultOption.innerText = '- Selecionar -';
         select.appendChild(defaultOption);
 
-        let select2 = document.createElement('select');
-        select2.name = 'tipo[]';
-        select2.classList.add('form-control');
-        select2.style= "width:80%; display:initial; !important;";
-
         let defaultOption2 = document.createElement('option');
         defaultOption2.value = '';
         defaultOption2.innerText = '- Selecionar -';
         select2.appendChild(defaultOption2);
-
 
     function validaCampos(){
         setTimeout(() => {
@@ -244,15 +270,69 @@
         container2.appendChild(newDiv2);
     }
 
+    function addSelect2(assuntoSelecionado = null){
+        let addButton2 = document.getElementById('add-select2');
+
+        let newDiv3 = document.createElement('div');
+        newDiv3.classList.add('form-group');
+        newDiv3.style="margin-top:0.55rem; margin-bottom:0 !important; margin-right:-25%;";
+
+        let select3 = document.createElement('select');
+        select3.name = 'assunto[]';
+        select3.classList.add('form-control');
+        select3.style = "width:80%; display:initial; !important;";
+
+        let defaultOption3 = document.createElement('option');
+        defaultOption3.value = '';
+        defaultOption3.innerText = '- Selecionar -';
+        select3.appendChild(defaultOption3);
+
+        let removeButton2 = document.createElement('a');
+        let trash = document.createElement('i');
+        trash.classList.add('fas','fa-trash');
+        removeButton2.style="margin-left:8px";
+        removeButton2.classList.add('btn', 'btn-danger');
+        removeButton2.appendChild(trash);
+        removeButton2.onclick = function (){
+            newDiv3.remove();
+        }
+
+        @foreach(\App\Models\Assunto::all() as $assunto)
+            let option{{ $assunto->id }} = document.createElement('option');
+            option{{ $assunto->id }}.value = '{{ $assunto->id }}';
+            option{{ $assunto->id }}.innerText = '{{ $assunto->titulo }}';
+            
+            if (assuntoSelecionado == '{{ $assunto->id }}') {
+                option{{ $assunto->id }}.selected = true;
+            }
+            select3.appendChild(option{{ $assunto->id }});
+        @endforeach
+
+        newDiv3.appendChild(select3);
+        newDiv3.appendChild(removeButton2);
+        container3.appendChild(newDiv3);
+    }
+
+
     // Adiciona selects ao clicar no botão
     addButton.addEventListener('click', function () {
         addSelect();
+    });
+
+    addButton2.addEventListener('click', function (){
+        addSelect2();
     });
 
     // Preencher selects já cadastrados na edição
     if (responsabilidades.length > 0) {
         for (let i = 1; i < responsabilidades.length; i++) {
             addSelect(responsabilidades[i], tipos[i]);
+        }
+
+    }
+    if (assuntos.length > 0){
+        for(let a = 1; a < assuntos.length; a++){
+            addSelect2(assuntos[a]);
         }
     }
 });
