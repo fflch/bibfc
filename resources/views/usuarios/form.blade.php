@@ -31,8 +31,14 @@
         <div class="form-group">
             <label for="turma"><b>Status</b></label>
             <select class="form-control" name="status">
-                <option value="1">Ativo</option>
-                <option value="0">Inativo</option>
+            @foreach($usuario::statuses() as $key => $status)
+            @if(old('status') == '' and $usuario->status)
+            <option value="{{$key}}">{{$status}}</option>
+            @else
+            <option value="{{$key}}" {{  (old('status') == $key ? 'selected' : '') }}>{{ $status }}</option>
+            @endif
+
+            @endforeach
             </select>
         </div>
 

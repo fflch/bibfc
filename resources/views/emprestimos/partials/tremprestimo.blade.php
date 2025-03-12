@@ -27,7 +27,7 @@
     <br>
     <b>Data do Empréstimo:</b> {{ $emprestimo->data_emprestimo }} <br>
     
-    <b>Emprestado para:</b> {{ $emprestimo->usuario->matricula }} - <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} </a><br>
+    <b>Emprestado para:</b> {{ $emprestimo->usuario->matricula }} - <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} ({{ $emprestimo->usuario->unidade->nome_unidade }})</a><br>
     {{ $emprestimo->usuario->turma }} <br>
 
     @if($emprestimo->data_devolucao == null) 
