@@ -48,9 +48,13 @@ class LivroRequest extends FormRequest
             'colecao'     => 'nullable', #colecao/serie
             'idioma' => 'nullable',
             'paginas' => 'nullable|integer',
-            'responsabilidade' => 'required',
+            'responsabilidade' => 'required|array',
+            'responsabilidade.*' => ['required','integer', Rule::exists('responsabilidades','id')],
             'livro_id' => 'integer',
-            'tipo' => 'required',
+            'tipo' => ['required','array'],
+            'tipo.*' => ['required','string',Rule::in(\App\Models\LivroResponsabilidade::tipos)],
+            'assunto' => ['required','array'],
+            'assunto.*' => ['required','integer', Rule::exists('assuntos','id')],
         ];
 
         return $rules;
@@ -63,7 +67,8 @@ class LivroRequest extends FormRequest
             'titulo.unique' => 'Este livro já está cadastrado no sistema',
             'paginas.integer' => 'Insira um número inteiro nas páginas',
             'localizacao.required' => 'A localização é obrigatória',
-            'tipo.required' => 'O tipo de autoria é obrigatório',
+            'tipo.*.required' => 'O tipo de autoria é obrigatório',
+            'responsabilidade.*.required' => 'Insira pelo menos um autor'
         ];
     }
 

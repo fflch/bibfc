@@ -27,12 +27,10 @@
         <i class="fas fa-user-tie fa-5x"></i>
     @endif
 <ul>
-    <li>Matrícula: {{ $usuario->matricula }}</li>
-    <li>Nome: {{ $usuario->nome }}</li>
-    <li>Telefone: {{ $usuario->telefone }}</li>
-    <li>Turma: {{ $usuario->turma }}</li>
-    <li>Setor: {{ $usuario->setor }}</li>
-    <li>Observação: {{ $usuario->obs }}</li>
+    @foreach(array_slice(\Illuminate\Support\Facades\Schema::getColumnListing('usuarios'), 3, -2) as $campos)
+        <li><b>{{ucfirst($campos)}}</b>: {{$usuario->$campos ?? 'N/A'}}</li>
+    @endforeach
+        <li><b>Status</b>: {{$usuario->status == 1 ? 'Ativo' : 'Desativado'}}</li>
 </ul>
 
 @include('usuarios.partials.emprestimos',[

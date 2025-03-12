@@ -20,7 +20,7 @@
                         <label>Email</label>
                         <input type="text" class="form-control" name="email" value="{{ old('email', $user->email ) }}">
                         <label>Senha</label>
-                        <input type="password" class="form-control" name="password" value=" ">
+                        <input type="password" class="form-control" name="password" value="">
                         <button type="submit" class="btn btn-success">Registrar usuário</button>
                     </div>
                 </div>
