@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'login',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -225,135 +225,106 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
-        /*[
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
         [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
-        */
-        // Sidebar items:
-        /*[
-            'type' => 'sidebar-menu-search',
-            'text' => 'Buscar livros',
-        ],
-        */
-        [
-            'text' => 'Login',
-            'url' => 'login',
-            'icon' => 'fas fa-fw fa-user',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Registrar Admin.',
-            'url' => 'registrar',
-            'icon' => 'fas fa-fw fa-plus',
-            'can' => 'admin'
-        ],
-        [
-            'text'        => 'Novo Empréstimo',
-            'url'         => 'emprestimos/create',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-            'can'         => 'admin',
-        ],
-        [
-            'text'        => 'Emprestados',
-            'url'         => 'emprestimos',
-            'icon'        => 'fas fa-fw fa-swatchbook',
-            'label_color' => 'success',
-            'can'         => 'admin',
-        ],
-        [
-            'text' => 'Adolescentes',
-            'url'  => 'usuarios',
-            'icon' => 'fas fa-fw fa-user',
-            'can'         => 'admin',
-        ],
-        [
-            'text'        => 'Autor',
-            'url'         => 'responsabilidades',
-            'icon'        => 'fas fa-fw fa-book-reader',
-            'label_color' => 'success',
-            'can'         => 'admin',
-        ],
-        [
-            'text'        => 'Livros',
-            'url'         => '#',
-            'icon'        => 'fas fa-fw fa-book-reader',
-            'label_color' => 'success',
-            'can'         => 'admin',
+            'text' => 'Consulta',
+            'icon' => 'fas fa-fw fa-search',
+            'can' => 'admin',
             'submenu' => [
                 [
-                    'text' => 'Cadastramento',
-                    'url' => 'livros/create'
-                ],
-                [
-                    'text' => 'Listar',
-                    'url'  => 'livros',
-                ],
-                [
-                    'text' => 'Mesclar Registros',
-                    'url'  => 'mesclar',
+                    'icon' => 'fas fa-fw fa-book',
+                    'text' => 'Consulta de materiais',
+                    'url' => 'login',
                 ],
                 [
                     'text' => 'Pré-catalogação',
-                    'url'  => 'pre',
+                    'url' => 'pre',
+                    'icon' => 'fas fa-fw fa-book-reader',
+                ],
+                [
+                    'text' => 'Mesclar Registros',
+                    'url' => 'mesclar',
+                    'icon' => 'fas fa-fw fa-book-reader',
+                ],
+                [
+                    'text' => 'Adolescentes',
+                    'url' => 'usuarios',
+                    'icon' => 'fas fa-fw fa-user',
                 ],
             ],
         ],
         [
-            'text'        => 'Código de Barras',
-            'url'         => '#',
-            'icon'        => 'fas fa-fw fa-barcode',
-            'label_color' => 'success',
-            'can'         => 'admin',
+            'text' => 'Empréstimos e Devoluções',
+            'url' => 'emprestimos',
+            'icon' => 'fas fa-fw fa-swatchbook',
+            'can' => 'admin',
             'submenu' => [
                 [
-                    'text' => 'Emprestar',
-                    'url'  => 'barcode/emprestar',
+                    'text' => 'Novo Empréstimo',
+                    'url' => 'emprestimos/create',
+                    'icon' => 'fas fa-fw fa-book-medical',
                 ],
                 [
+                    'text' => 'Devolver',
+                    'url' => 'emprestimos',
+                ],
+                [
+                    'text' => 'Renovar',
+                    'url' => 'emprestimos',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Cadastrar',
+            'icon' => 'fas fa-fw fa-plus',
+            'can' => 'admin',
+            'submenu' => [
+                [
+                    'text' => 'Adolescentes',
+                    'url' => 'usuarios/create',
+                    'icon' => 'fas fa-fw fa-user-plus',
+                ],
+                [
+                    'text' => 'Permissão de Operadores',
+                    'url' => 'registrar',
+                    'icon' => 'fas fa-fw fa-user-plus',
+                ],
+                [
+                    'text' => 'Autor',
+                    'url' => 'responsabilidades/create',
+                    'icon' => 'fas fa-fw fa-user-plus',
+                ],
+                [
+                    'text' => 'Livros e outros materiais',
+                    'url' => 'livros/create',
+                    'icon' => 'fas fa-fw fa-book',
+                ],
+                [
+                    'text' => 'Assunto',
+                    'url' => 'assuntos/create',
+                    'icon' => 'fas fa-fw fa-globe',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Etiquetas',
+            'icon' => 'fas fa-fw fa-barcode',
+            'can' => 'admin',
+            'submenu' => [
+                [
                     'text' => 'Gerar Etiquetas',
-                    'url'  => 'barcode/step1',
+                    'url' => 'barcode/step1',
                 ],
                 [
                     'text' => 'Gerar Etiquetas por tombo',
-                    'url'  => 'barcode/tombo',
+                    'url' => 'barcode/tombo',
                 ],
             ],
         ],
         [
-            'text'        => 'Assuntos',
-            'url'         => 'assuntos',
-            'icon'        => 'fas fa-fw fa-globe',
-            'label_color' => 'success',
-            'can'         => 'admin',
-        ],
-        /*[
-            'text'        => 'Relatório',
-            'url'         => 'reports',
-            'icon'        => 'fas fa-fw fa-file',
-            'label_color' => 'success',
-            'can'         => 'admin',
-            'submenu' => [
-                [
-                    'text' => 'Extraviados',
-                    'url'  => 'instances',
-                ],
-            ],
-        ],
-        */
-        [
-            'text'        => 'Auditoria',
-            'url'         => 'audit',
-            'icon'        => 'fas fa-fw fa-file',
-            'label_color' => 'success',
-            'can'         => 'admin'
+            'text' => 'Auditoria',
+            'url' => 'audit',
+            'icon' => 'fas fa-fw fa-file-signature',
+            'can' => 'admin'
         ],
     ],
 

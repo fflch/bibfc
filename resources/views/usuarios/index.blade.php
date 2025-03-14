@@ -1,14 +1,8 @@
 @extends('main')
 
 @section('content')
-    <div class="row" style="margin-bottom:0.5em;">
-        <div class="col-sm">
-            <a href="/usuarios/create" class="btn btn-success">Novo usuário</a>
-        </div>
-    </div>
-
     <div class="card">
-        <div class="card-header"><b></b></div>
+        <div class="card-header"><b>Buscar adolescente(s)</b></div>
         <div class="card-body">
             <form method="GET" action="/usuarios">
                 <div class="row form-group">
