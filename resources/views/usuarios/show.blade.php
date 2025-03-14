@@ -25,13 +25,16 @@
         <img src="/foto/{{ $usuario->matricula }}" width="150px">
     @else 
         <i class="fas fa-user-tie fa-5x"></i>
+        <p>{{$usuario->unidade->nome_unidade}} - {{$usuario->unidade->localizacao_unidade}}</p>
     @endif
-<ul>
-    @foreach(array_slice(\Illuminate\Support\Facades\Schema::getColumnListing('usuarios'), 3, -2) as $campos)
-        <li><b>{{ucfirst($campos)}}</b>: {{$usuario->$campos ?? 'N/A'}}</li>
-    @endforeach
-        <li><b>Status</b>: {{$usuario->status == 1 ? 'Ativo' : 'Desativado'}}</li>
-</ul>
+<div class="card">
+    <div class="card-body">
+        @foreach(array_slice(\Illuminate\Support\Facades\Schema::getColumnListing('usuarios'), 3, -2) as $campos)
+            <li><b>{{ucfirst($campos)}}</b>: {{$usuario->$campos ?? ''}}</li>
+        @endforeach
+        <li><b>Status</b>: {{$usuario->status == true ? 'Ativo' : 'Inativo'}}</li>
+    </div>
+</div>
 
 @include('usuarios.partials.emprestimos',[
     'emprestimos' => $usuario->emprestimos

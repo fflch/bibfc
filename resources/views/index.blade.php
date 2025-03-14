@@ -31,7 +31,7 @@
         @endphp
         @foreach($autores as $autor)
           <li>
-            {{\App\Models\Responsabilidade::nomeAutor($autor)}}
+            {{$autor}}
           </li>
         @endforeach
       </td>

@@ -23,7 +23,7 @@
                     <ul style="color:red;">
                         @foreach($emprestimos as $emprestimo)
                         <li>{{ $emprestimo->instance->tombo }} 
-                            ({{ $emprestimo->instance->tombo_tipo }}):
+                            ({{ $emprestimo->instance->exemplar }}):
                             {{ $emprestimo->instance->livro->titulo }}
                         </li>
                         @endforeach

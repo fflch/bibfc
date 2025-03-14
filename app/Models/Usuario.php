@@ -19,6 +19,13 @@ class Usuario extends Model implements Auditable
         return Storage::exists($this->matricula . '.jpg');
     }
 
+    public static function statuses(){ //precisa ser "statuses" para impedir erro
+        return [
+            '1' => 'Ativo',
+            '0' => 'Inativo'
+        ];
+    }
+
     public static function camposTabela(){
         return array_slice(Schema::getColumnListing('usuarios'), 3);
     }

@@ -10,6 +10,7 @@ use App\Models\Instance;
 use App\Models\User;
 use App\Models\Usuario;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EmprestimoController extends Controller
 {
@@ -24,7 +25,9 @@ class EmprestimoController extends Controller
         
         $emprestimos = Emprestimo::whereNull('data_devolucao')
             ->whereHas('instance', function($query) {
-                $query->where('status', '=', 'CIRCULA');
+                $query->where('instances.status', '=', 'CIRCULA');
+                $query->join('usuarios','usuario_id','usuarios.id')
+                ->where('usuarios.unidade_id',Auth::user()->unidade_id);
             })
             ->get();
 
