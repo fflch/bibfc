@@ -20,7 +20,7 @@
     @foreach($instances as $instance)
         <tr>
             <td>{{ $instance->status }}</td>
-            <td><a href="/instances/{{ $instance->id }}">{{ $instance->tombo }} ({{ $instance->tombo_tipo }})</a></td>
+            <td><a href="/instances/{{ $instance->id }}">{{ $instance->tombo }} ({{ $instance->exemplar }})</a></td>
 
             <td><a href="/livros/{{$instance->livro->id}}">{{ $instance->livro->titulo }}</a></td>
 

@@ -67,7 +67,7 @@ Route::get('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'create'])
 Route::post('/livro_assuntos/{livro}', [LivroAssuntoController::class, 'store']);
 Route::delete('/livro_assuntos/{pivot}', [LivroAssuntoController::class, 'destroy']);
 
-Route::get('/reports', [ReportController::class, 'index']);
+#Route::get('/reports', [ReportController::class, 'index']);
 Route::get('/audit', [AuditController::class, 'audit']);
 
 Route::resource('files', FileController::class);
@@ -79,7 +79,7 @@ Route::get('/download', [ExportController::class, 'download']);
 
 Route::get('/barcode/step1', [BarcodeController::class, 'step1']);
 Route::post('/barcode/step2', [BarcodeController::class, 'step2']);
-Route::get('/barcode/step3', [BarcodeController::class, 'step3']);
+//Route::get('/barcode/step3', [BarcodeController::class, 'step3']);
 Route::post('/barcode/step4', [BarcodeController::class, 'step4']);
 
 Route::get('/barcode/tombo', [BarcodeController::class, 'tombo']);

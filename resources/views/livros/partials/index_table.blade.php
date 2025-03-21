@@ -39,7 +39,7 @@
                 <ul>
                     @forelse($livro->instances as $instance)
                         <li><a href="/instances/{{ $instance->id }}">
-                                {{ $instance->tombo }} - {{ $instance->tombo_tipo }} ({{$instance->unidade->nome_unidade}}) 
+                                {{ $instance->tombo }} - {{ $instance->exemplar }} ({{$instance->unidade->nome_unidade}}) 
                             </a> ({{ $instance->status }})
                         </li>
                     @empty

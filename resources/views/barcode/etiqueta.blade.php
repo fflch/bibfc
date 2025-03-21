@@ -4,7 +4,7 @@
             <span style='font-size: 11px'>
             @if(!empty($item->livro->titulo))<b>Título: </b> {{ $item->livro->titulo }}<br>@endif
             </span>
-            {{ $item->tombo_tipo }} - {{ $item->tombo }}<br>{!! $codigo !!}
+            {{ $item->exemplar }} - {{ $item->tombo }}<br>{!! $codigo !!}
             <br><span style='font-size: 9px'>Biblioteca FITO</span>
         </td>
     </tr>

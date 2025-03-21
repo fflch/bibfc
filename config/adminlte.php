@@ -231,24 +231,20 @@ return [
             'can' => 'admin',
             'submenu' => [
                 [
-                    'icon' => 'fas fa-fw fa-book',
                     'text' => 'Consulta de materiais',
-                    'url' => 'login',
+                    'url' => 'livros',
                 ],
                 [
                     'text' => 'Pré-catalogação',
                     'url' => 'pre',
-                    'icon' => 'fas fa-fw fa-book-reader',
                 ],
                 [
                     'text' => 'Mesclar Registros',
                     'url' => 'mesclar',
-                    'icon' => 'fas fa-fw fa-book-reader',
                 ],
                 [
                     'text' => 'Adolescentes',
                     'url' => 'usuarios',
-                    'icon' => 'fas fa-fw fa-user',
                 ],
             ],
         ],
@@ -261,7 +257,6 @@ return [
                 [
                     'text' => 'Novo Empréstimo',
                     'url' => 'emprestimos/create',
-                    'icon' => 'fas fa-fw fa-book-medical',
                 ],
                 [
                     'text' => 'Devolver',
@@ -281,27 +276,22 @@ return [
                 [
                     'text' => 'Adolescentes',
                     'url' => 'usuarios/create',
-                    'icon' => 'fas fa-fw fa-user-plus',
                 ],
                 [
                     'text' => 'Permissão de Operadores',
                     'url' => 'registrar',
-                    'icon' => 'fas fa-fw fa-user-plus',
                 ],
                 [
                     'text' => 'Autor',
                     'url' => 'responsabilidades/create',
-                    'icon' => 'fas fa-fw fa-user-plus',
                 ],
                 [
                     'text' => 'Livros e outros materiais',
                     'url' => 'livros/create',
-                    'icon' => 'fas fa-fw fa-book',
                 ],
                 [
                     'text' => 'Assunto',
                     'url' => 'assuntos/create',
-                    'icon' => 'fas fa-fw fa-globe',
                 ],
             ],
         ],

@@ -1,6 +1,6 @@
 <td>
     <b>Título</b>: <a href="/livros/{{ $emprestimo->instance->livro->id }}">{{ $emprestimo->instance->livro->titulo }} {{$emprestimo->instance->livro->subtitulo}}</a> <br>
-    <b>Tombo</b>: <a href="/instances/{{ $emprestimo->instance->id }}">{{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->tombo_tipo }}) </a> <br>
+    <b>Tombo</b>: <a href="/instances/{{ $emprestimo->instance->id }}">{{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->exemplar }}) </a> <br>
     <b>Renovações:</b> {{ $emprestimo->renew }} <br>
     <b>Autor:</b> 
     

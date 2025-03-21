@@ -44,7 +44,8 @@ class BarcodeController extends Controller
         $tombos = explode(',',$request->tombos);
         $tombos = array_map('trim', $tombos);
 
-        $instances = Instance::whereIn('tombo',$tombos)->where('tombo_tipo', $request->tombo_tipo)->get();
+        $instances = Instance::whereIn('tombo',$tombos)
+        ->get();
 
         return view('barcode.step3',[
             'instances' => $instances,

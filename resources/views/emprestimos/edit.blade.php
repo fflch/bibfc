@@ -14,7 +14,7 @@
                 <b>Título:</b> {{ $emprestimo->instance->livro->titulo }} 
                 
                 <br>
-                <b>Tombo:</b> {{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->tombo_tipo }})
+                <b>Tombo:</b> {{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->exemplar }})
 
                 </br>
                 <b>Usuário:</b> {{ $emprestimo->usuario->matricula }} - {{ $emprestimo->usuario->nome }}
