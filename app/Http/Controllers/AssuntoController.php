@@ -121,6 +121,11 @@ class AssuntoController extends Controller
             return redirect('/assuntos');
         }
 
+        if($assunto->livros()->get()->toarray()){
+            request()->session()->flash('alert-danger', "<b>$assunto->titulo</b> já pertence a um livro");
+            return back();
+        }
+
         $assunto->delete();
         return redirect('/assuntos');
     }

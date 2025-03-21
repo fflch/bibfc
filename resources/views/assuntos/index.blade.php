@@ -25,9 +25,12 @@
         </div>
     </div>
 
-    <ul>
-        @foreach($assuntos as $assunto)
-            <li><a href="/assuntos/{{ $assunto->id }}">{{ $assunto->titulo }}</a></li>
-        @endforeach
-    </ul>
+    <div class="card">
+        <div class="card-body">
+            @foreach($assuntos as $assunto)
+                <li><a href="/assuntos/{{ $assunto->id }}">{{ $assunto->titulo }}</a></li>
+            @endforeach
+        </div>
+    </div>
+
 @endsection('content')

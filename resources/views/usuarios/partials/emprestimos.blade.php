@@ -15,7 +15,7 @@
     @foreach($emprestimos as $emprestimo)
     <tr>
       <td><a href="/instances/{{ $emprestimo->instance->id }}"> {{ $emprestimo->instance->tombo }}</a></td>
-      <td>{{ $emprestimo->instance->tombo_tipo }}</td>
+      <td>{{ $emprestimo->instance->exemplar }}</td>
       <td><a href="/livros/{{ $emprestimo->instance->livro->id }}">{{ $emprestimo->instance->livro->titulo }}</a></td>
       <td>{{ $emprestimo->obs }}</td>
       <td>{{ $emprestimo->data_emprestimo }}</td>

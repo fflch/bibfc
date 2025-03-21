@@ -1,6 +1,6 @@
 <td>
     <b>Título</b>: <a href="/livros/{{ $emprestimo->instance->livro->id }}">{{ $emprestimo->instance->livro->titulo }} {{$emprestimo->instance->livro->subtitulo}}</a> <br>
-    <b>Tombo</b>: <a href="/instances/{{ $emprestimo->instance->id }}">{{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->tombo_tipo }}) </a> <br>
+    <b>Tombo</b>: <a href="/instances/{{ $emprestimo->instance->id }}">{{ $emprestimo->instance->tombo }} ({{ $emprestimo->instance->exemplar }}) </a> <br>
     <b>Renovações:</b> {{ $emprestimo->renew }} <br>
     <b>Autor:</b> 
     
@@ -27,7 +27,7 @@
     <br>
     <b>Data do Empréstimo:</b> {{ $emprestimo->data_emprestimo }} <br>
     
-    <b>Emprestado para:</b> {{ $emprestimo->usuario->matricula }} - <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} </a><br>
+    <b>Emprestado para:</b> {{ $emprestimo->usuario->matricula }} - <a href="/usuarios/{{ $emprestimo->usuario->id }}">{{ $emprestimo->usuario->nome }} ({{ $emprestimo->usuario->unidade->nome_unidade }})</a><br>
     {{ $emprestimo->usuario->turma }} <br>
 
     @if($emprestimo->data_devolucao == null) 
