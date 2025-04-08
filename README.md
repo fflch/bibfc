@@ -6,6 +6,13 @@ Usuário para testes:
     $user->name = 'admin';
     $user->save();
 
+Criar um unidade inicial:
+
+    $unidade = new App\Models\Unidade;
+    $unidade->nome_unidade = 'Unidade Brás';
+    $unidade->localizacao_unidade = 'São Paulo';
+    $unidade->save();
+
 Renomeando fotos, o código que vale é o que está depois do underline:
 
     for i in $(ls); do cp $i renomeados/$(echo $i |cut -d'_' -f1).jpg ; done
