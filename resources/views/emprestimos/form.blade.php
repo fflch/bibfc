@@ -28,7 +28,7 @@
             <select class="select-livros" name="instance_id">
                 <option value="default" >Digite para procurar o livros</option>
                 @foreach($instances as $instance)
-                    <option value="{{ $instance->id }}">{{ $instance->tombo }} ({{ $instance->tombo_tipo }}) - {{ $instance->livro->titulo }} {{$instance->livro->subtitulo}}</option>
+                    <option value="{{ $instance->id }}">{{ $instance->tombo }} ({{ $instance->exemplar }}) - {{ $instance->livro->titulo }} {{$instance->livro->subtitulo}}</option>
                 @endforeach
             </select>
         </div>

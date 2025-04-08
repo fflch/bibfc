@@ -31,8 +31,10 @@
       <td>
         @if($emprestimo->usuario->tem_foto())
           <img src="/foto/{{ $emprestimo->usuario->matricula }}" width="100px">
+          <p>{{$emprestimo->usuario->unidade->nome_unidade}}</p>
         @else 
           <i class="fas fa-user-tie fa-5x"></i>
+          <p>{{$emprestimo->usuario->unidade->nome_unidade}}</p>
         @endif
     </td>
       <td>{{ $emprestimo->usuario->matricula }}</td>

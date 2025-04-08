@@ -1,14 +1,8 @@
 @extends('main')
 
 @section('content')
-    <div class="row" style="margin-bottom:0.5em;">
-        <div class="col-sm">
-            <a href="/usuarios/create" class="btn btn-success">Novo usuário</a>
-        </div>
-    </div>
-
     <div class="card">
-        <div class="card-header"><b></b></div>
+        <div class="card-header"><b>Buscar adolescente(s)</b></div>
         <div class="card-body">
             <form method="GET" action="/usuarios">
                 <div class="row form-group">
@@ -22,25 +16,40 @@
             </form>
         </div>
     </div>
-    <div class="row" style="margin-bottom:5px;">
-        <div class="col-2">
-            <label for="export">Exportar dados para Excel</label>
-            <form method="get" action="/adolescentes">
-                <button class="btn btn-success"><i class="fas fa-file-export"></i> Exportar</button>
-            </form>
-        </div>
-        <div class="col">
-            <label for="file">Importar Excel para o sistema</label>
-            <form method="post" action="adolescentes/import" enctype="multipart/form-data">
-                @csrf
-                <input type="file" name="file">
-                <button type="submit" class="btn btn-success"><i class="fas fa-file-import"></i> Importar</button>
-            </form>
-        </div>
-        <div class="col-g" style="margin-top:31px;">
-            <a href="/download" class="btn btn-primary"><i class="fas fa-download"></i> Baixar modelo de planilha</a>
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <label for="export">Exportar dados para Excel</label>
+                <form method="get" action="/adolescentes">
+                    <button class="btn btn-success"><i class="fas fa-file-export"></i> Exportar</button>
+                </form>
+            </div>
         </div>
     </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <label for="file">Importar Excel para o sistema</label>
+                <form method="post" action="adolescentes/import" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file">
+                    <button type="submit" class="btn btn-success" style="margin-left:10px;"><i class="fas fa-file-import"></i> Importar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-g">
+        <div class="card">
+            <div class="card-body">
+                <a href="/download" class="btn btn-primary"><i class="fas fa-download"></i> Baixar modelo de planilha</a>
+            </div>
+        </div>
+    </div>
+</div>
     <table class="table table-striped">
         <thead>
             <tr>
