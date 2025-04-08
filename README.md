@@ -1,17 +1,20 @@
-Usuário para testes:
-
-    $user = new App\Models\User();
-    $user->password = Hash::make('admin');
-    $user->email = 'admin@example.com';
-    $user->name = 'admin';
-    $user->save();
-
 Criar um unidade inicial:
 
     $unidade = new App\Models\Unidade;
     $unidade->nome_unidade = 'Unidade Brás';
     $unidade->localizacao_unidade = 'São Paulo';
     $unidade->save();
+    
+Usuário para testes:
+
+    $user = new App\Models\User();
+    $user->password = Hash::make('admin');
+    $user->email = 'admin@example.com';
+    $user->name = 'admin';
+    $user->unidade_id = 1;
+    $user->save();
+
+
 
 Renomeando fotos, o código que vale é o que está depois do underline:
 
