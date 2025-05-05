@@ -45,8 +45,8 @@ class UsuarioController extends Controller
             Storage::put($imageName, base64_decode($image));
         }
 
-        Usuario::create($validated);
-        return redirect('/usuarios');
+        $usuario = Usuario::create($validated);
+        return redirect("/usuarios/$usuario->id")->with('alert-success','Usuário cadastrado: ' . $usuario->nome . ' - ' . $usuario->matricula);
     }
 
     public function show(Usuario $usuario)

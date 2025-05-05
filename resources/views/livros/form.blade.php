@@ -2,7 +2,7 @@
 
     <div class="form-row">
         <div class="form-group col-md font-weight-bold">
-            <label for="titulo">Título</label>
+            <label for="titulo">Título *</label>
             <input type="text" class="form-control" name="titulo" value="{{ old('titulo', $livro->titulo) }}">
         </div>
         <div class="form-group col-md font-weight-bold">
@@ -10,7 +10,7 @@
             <input type="text" class="form-control" name="subtitulo" value="{{ old('subtitulo', $livro->subtitulo) }}">
         </div>
         <div class="col" id="inputsContainer">
-            <label for="responsabilidade">Autores</label>
+            <label for="responsabilidade">Autores *</label>
             <select class="form-control" name="responsabilidade[]">
                 <option value="" name="">- Selecionar - </option>
                 @foreach(\App\Models\Responsabilidade::all() as $livro_responsabilidade)
@@ -22,7 +22,7 @@
             </select>
         </div>
         <div class="col" id="inputsContainer2">
-            <label for="tipo">Tipo</label>
+            <label for="tipo">Função do autor *</label>
             <select class="form-control" name="tipo[]">
                 <option value="" name="">- Selecionar -</option>
                 @foreach(\App\Models\LivroResponsabilidade::tipos as $tipos)
@@ -74,7 +74,7 @@
         </div>
 
         <div class="form-group col-lg-4 font-weight-bold">
-            <label for="localizacao">Localização</label>
+            <label for="localizacao">Localização *</label>
             <input type="text" class="form-control" name="localizacao" value="{{ old('localizacao', $livro->localizacao) }}">
         </div>
     </div>
@@ -95,11 +95,11 @@
             </select>
         </div>
         <div class="form-group col-md font-weight-bold">
-            <label for="paginas">Total de páginas</label>
+            <label for="paginas">Total de páginas <small>(somente números)</small></label>
             <input type="text" class="form-control" name="paginas" value="{{ old('paginas', $livro->paginas) }}">
         </div>
         <div class="form-group col font-weight-bold" id="inputsContainer3">
-            <label for="assunto">Assunto</label>
+            <label for="assunto">Assunto *</label>
             <select class="form-control" name="assunto[]">
                 <option value="" name="">- Selecionar -</option>
                 @foreach(\App\Models\Assunto::all() as $assunto)

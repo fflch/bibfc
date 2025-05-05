@@ -68,7 +68,8 @@ class LivroRequest extends FormRequest
             'paginas.integer' => 'Insira um número inteiro nas páginas',
             'localizacao.required' => 'A localização é obrigatória',
             'tipo.*.required' => 'O tipo de autoria é obrigatório',
-            'responsabilidade.*.required' => 'Insira pelo menos um autor'
+            'responsabilidade.*.required' => 'Insira pelo menos um autor',
+            'assunto.*' => 'O assunto é obrigatório',
         ];
     }
 

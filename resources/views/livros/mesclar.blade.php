@@ -2,7 +2,14 @@
 
 @section('content')
 
-   
+   <div class="card">
+    <div class="card-body">
+        <small>
+            Função que ajuda na diminuição de registros duplicados, permitidno que exemplares de livros duplicados sejam unidos em um mesmo registro. Se você identificar registro duplicado na lista abaixo, selecione a caixinha "mesclar" e depois clique no botão "Mesclar"
+        </small>
+    </div>
+   </div>
+
     @foreach($grupos as $livros)
 
         @if($livros->count()>1)

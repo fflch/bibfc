@@ -6,7 +6,7 @@
 <form method="POST" action="/emprestimos">
 @csrf
 <div class="card bg-light">
-    <h5 class="card-header border-info bg-light font-weight-bold">Novo Empréstimo</h5>
+    <h5 class="card-header border-info bg-light font-weight-bold">Emprestar</h5>
     <div class="card-body">
     @include('emprestimos.form')
     </div>

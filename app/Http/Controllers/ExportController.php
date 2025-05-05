@@ -85,9 +85,9 @@ class ExportController extends Controller
     }
 
     public function importAdolescentes(Request $request, Excel $excel){
-        if($request->file){
+        if($request->file('file')->getMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || $request->file('file')->getMimeType() == 'application/vnd.ms-excel'){
             Excel::import(new UsuariosImport, $request->file('file')->store('temp'));
-            return redirect('/usuarios');
+            return redirect('/usuarios')->with('alert-success','Arquivo importado com sucesso');
         }
         return back()->with('alert-danger','Insira algum arquivo válido para importar');
     }

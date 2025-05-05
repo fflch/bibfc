@@ -29,10 +29,12 @@
     @endif
 <div class="card">
     <div class="card-body">
-        @foreach(array_slice(\Illuminate\Support\Facades\Schema::getColumnListing('usuarios'), 3, -2) as $campos)
-            <li><b>{{ucfirst($campos)}}</b>: {{$usuario->$campos ?? ''}}</li>
-        @endforeach
-        <li><b>Status</b>: {{$usuario->status == true ? 'Ativo' : 'Inativo'}}</li>
+        <div class="flex" style="display:grid;">
+            @foreach(array_slice(\Illuminate\Support\Facades\Schema::getColumnListing('usuarios'), 3, -2) as $campos)
+                <li style="display:inline-block;"><b>{{ucfirst($campos)}}</b>: {{$usuario->$campos ?? ''}}</li>
+            @endforeach
+            <li style="display:inline-block;"><b>Status</b>: {{$usuario->status == true ? 'Ativo' : 'Inativo'}}</li>
+        </div>
     </div>
 </div>
 

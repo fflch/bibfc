@@ -49,24 +49,13 @@ class ResponsabilidadeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ResponsabilidadeRequest $request)
     {
-        $this->authorize('admin');
-        
-        $validated = $request->validate([
-            'nome' => 'required',
-            'ano_falecimento' => 'nullable',
-            'ano_nascimento' => 'nullable',
-        ]);
-
+        $this->authorize('admin');   
+        $validated = $request->validated();
         $nomeCompleto = $request->input('nome'). ' ' . $request->input('sobrenome');
-        $responsabilidade = new Responsabilidade();
-        $responsabilidade->nome = $nomeCompleto;
-        $responsabilidade->ano_nascimento = $request->ano_nascimento;
-        $responsabilidade->ano_falecimento = $request->ano_falecimento;
-        $responsabilidade->save();
-
-        //Responsabilidade::create($validated);
+        $validated['nome'] = $nomeCompleto;
+        Responsabilidade::create($validated);
 
         return redirect("/responsabilidades");
     }

@@ -11,6 +11,6 @@
     </div>
 </div>
 
-@include('livros.partials.index_table')
+@include('livros.partials.pre_table')
 
 @endsection('content')

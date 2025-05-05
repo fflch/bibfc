@@ -41,6 +41,8 @@ class UsuarioRequest extends FormRequest
     {
         return [
             'nome.required' => 'O nome é obrigatório',
+            'matricula.required' => 'O número de matrícula é obrigatório',
+            'matricula.integer' => 'O número de matrícula deve ser um número inteiro'
         ];
     }
 }

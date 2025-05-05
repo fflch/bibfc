@@ -235,10 +235,6 @@ return [
                     'url' => 'livros',
                 ],
                 [
-                    'text' => 'Pré-catalogação',
-                    'url' => 'pre',
-                ],
-                [
                     'text' => 'Mesclar Registros',
                     'url' => 'mesclar',
                 ],
@@ -255,15 +251,11 @@ return [
             'can' => 'admin',
             'submenu' => [
                 [
-                    'text' => 'Novo Empréstimo',
+                    'text' => 'Emprestar',
                     'url' => 'emprestimos/create',
                 ],
                 [
-                    'text' => 'Devolver',
-                    'url' => 'emprestimos',
-                ],
-                [
-                    'text' => 'Renovar',
+                    'text' => 'Devolução e renovação',
                     'url' => 'emprestimos',
                 ],
             ],
@@ -288,6 +280,10 @@ return [
                 [
                     'text' => 'Livros e outros materiais',
                     'url' => 'livros/create',
+                ],
+                [
+                    'text' => 'Livros sem exemplares',
+                    'url' => 'pre',
                 ],
                 [
                     'text' => 'Assunto',
