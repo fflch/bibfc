@@ -95,8 +95,9 @@
             </select>
         </div>
         <div class="form-group col-md font-weight-bold">
-            <label for="paginas">Total de páginas <small>(somente números)</small></label>
+            <label for="paginas">Total de páginas</label>
             <input type="text" class="form-control" name="paginas" value="{{ old('paginas', $livro->paginas) }}">
+            <small>somente números</small>
         </div>
         <div class="form-group col font-weight-bold" id="inputsContainer3">
             <label for="assunto">Assunto *</label>

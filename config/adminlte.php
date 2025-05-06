@@ -235,10 +235,6 @@ return [
                     'url' => 'livros',
                 ],
                 [
-                    'text' => 'Mesclar Registros',
-                    'url' => 'mesclar',
-                ],
-                [
                     'text' => 'Adolescentes',
                     'url' => 'usuarios',
                 ],
@@ -284,6 +280,10 @@ return [
                 [
                     'text' => 'Livros sem exemplares',
                     'url' => 'pre',
+                ],
+                [
+                    'text' => 'Mesclar Registros',
+                    'url' => 'mesclar',
                 ],
                 [
                     'text' => 'Assunto',

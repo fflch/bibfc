@@ -6,8 +6,10 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Schema;
 
+//class UsuariosImport implements ToModel, WithHeadingRow
 class UsuariosImport implements ToModel, WithStartRow
 {
     /**
@@ -15,19 +17,30 @@ class UsuariosImport implements ToModel, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    //pula o número de linhas desejadas (ajuda caso tenha cabeçalho, por ex.)
+    public function startRow(): int 
+    {
+        if(request()->checkbox){
+            return 2; //pula a primeira linha (cabeçalho)
+        }else{
+            return 1;
+        }
+    }
+
     public function model(array $row)
     {
-        $campos = array_slice(Schema::getColumnListing('usuarios'), 3);
+        
+        $campos = array_slice(Schema::getColumnListing('usuarios'), 3); //pula os 3 primeiros campos (id, created_at, updated_at)
+
         $atributos = [];
         foreach($campos as $key => $campo){
             $atributos[$campo] = $row[$key] ?? Auth::user()->unidade_id; //caso não haja ID da unidade no excel será setado automaticamente
         }
-            return new Usuario($atributos);
-    }
-
-    //pula o número de linhas desejadas (ajuda caso tenha cabeçalho, por ex.)
-    public function startRow(): int 
-    {
-        return 1;
+        //isso significa que o cabeçalho não foi removido, o que resultaria em erro
+        if(in_array('matricula',$atributos)){
+            $atributos['matricula'] = 0; //somente para não dar erro.
+            $atributos['status'] = 0;
+        }
+        return new Usuario($atributos);
     }
 }

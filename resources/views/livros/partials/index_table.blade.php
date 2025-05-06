@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped" id="livros">
     <thead>
         <tr>
             <th scope="col">Título</th>
@@ -82,3 +82,16 @@
     @endforeach
     </tbody>
 </table>
+
+<script>
+$('#livros').DataTable( {
+    dom: 'fBitp', // https://datatables.net/examples/basic_init/dom.html
+    select: true,
+    "paging": false,
+    "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_pt.json"
+    },
+    'info': ''
+    
+} );
+</script>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Unidade;
+use Illuminate\Support\Facades\Auth;
 
 class Usuario extends Model implements Auditable
 {
