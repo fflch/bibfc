@@ -3,13 +3,13 @@
 namespace App\Imports;
 
 use App\Models\Usuario;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Schema;
 
-//class UsuariosImport implements ToModel, WithHeadingRow
 class UsuariosImport implements ToModel, WithStartRow
 {
     /**
@@ -29,17 +29,15 @@ class UsuariosImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        
-        $campos = array_slice(Schema::getColumnListing('usuarios'), 3); //pula os 3 primeiros campos (id, created_at, updated_at)
+        $campos = array_slice(Schema::getColumnListing('usuarios'), 3);
 
         $atributos = [];
         foreach($campos as $key => $campo){
             $atributos[$campo] = $row[$key] ?? Auth::user()->unidade_id; //caso não haja ID da unidade no excel será setado automaticamente
         }
-        //isso significa que o cabeçalho não foi removido, o que resultaria em erro
-        if(in_array('matricula',$atributos)){
-            $atributos['matricula'] = 0; //somente para não dar erro.
-            $atributos['status'] = 0;
+        //matricula precisa ser integer
+        if(!is_numeric($row[1])){
+            throw new \App\Exceptions\CabecalhoInvalidoException('Cabeçalho não removido. Verifique o arquivo');
         }
         return new Usuario($atributos);
     }

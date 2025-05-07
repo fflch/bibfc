@@ -28,7 +28,7 @@ class Usuario extends Model implements Auditable
     }
 
     public static function camposTabela(){
-        return array_slice(Schema::getColumnListing('usuarios'), 3);
+        return array_slice(Schema::getColumnListing('usuarios'), 3, -2);
     }
 
     public function emprestimos()
