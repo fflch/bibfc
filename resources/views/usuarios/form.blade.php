@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            <label for="turma"><b>Sala</b></label>
+            <label for="turma"><b>Sala de aula</b></label>
             <input type="text" class="form-control" name="sala_de_aula" placeholder="" value="{{ old('sala_de_aula', $usuario->sala_de_aula) }}">   
         </div>
 

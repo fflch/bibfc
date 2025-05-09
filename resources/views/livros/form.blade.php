@@ -11,9 +11,9 @@
         </div>
         <div class="col" id="inputsContainer">
             <label for="responsabilidade">Autores *</label>
-            <select class="form-control" name="responsabilidade[]">
+            <select class="select-responsabilidade" name="responsabilidade[]">
                 <option value="" name="">- Selecionar - </option>
-                @foreach(\App\Models\Responsabilidade::all() as $livro_responsabilidade)
+                @foreach(\App\Models\Responsabilidade::orderBy('nome','asc')->get() as $livro_responsabilidade)
                     <option value="{{$livro_responsabilidade->id}}"
                     {{ (in_array($livro_responsabilidade->id, old('responsabilidade', [])) || in_array($livro_responsabilidade->id, $livro->livro_responsabilidades->pluck('responsabilidade_id')->toArray())) ? 'selected' : '' }}>
                     {{ $livro_responsabilidade->nome }}
@@ -23,7 +23,7 @@
         </div>
         <div class="col" id="inputsContainer2">
             <label for="tipo">Função do autor *</label>
-            <select class="form-control" name="tipo[]">
+            <select class="select-tipo" name="tipo[]">
                 <option value="" name="">- Selecionar -</option>
                 @foreach(\App\Models\LivroResponsabilidade::tipos as $tipos)
                 @if(old('tipo') == '' and isset($livro_responsabilidade1))
@@ -101,7 +101,7 @@
         </div>
         <div class="form-group col font-weight-bold" id="inputsContainer3">
             <label for="assunto">Assunto *</label>
-            <select class="form-control" name="assunto[]">
+            <select class="select-assuntos" name="assunto[]">
                 <option value="" name="">- Selecionar -</option>
                 @foreach(\App\Models\Assunto::all() as $assunto)
                 @if(old('assunto') == '' and isset($livro_assunto))
@@ -160,13 +160,13 @@
         <label for="obs">Notas</label>
         <textarea class="form-control" name="obs" rows="3">{{ old('obs', $livro->obs) }}</textarea>
     </div>
-
+    
+    <small>*Os campos com asterísco são obrigatórios</small>
     <div class="row">
         <div class="form-group">
             <button type="submit" class="btn btn-success">Salvar</button> 
         </div> 
     </div>
-
 </div>
 
 <script>
@@ -337,6 +337,25 @@
         }
     }
 });
+
+
+$('.select-responsabilidade').select2({
+    width: '100%',
+    language: "pt-BR",
+});
+
+$('.select-tipo').select2({
+    width: '100%',
+    language: "pt-BR",
+});
+
+
+$('.select-assuntos').select2({
+    width: '100%',
+    language: "pt-BR",
+});
+
+
 </script>
 <style>
     @keyframes piscar {

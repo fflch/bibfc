@@ -67,7 +67,7 @@ class LivroRequest extends FormRequest
             'titulo.unique' => 'Este livro já está cadastrado no sistema',
             'paginas.integer' => 'Insira um número inteiro nas páginas',
             'localizacao.required' => 'A localização é obrigatória',
-            'tipo.*.required' => 'O tipo de autoria é obrigatório',
+            'tipo.*.required' => 'O campo "Função do autor" é obrigatória',
             'responsabilidade.*.required' => 'Insira pelo menos um autor',
             'assunto.*' => 'O assunto é obrigatório',
         ];
