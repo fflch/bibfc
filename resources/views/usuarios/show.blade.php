@@ -29,10 +29,16 @@
     @endif
 <div class="card">
     <div class="card-body">
-        @foreach(array_slice(\Illuminate\Support\Facades\Schema::getColumnListing('usuarios'), 3, -2) as $campos)
-            <li><b>{{ucfirst($campos)}}</b>: {{$usuario->$campos ?? ''}}</li>
-        @endforeach
-        <li><b>Status</b>: {{$usuario->status == true ? 'Ativo' : 'Inativo'}}</li>
+        <div class="flex" style="display:grid;">
+            <li style="display:inline-block;"><b>Nome: </b>{{ $usuario->nome }}</li></li>
+            <li style="display:inline-block;"><b>Matrícula: </b>{{ $usuario->matricula }}</li>
+            <li style="display:inline-block;"><b>Observação: </b>{{ $usuario->obs }}</li>
+            <li style="display:inline-block;"><b>Prontuário: </b>{{ $usuario->prontuario }}</li>
+            <li style="display:inline-block;"><b>Sala de aula: </b>{{ $usuario->sala_de_aula }}</li>
+            <li style="display:inline-block;"><b>Quarto: </b>{{ $usuario->quarto }}</li>
+            <li style="display:inline-block;"><b>Unidade: </b>{{ $usuario->unidade->nome_unidade }}</li>
+            <li style="display:inline-block;"><b>Status</b>: {{$usuario->status == true ? 'Ativo' : 'Inativo'}}</li>
+        </div>
     </div>
 </div>
 

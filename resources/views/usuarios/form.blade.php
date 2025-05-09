@@ -4,12 +4,12 @@
     <div class="col-sm">
 
         <div class="form-group">
-            <label for="matricula"><b>Código da Matrícula</b></label>
+            <label for="matricula"><b>Código da Matrícula *</b></label>
             <input type="text" class="form-control" name="matricula" placeholder="" value="{{ old('matricula', $usuario->matricula) }}">   
         </div>
 
         <div class="form-group">
-            <label for="nome"><b>Nome</b></label>
+            <label for="nome"><b>Nome *</b></label>
             <input type="text" class="form-control" name="nome" placeholder="" value="{{ old('nome', $usuario->nome) }}">   
         </div>
 

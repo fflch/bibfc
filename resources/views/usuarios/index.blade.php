@@ -37,6 +37,8 @@
                     @csrf
                     <input type="file" name="file">
                     <button type="submit" class="btn btn-success" style="margin-left:10px;"><i class="fas fa-file-import"></i> Importar</button>
+                    <input type="checkbox" name="checkbox" value="1" style="margin-left:5px;">
+                    <label for="checkbox"><small>Arquivo possui cabeçalho?</small></label>
                 </form>
             </div>
         </div>
@@ -50,18 +52,18 @@
         </div>
     </div>
 </div>
-    <table class="table table-striped">
+    <table class="table table-striped" id="usuarios">
         <thead>
             <tr>
-                <th>Foto</th>
-                <th>Código de Matrícula</th>
-                <th>Nome</th>
-                <th>Prontuário</th>
-                <th>Sala de Aula</th>
-                <th>Quarto</th>
-                <th>Observação</th>
-                <th>Status</th>
-                <th>Ações</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Código de Matrícula</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Prontuário</th>
+                <th scope="col">Sala de Aula</th>
+                <th scope="col">Quarto</th>
+                <th scope="col">Observação</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -102,4 +104,18 @@
         </tbody>
     </table>
     {{ $usuarios->appends(request()->query())->links() }}
+
+    <script>
+    $('#usuarios').DataTable( {
+        dom: 'fBitp', // https://datatables.net/examples/basic_init/dom.html
+        select: true,
+        "paging": false,
+        "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_pt.json"
+        },
+        'info': ''
+        
+    } );
+    </script>
+
 @endsection('content')

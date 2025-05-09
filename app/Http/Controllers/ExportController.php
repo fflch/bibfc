@@ -79,19 +79,24 @@ class ExportController extends Controller
         $export = new ExcelExport($data,$headings);
         return $excel->download($export, 'exemplares.xlsx');
     }
-
+    //exportar adolescentes do sistema para excel
     public function exportAdolescentes(Excel $excel){
+        $this->authorize('admin');
         return Excel::download(new UsuariosExport, 'Lista_de_adolescentes.xlsx');
     }
-
+    //impotar adolescentes do excel para o sistema
+    //está permitindo importar para outras unidades sem permissão administrativa
     public function importAdolescentes(Request $request, Excel $excel){
-        if($request->file){
-            Excel::import(new UsuariosImport, $request->file('file')->store('temp'));
-            return redirect('/usuarios');
+        $this->authorize('admin');
+        $xlsx = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        $file = $request->file('file');
+        if(!empty($file) && $file->getMimeType() == $xlsx){
+            Excel::import(new UsuariosImport, $file->store('temp'));
+            return redirect('/usuarios')->with('alert-success','Arquivo importado com sucesso');
         }
-        return back()->with('alert-danger','Insira algum arquivo válido para importar');
+        return back()->with('alert-danger','Insira um arquivo válido para importar');
     }
-
+    //baixar modelo em planilha
     public function download(){
         $arquivo = public_path('modelo_planilha.xlsx');
         return response()->download($arquivo);

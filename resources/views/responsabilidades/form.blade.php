@@ -2,7 +2,7 @@
 
     <div class="form-row">
         <div class="form-group col-md font-weight-bold">
-            <label for="nome">Prenome</label>
+            <label for="nome">Prenome *</label>
             <input type="text" class="form-control" name="nome" value="{{ old('nome', $responsabilidade->nome) }}">
         </div>
         <div class="form-group col-md font-weight-bold">

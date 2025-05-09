@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Unidade;
+use Illuminate\Support\Facades\Auth;
 
 class Usuario extends Model implements Auditable
 {
@@ -27,7 +28,7 @@ class Usuario extends Model implements Auditable
     }
 
     public static function camposTabela(){
-        return array_slice(Schema::getColumnListing('usuarios'), 3);
+        return array_slice(Schema::getColumnListing('usuarios'), 3, -2);
     }
 
     public function emprestimos()

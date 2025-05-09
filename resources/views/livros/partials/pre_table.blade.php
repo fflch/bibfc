@@ -1,13 +1,21 @@
-<table class="table table-striped" id="livros">
+<div class="col" style="margin-bottom:5px;">
+    <form method="post" action="/pre/aprovar_todos">
+        @method("put")
+        @csrf
+        <button class="btn btn-success" name="status" value="1">Aprovar todos os registros</button>
+    </form>
+</div>
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Título</th>
-            <th scope="col">Autor</th>
-            <th scope="col">Localização</th>
-            <th scope="col">Exemplares</th>
-            <th scope="col">Assuntos</th>
-            <th scope="col">Notas</th>
-            <th scope="col">Status</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Localização</th>
+            <th>Exemplares</th>
+            <th>Assuntos</th>
+            <th>Notas</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -82,16 +90,3 @@
     @endforeach
     </tbody>
 </table>
-
-<script>
-$('#livros').DataTable( {
-    dom: 'fBitp', // https://datatables.net/examples/basic_init/dom.html
-    select: true,
-    "paging": false,
-    "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_pt.json"
-    },
-    'info': ''
-    
-} );
-</script>

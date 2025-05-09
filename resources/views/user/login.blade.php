@@ -12,8 +12,8 @@
                 <option value="{{$unidade->id}}">{{$unidade->nome_unidade}} - {{$unidade->localizacao_unidade}}</option>
                 @endforeach
             </select>
-            <label>Usuário</label>
-            <input type="text" class="form-control" name="email">
+            <label>E-mail</label>
+            <input type="text" class="form-control" name="email" value="{{old('email', session('email'))}}">
             <label>Senha</label>
             <input type="password" class="form-control" name="password">
             <button type="submit" class="btn btn-success">Login</button>
