@@ -278,7 +278,7 @@ return [
                     'url' => 'livros/create',
                 ],
                 [
-                    'text' => 'Livros sem exemplares',
+                    'text' => 'Exemplares',
                     'url' => 'pre',
                 ],
                 [

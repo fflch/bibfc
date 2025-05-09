@@ -5,7 +5,7 @@
    <div class="card">
     <div class="card-body">
         <small>
-            Função que ajuda na diminuição de registros duplicados, permitidno que exemplares de livros duplicados sejam unidos em um mesmo registro. Se você identificar registro duplicado na lista abaixo, selecione a caixinha "mesclar" e depois clique no botão "Mesclar"
+            A função Mesclar Registros auxilia na redução de registros duplicados, unindo exemplares repetidos de livros em um único registro consolidado. Ao identificar registros duplicados na lista abaixo, marque a caixa de seleção "Mesclar" correspondente a cada item e, em seguida, clique no botão Mesclar para realizar a união dos registros.
         </small>
     </div>
    </div>
